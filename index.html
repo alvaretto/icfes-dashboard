@@ -1,0 +1,1629 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Dashboard ICFES Saber 11° · I.E. Pedacito de Cielo · Análisis Longitudinal 2026</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500;700&family=Geist:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.js"></script>
+
+<style>
+:root{
+  --paper:#f3ede2;
+  --paper-2:#ebe3d3;
+  --ink:#161512;
+  --ink-soft:#3a352d;
+  --rule:#1a1816;
+  --brick:#a02418;
+  --brick-soft:#c44a3c;
+  --prusia:#1e3a5f;
+  --prusia-soft:#3a5a85;
+  --ocre:#c98a2c;
+  --olive:#5d6b2f;
+  --olive-soft:#7a8a3f;
+  --crit:#8b1a0e;
+  --warn:#b8541b;
+  --ok:#5d6b2f;
+  --excel:#2d4a1a;
+  --muted:#7a7163;
+  --grid:#d4cab5;
+}
+
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:var(--paper);color:var(--ink);font-family:'Geist',system-ui,sans-serif;font-weight:400;line-height:1.55}
+body{
+  background:
+    radial-gradient(circle at 0% 0%, rgba(160,36,24,0.04) 0%, transparent 40%),
+    radial-gradient(circle at 100% 100%, rgba(30,58,95,0.05) 0%, transparent 40%),
+    repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.005) 2px, rgba(0,0,0,0.005) 3px),
+    var(--paper);
+  min-height:100vh;
+}
+
+/* Tipografía display */
+.serif{font-family:'Instrument Serif',Georgia,serif;font-weight:400;letter-spacing:-0.01em}
+.mono{font-family:'JetBrains Mono',monospace;font-feature-settings:"tnum";letter-spacing:-0.02em}
+.italic{font-style:italic}
+
+.container{max-width:1440px;margin:0 auto;padding:48px 56px}
+
+/* ========== HEADER EDITORIAL ========== */
+.masthead{
+  border-top:6px solid var(--ink);
+  border-bottom:1px solid var(--ink);
+  padding:24px 0 18px;
+  margin-bottom:36px;
+  position:relative;
+}
+.masthead::after{
+  content:"";position:absolute;left:0;right:0;bottom:-4px;height:1px;background:var(--ink);
+}
+.masthead-row{display:flex;justify-content:space-between;align-items:flex-end;gap:24px;flex-wrap:wrap}
+.masthead-meta{font-family:'JetBrains Mono',monospace;font-size:11px;text-transform:uppercase;letter-spacing:0.12em;color:var(--ink-soft);display:flex;gap:24px;flex-wrap:wrap}
+.masthead-meta span{display:flex;gap:8px;align-items:center}
+.masthead-meta .dot{width:6px;height:6px;border-radius:50%;background:var(--brick)}
+
+h1.title{
+  font-family:'Instrument Serif',serif;
+  font-size:clamp(54px,8vw,108px);
+  line-height:0.92;
+  letter-spacing:-0.025em;
+  margin:18px 0 14px;
+  color:var(--ink);
+}
+h1.title em{font-style:italic;color:var(--brick)}
+.deck{
+  font-family:'Instrument Serif',serif;
+  font-size:clamp(20px,2.2vw,28px);
+  font-style:italic;
+  color:var(--ink-soft);
+  max-width:920px;
+  line-height:1.35;
+  margin-bottom:6px;
+}
+.byline{
+  font-family:'JetBrains Mono',monospace;font-size:11px;text-transform:uppercase;letter-spacing:0.15em;
+  color:var(--muted);margin-top:14px;display:flex;gap:18px;flex-wrap:wrap;
+}
+.byline strong{color:var(--brick);font-weight:700}
+
+/* ========== SECTION HEADERS ========== */
+.section{margin:72px 0 28px;position:relative}
+.section-tag{
+  font-family:'JetBrains Mono',monospace;font-size:10px;text-transform:uppercase;letter-spacing:0.18em;
+  color:var(--brick);font-weight:700;margin-bottom:6px;
+}
+.section h2{
+  font-family:'Instrument Serif',serif;
+  font-size:clamp(38px,4.8vw,64px);
+  line-height:0.98;
+  letter-spacing:-0.02em;
+  margin-bottom:8px;
+  color:var(--ink);
+  font-weight:400;
+}
+.section h2 em{font-style:italic;color:var(--prusia)}
+.section-lede{
+  font-family:'Instrument Serif',serif;font-style:italic;font-size:19px;color:var(--ink-soft);
+  max-width:780px;line-height:1.45;margin-top:6px;
+}
+.section-rule{height:1px;background:var(--ink);margin-top:18px;margin-bottom:22px}
+
+/* ========== RESUMEN EJECUTIVO – KPI CARDS ========== */
+.kpi-grid{display:grid;grid-template-columns:repeat(12,1fr);gap:16px;margin-bottom:8px}
+.kpi{
+  border:1px solid var(--ink);
+  background:var(--paper-2);
+  padding:22px 22px 18px;
+  position:relative;
+  display:flex;flex-direction:column;justify-content:space-between;
+  min-height:170px;
+}
+.kpi.span3{grid-column:span 3}
+.kpi.span4{grid-column:span 4}
+.kpi.span6{grid-column:span 6}
+.kpi-label{font-family:'JetBrains Mono',monospace;font-size:10px;text-transform:uppercase;letter-spacing:0.16em;color:var(--ink-soft);margin-bottom:8px}
+.kpi-num{font-family:'Instrument Serif',serif;font-size:72px;line-height:1;letter-spacing:-0.04em;color:var(--ink)}
+.kpi-num small{font-size:0.45em;color:var(--muted)}
+.kpi-sub{font-family:'Geist',sans-serif;font-size:13px;color:var(--ink-soft);margin-top:6px;line-height:1.4}
+.kpi-trend{display:inline-flex;align-items:center;gap:6px;font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:700;margin-top:6px}
+.trend-up{color:var(--ok)}
+.trend-down{color:var(--crit)}
+.trend-flat{color:var(--ocre)}
+.kpi.accent-brick{border-left:5px solid var(--brick)}
+.kpi.accent-prusia{border-left:5px solid var(--prusia)}
+.kpi.accent-ocre{border-left:5px solid var(--ocre)}
+.kpi.accent-olive{border-left:5px solid var(--olive)}
+.kpi.accent-crit{background:#1a1410;color:var(--paper);border-color:#1a1410}
+.kpi.accent-crit .kpi-label,.kpi.accent-crit .kpi-sub{color:rgba(243,237,226,0.7)}
+.kpi.accent-crit .kpi-num{color:var(--paper)}
+
+/* ========== GRAFICO BLOCKS ========== */
+.viz-grid{display:grid;grid-template-columns:repeat(12,1fr);gap:20px}
+.viz{
+  border:1px solid var(--ink);
+  background:var(--paper-2);
+  padding:20px 22px 18px;
+  position:relative;
+}
+.viz.span12{grid-column:span 12}
+.viz.span8{grid-column:span 8}
+.viz.span6{grid-column:span 6}
+.viz.span4{grid-column:span 4}
+.viz.span5{grid-column:span 5}
+.viz.span7{grid-column:span 7}
+.viz-head{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:14px;gap:12px;flex-wrap:wrap}
+.viz-title{font-family:'Instrument Serif',serif;font-size:24px;line-height:1.1;letter-spacing:-0.01em;color:var(--ink)}
+.viz-title em{font-style:italic;color:var(--brick)}
+.viz-meta{font-family:'JetBrains Mono',monospace;font-size:10px;text-transform:uppercase;letter-spacing:0.14em;color:var(--muted);text-align:right}
+.viz-canvas-wrap{position:relative;width:100%}
+.viz-note{font-family:'Geist',sans-serif;font-size:12px;color:var(--ink-soft);margin-top:10px;line-height:1.5;font-style:italic}
+
+/* ========== TABLES ========== */
+table.editorial{width:100%;border-collapse:collapse;font-family:'Geist',sans-serif;font-size:13px}
+table.editorial thead th{
+  text-align:left;font-family:'JetBrains Mono',monospace;font-size:10px;text-transform:uppercase;
+  letter-spacing:0.12em;color:var(--ink);padding:10px 8px;border-bottom:1.5px solid var(--ink);
+}
+table.editorial tbody td{padding:9px 8px;border-bottom:1px solid var(--grid);vertical-align:middle}
+table.editorial tbody tr:hover{background:rgba(160,36,24,0.04)}
+table.editorial .num{font-family:'JetBrains Mono',monospace;text-align:right;letter-spacing:-0.02em}
+table.editorial .name{font-weight:500;color:var(--ink)}
+.delta-pos{color:var(--ok);font-weight:700}
+.delta-neg{color:var(--crit);font-weight:700}
+.delta-zero{color:var(--muted)}
+
+/* Pill / badge */
+.pill{
+  display:inline-flex;align-items:center;padding:2px 8px;border-radius:2px;
+  font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:700;letter-spacing:0.05em;
+  text-transform:uppercase;
+}
+.pill.n1{background:#f5d0c8;color:var(--crit)}
+.pill.n2{background:#f5dcb8;color:var(--warn)}
+.pill.n3{background:#dbe2b9;color:var(--olive)}
+.pill.n4{background:#b8c9a1;color:var(--excel)}
+
+/* Heatmap cells */
+.heatmap{display:grid;font-family:'JetBrains Mono',monospace;font-size:12px;border:1px solid var(--ink)}
+.heatmap-cell{padding:10px 8px;text-align:center;border-right:1px solid rgba(0,0,0,0.08);border-bottom:1px solid rgba(0,0,0,0.08)}
+.heatmap-cell.head{background:var(--ink);color:var(--paper);font-size:10px;text-transform:uppercase;letter-spacing:0.1em;font-weight:700}
+.heatmap-cell.row-head{background:var(--paper);font-weight:700;text-align:left;padding-left:14px;font-size:11px}
+
+/* Boxplot indicator */
+.equity-row{display:grid;grid-template-columns:140px 1fr 90px;gap:14px;align-items:center;margin-bottom:14px}
+.equity-label{font-family:'JetBrains Mono',monospace;font-size:11px;text-transform:uppercase;color:var(--ink);font-weight:700;letter-spacing:0.06em}
+.equity-bar{position:relative;height:32px;background:var(--paper);border:1px solid var(--ink)}
+.equity-iqr{position:absolute;top:0;bottom:0;background:linear-gradient(90deg,var(--brick) 0%,var(--ocre) 50%,var(--olive) 100%);opacity:0.85}
+.equity-median{position:absolute;top:-4px;bottom:-4px;width:2px;background:var(--ink)}
+.equity-p10,.equity-p90{position:absolute;top:50%;transform:translateY(-50%);font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--ink);font-weight:700}
+.equity-stats{font-family:'JetBrains Mono',monospace;font-size:11px;text-align:right;color:var(--ink)}
+
+/* Component bars (matemáticas) */
+.comp-bar{display:grid;grid-template-columns:140px 1fr 80px;gap:12px;align-items:center;margin-bottom:8px}
+.comp-bar-label{font-size:12px;font-weight:500;color:var(--ink)}
+.comp-bar-track{height:24px;background:var(--paper);border:1px solid var(--ink);position:relative;overflow:hidden}
+.comp-bar-fill{height:100%;display:flex;align-items:center;justify-content:flex-end;padding-right:8px;color:var(--paper);font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:700;transition:width 0.6s ease}
+.comp-bar-num{font-family:'JetBrains Mono',monospace;font-size:13px;text-align:right;font-weight:700}
+
+/* Footnote */
+.footnote{
+  margin-top:48px;padding-top:24px;border-top:1px solid var(--ink);
+  font-family:'Geist',sans-serif;font-size:12px;color:var(--ink-soft);line-height:1.6
+}
+.footnote h3{font-family:'Instrument Serif',serif;font-size:22px;font-style:italic;color:var(--ink);margin-bottom:8px;font-weight:400}
+
+/* Drop cap */
+.drop-cap::first-letter{
+  font-family:'Instrument Serif',serif;font-size:5em;line-height:0.85;float:left;
+  margin:0.05em 0.08em 0 0;color:var(--brick);font-style:italic;
+}
+
+/* Responsive */
+@media (max-width:1100px){
+  .kpi.span3,.kpi.span4{grid-column:span 6}
+  .viz.span4,.viz.span5,.viz.span6,.viz.span7,.viz.span8{grid-column:span 12}
+  .container{padding:32px 24px}
+}
+@media (max-width:680px){
+  .kpi.span3,.kpi.span4,.kpi.span6{grid-column:span 12}
+  .kpi-num{font-size:56px}
+  h1.title{font-size:48px}
+  .container{padding:24px 16px}
+}
+
+/* Pull quote */
+.pull-quote{
+  border-left:4px solid var(--brick);
+  padding:12px 0 12px 24px;
+  margin:24px 0;
+  font-family:'Instrument Serif',serif;font-style:italic;font-size:24px;line-height:1.35;
+  color:var(--ink);max-width:780px;
+}
+.pull-quote cite{display:block;margin-top:10px;font-family:'JetBrains Mono',monospace;font-size:11px;font-style:normal;text-transform:uppercase;letter-spacing:0.12em;color:var(--muted)}
+
+/* Findings list */
+.findings{display:grid;grid-template-columns:repeat(2,1fr);gap:18px;margin-top:18px}
+.finding{padding:18px;border:1px solid var(--ink);background:var(--paper-2);position:relative}
+.finding-num{font-family:'Instrument Serif',serif;font-size:48px;line-height:1;color:var(--brick);font-style:italic;position:absolute;top:8px;right:14px}
+.finding-tag{font-family:'JetBrains Mono',monospace;font-size:9px;text-transform:uppercase;letter-spacing:0.15em;color:var(--brick);font-weight:700;margin-bottom:6px}
+.finding-title{font-family:'Instrument Serif',serif;font-size:22px;line-height:1.2;color:var(--ink);margin-bottom:8px;font-weight:400}
+.finding-body{font-size:13px;color:var(--ink-soft);line-height:1.55}
+
+@media (max-width:880px){.findings{grid-template-columns:1fr}}
+
+/* Tab switcher */
+.tabs{display:flex;gap:0;border-bottom:1.5px solid var(--ink);margin-bottom:14px}
+.tab{
+  padding:8px 14px;font-family:'JetBrains Mono',monospace;font-size:11px;text-transform:uppercase;
+  letter-spacing:0.08em;background:transparent;border:none;cursor:pointer;color:var(--muted);
+  border-bottom:3px solid transparent;margin-bottom:-1.5px;
+}
+.tab.active{color:var(--ink);border-bottom-color:var(--brick);font-weight:700}
+.tab:hover{color:var(--ink)}
+
+/* Number sequence */
+.numbers{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:1px;background:var(--ink);border:1px solid var(--ink);margin-bottom:32px}
+.numbers > div{background:var(--paper-2);padding:18px 16px}
+.numbers .lab{font-family:'JetBrains Mono',monospace;font-size:9px;text-transform:uppercase;letter-spacing:0.14em;color:var(--ink-soft);margin-bottom:4px}
+.numbers .val{font-family:'Instrument Serif',serif;font-size:32px;line-height:1;color:var(--ink);letter-spacing:-0.02em}
+.numbers .val em{font-size:0.55em;font-style:italic;color:var(--muted)}
+
+/* Sticky filter */
+.controls-bar{
+  display:flex;gap:10px;flex-wrap:wrap;align-items:center;
+  padding:10px 14px;background:var(--ink);color:var(--paper);
+  font-family:'JetBrains Mono',monospace;font-size:11px;text-transform:uppercase;letter-spacing:0.08em;
+  margin-bottom:14px;
+}
+.controls-bar select,.controls-bar input{
+  background:var(--paper);color:var(--ink);border:none;padding:6px 10px;font-family:inherit;font-size:11px;
+}
+.controls-bar label{display:flex;gap:8px;align-items:center;color:rgba(243,237,226,0.85)}
+</style>
+</head>
+
+<body>
+<div class="container">
+
+<!-- ============= MASTHEAD ============= -->
+<header class="masthead">
+  <div class="masthead-meta">
+    <span><span class="dot"></span>Reporte Analítico Longitudinal</span>
+    <span>Vol. I · Núm. 03 · Mayo 2026</span>
+    <span>Fases I · II · III</span>
+    <span style="color:var(--brick);font-weight:700">▸ Saber 11° · 26 julio 2026</span>
+  </div>
+  <h1 class="title">El pulso<br>de un <em>simulacro</em></h1>
+  <p class="deck">Tres mediciones consecutivas, cinco áreas, dos modalidades educativas. Lo que revelan los datos sobre el grado once regular (11A, 11B) y el programa <em>PENSAR</em> de modalidad flexible (3A, 3B, 3C) — y por qué un grupo PENSAR supera a los regulares.</p>
+  <div class="byline">
+    <span>Institución Educativa <strong>Pedacito de Cielo</strong> · La Tebaida, Quindío</span>
+    <span>Análisis: Área de Matemáticas</span>
+    <span>Fuente: Sec. Educación Departamental del Quindío</span>
+  </div>
+</header>
+
+<!-- ============= SECUENCIA NUMÉRICA INTRO ============= -->
+<div class="numbers">
+  <div><div class="lab">Fases analizadas</div><div class="val">3</div></div>
+  <div><div class="lab">Total presentaciones</div><div class="val">131</div></div>
+  <div><div class="lab">Grupos · F3</div><div class="val">5 <em>11A·11B·P3A·P3B·P3C</em></div></div>
+  <div><div class="lab">Cohorte estable</div><div class="val">24 <em>solo 11A+11B</em></div></div>
+  <div><div class="lab">Promedio Fase III</div><div class="val">201,6</div></div>
+  <div><div class="lab">Mejor grupo F3</div><div class="val">P3C <em>232,7</em></div></div>
+</div>
+
+<!-- ============= I. RESUMEN EJECUTIVO ============= -->
+<section class="section">
+  <div class="section-tag">I · Resumen ejecutivo</div>
+  <h2>Cinco cifras que <em>importan</em></h2>
+  <p class="section-lede">Lectura crítica es la única área que mejora consistentemente. Matemáticas concentra el 71% de los estudiantes en Nivel 1. La distancia entre el primer y el último cuartil supera los 35 puntos en cuatro de las cinco áreas.</p>
+  <div class="section-rule"></div>
+
+  <div class="kpi-grid">
+
+    <div class="kpi span3 accent-brick">
+      <div>
+        <div class="kpi-label">Promedio Matemáticas · Fase III</div>
+        <div class="kpi-num mono">30,8</div>
+      </div>
+      <div>
+        <div class="kpi-trend trend-down">▼ −12,8 pts vs F2</div>
+        <div class="kpi-sub">71,4% del grupo en Nivel 1. Caída sostenida en componentes Aleatorio y Geométrico-Métrico.</div>
+      </div>
+    </div>
+
+    <div class="kpi span3 accent-olive">
+      <div>
+        <div class="kpi-label">Promedio Lectura Crítica · F3</div>
+        <div class="kpi-num mono">54,7</div>
+      </div>
+      <div>
+        <div class="kpi-trend trend-up">▲ +7,1 pts vs F2</div>
+        <div class="kpi-sub">24,7% en Nivel 4 · única área con avance consolidado en las tres fases.</div>
+      </div>
+    </div>
+
+    <div class="kpi span3 accent-prusia">
+      <div>
+        <div class="kpi-label">Cohorte estable (en F1+F2+F3)</div>
+        <div class="kpi-num mono">24</div>
+      </div>
+      <div>
+        <div class="kpi-trend trend-flat">12 mejoran · 12 retroceden</div>
+        <div class="kpi-sub">Estudiantes que presentaron las tres fases — único panel longitudinal confiable. Distribución 50/50 en trayectoria.</div>
+      </div>
+    </div>
+
+    <div class="kpi span3 accent-crit">
+      <div>
+        <div class="kpi-label">Estudiantes en riesgo crítico · F3</div>
+        <div class="kpi-num mono">44,2<small>%</small></div>
+      </div>
+      <div>
+        <div class="kpi-trend">34 de 77 con ≥3 áreas en N1</div>
+        <div class="kpi-sub">5 estudiantes presentan Nivel 1 en las cinco áreas evaluadas.</div>
+      </div>
+    </div>
+
+    <div class="kpi span4 accent-ocre">
+      <div>
+        <div class="kpi-label">Coeficiente de variación · F3 (heterogeneidad)</div>
+        <div class="kpi-num mono">41,4<small>%</small> <span style="font-size:0.4em;color:var(--muted)">en Mat</span></div>
+      </div>
+      <div>
+        <div class="kpi-sub">Heterogeneidad muy alta (>30% indica grupo no homogéneo). Matemáticas y Naturales son las áreas más dispares; Inglés la más homogénea (CV=30,1%).</div>
+      </div>
+    </div>
+
+    <div class="kpi span4 accent-prusia">
+      <div>
+        <div class="kpi-label">Brecha decílica P90−P10 · Lectura</div>
+        <div class="kpi-num mono">37,5<small> pts</small></div>
+      </div>
+      <div>
+        <div class="kpi-sub">El estudiante en el percentil 90 saca 37,5 puntos más que el del percentil 10. Brecha similar en Naturales y Matemáticas.</div>
+      </div>
+    </div>
+
+    <div class="kpi span4 accent-brick">
+      <div>
+        <div class="kpi-label">Correlación Mat ↔ otras áreas · F3</div>
+        <div class="kpi-num mono">0,16<small> – </small>0,31</div>
+      </div>
+      <div>
+        <div class="kpi-sub">Matemáticas está descorrelacionada del resto del rendimiento. Un estudiante puede ser fuerte en otras áreas y débil en matemáticas — y viceversa.</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ============= II. PULSO TEMPORAL ============= -->
+<section class="section">
+  <div class="section-tag">II · Evolución longitudinal</div>
+  <h2>Tres fases, <em>cinco trayectorias</em></h2>
+  <p class="section-lede">Cómo se movió el promedio de cada área entre febrero, marzo y abril de 2026. Importante: en F1 y F2 solo presentaron los grupos regulares 11A y 11B (n≈26-27); en F3 se incorporaron los tres grupos del programa <em>PENSAR</em> (modalidad flexible para adultos), llevando la asistencia a 77 presentaciones. Los promedios fase contra fase no son estrictamente comparables.</p>
+  <div class="section-rule"></div>
+
+  <div class="viz-grid">
+
+    <div class="viz span8">
+      <div class="viz-head">
+        <div>
+          <div class="viz-title">Promedio por área <em>en cada fase</em></div>
+        </div>
+        <div class="viz-meta">25 feb → 24 mar → 27 abr 2026<br>Escala 0–100</div>
+      </div>
+      <div class="viz-canvas-wrap" style="height:340px"><canvas id="chart-evolucion"></canvas></div>
+      <p class="viz-note">El "salto" de F2 a F3 se explica por la incorporación de los grupos PENSAR (modalidad flexible). En la <strong>cohorte estable de 11A y 11B</strong> (n=24), el promedio global se mantiene casi constante (211→218→216), pero <strong>Matemáticas sí cae genuinamente</strong>: 43,2 → 43,8 → 31,8. Esa caída no es artefacto demográfico — es real.</p>
+    </div>
+
+    <div class="viz span4">
+      <div class="viz-head">
+        <div>
+          <div class="viz-title">Δ Global · <em>cohorte estable</em></div>
+        </div>
+        <div class="viz-meta">n=24 · F1 → F3</div>
+      </div>
+      <div class="viz-canvas-wrap" style="height:340px"><canvas id="chart-cohorte-delta"></canvas></div>
+      <p class="viz-note">Cada barra es un estudiante. Verde: avanzó. Rojo: retrocedió. La altura de la barra indica la magnitud del cambio en el puntaje global (suma de las 5 áreas).</p>
+    </div>
+
+    <div class="viz span12">
+      <div class="viz-head">
+        <div>
+          <div class="viz-title">Distribución de <em>niveles ICFES</em> por área (Fase III)</div>
+        </div>
+        <div class="viz-meta">% estudiantes por nivel · n=77</div>
+      </div>
+      <div class="viz-canvas-wrap" style="height:280px"><canvas id="chart-niveles"></canvas></div>
+      <p class="viz-note">Los rangos de niveles son los oficiales del ICFES y varían por área. Lectura Crítica es la única donde más del 50% supera Nivel 1. En Matemáticas <strong>ningún estudiante alcanza Nivel 4</strong>.</p>
+    </div>
+
+  </div>
+</section>
+
+<!-- ============= III. ANÁLISIS POR GRUPO (NUEVA) ============= -->
+<section class="section">
+  <div class="section-tag">III · Análisis por grupo</div>
+  <h2>Cinco grupos, <em>cinco realidades</em></h2>
+  <p class="section-lede">El grado once de la institución reúne dos modalidades muy distintas: el bachillerato regular (11A y 11B) y el programa <em>PENSAR</em> de modalidad flexible (3A, 3B y 3C). Cuando se desagregan los datos, los promedios institucionales pierden sentido y aparecen brechas que orientan dónde intervenir primero.</p>
+  <div class="section-rule"></div>
+
+  <!-- Tarjetas resumen por grupo -->
+  <div class="kpi-grid" style="margin-bottom:24px">
+
+    <div class="kpi span4 accent-prusia">
+      <div>
+        <div class="kpi-label">11A · regular</div>
+        <div class="kpi-num mono">211<small>,2</small></div>
+      </div>
+      <div>
+        <div class="kpi-trend trend-flat">F3 · n=13 de 16 inscritos</div>
+        <div class="kpi-sub">Mat 30,8 · Lec 58,0 · Soc 47,1 · Nat 36,9 · Ing 38,5. Fortaleza en Sociales (mejor de los 5 grupos).</div>
+      </div>
+    </div>
+
+    <div class="kpi span4 accent-prusia">
+      <div>
+        <div class="kpi-label">11B · regular</div>
+        <div class="kpi-num mono">220<small>,4</small></div>
+      </div>
+      <div>
+        <div class="kpi-trend trend-flat">F3 · n=12 de 14 inscritos</div>
+        <div class="kpi-sub">Mat 32,3 · Lec 58,0 · Soc 45,8 · Nat 39,6 · Ing 44,7. Tiene al líder absoluto: David Felipe Rojas (356,8).</div>
+      </div>
+    </div>
+
+    <div class="kpi span4 accent-olive">
+      <div>
+        <div class="kpi-label">PENSAR 3C · flexible <span style="color:var(--ok);font-size:0.5em;display:block;margin-top:2px">▲ MEJOR GRUPO F3</span></div>
+        <div class="kpi-num mono">232<small>,7</small></div>
+      </div>
+      <div>
+        <div class="kpi-trend trend-up">F3 · n=16 de 19 inscritos</div>
+        <div class="kpi-sub">Lidera 4 de 5 áreas. Lec 62,0 · Mat 35,9 · Ing 48,5 · Nat 40,4. Cero estudiantes en N1 de Lectura.</div>
+      </div>
+    </div>
+
+    <div class="kpi span6 accent-ocre">
+      <div>
+        <div class="kpi-label">PENSAR 3A · flexible</div>
+        <div class="kpi-num mono">184<small>,3</small></div>
+      </div>
+      <div>
+        <div class="kpi-trend trend-down">F3 · n=19 de 22 inscritos</div>
+        <div class="kpi-sub">Mat 29,2 · Lec 52,9 · Soc 33,6 · Nat 32,7 · Ing 36,1. 78,9% del grupo en Nivel 1 en Matemáticas.</div>
+      </div>
+    </div>
+
+    <div class="kpi span6 accent-crit">
+      <div>
+        <div class="kpi-label">PENSAR 3B · flexible <span style="color:#c44a3c;font-size:0.5em;display:block;margin-top:2px">▼ GRUPO MÁS DÉBIL</span></div>
+        <div class="kpi-num mono">171<small>,0</small></div>
+      </div>
+      <div>
+        <div class="kpi-trend">F3 · n=17 de 21 inscritos</div>
+        <div class="kpi-sub"><strong>94,1% en Nivel 1 en Matemáticas.</strong> 70,6% en Nivel 1 en Sociales y Naturales. El grupo que más necesita refuerzo intensivo.</div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="viz-grid">
+
+    <div class="viz span12">
+      <div class="viz-head">
+        <div><div class="viz-title">Comparación de los <em>5 grupos</em> en las 5 áreas · Fase III</div></div>
+        <div class="viz-meta">Promedios · escala 0–100</div>
+      </div>
+      <div class="viz-canvas-wrap" style="height:380px"><canvas id="chart-grupos-areas"></canvas></div>
+      <p class="viz-note"><strong>Hallazgo contraintuitivo:</strong> PENSAR 3C (modalidad flexible) supera en promedio a los grupos regulares 11A y 11B en cuatro de cinco áreas. La modalidad no determina el rendimiento — la composición de cada grupo sí. Dentro de PENSAR, la heterogeneidad entre 3A, 3B y 3C (de 171 a 233) es enorme.</p>
+    </div>
+
+    <div class="viz span12">
+      <div class="viz-head">
+        <div><div class="viz-title">Distribución de niveles ICFES · <em>por grupo</em> · Fase III</div></div>
+        <div class="viz-meta">% estudiantes por nivel y área</div>
+      </div>
+
+      <div class="tabs" id="grp-tabs">
+        <button class="tab active" data-grp="11A">11A</button>
+        <button class="tab" data-grp="11B">11B</button>
+        <button class="tab" data-grp="P3A">PENSAR 3A</button>
+        <button class="tab" data-grp="P3B">PENSAR 3B</button>
+        <button class="tab" data-grp="P3C">PENSAR 3C</button>
+      </div>
+
+      <div class="viz-canvas-wrap" style="height:280px"><canvas id="chart-niveles-grupo"></canvas></div>
+      <p class="viz-note">Hacer clic en cada pestaña muestra cómo se distribuyen los niveles 1-4 en ese grupo. Compárese PENSAR 3B (94% N1 en Matemáticas) con PENSAR 3C (50% N1, 25% N3 en Matemáticas) para entender el rango de variación intra-modalidad.</p>
+    </div>
+
+    <div class="viz span6">
+      <div class="viz-head">
+        <div><div class="viz-title">Evolución <em>11A vs 11B</em> · cohorte estable</div></div>
+        <div class="viz-meta">Solo grupos con presencia en F1+F2+F3</div>
+      </div>
+      <div class="viz-canvas-wrap" style="height:300px"><canvas id="chart-11a-11b"></canvas></div>
+      <p class="viz-note">11B tuvo un pico fuerte en F2 (243) que no sostuvo. 11A es más constante. Ambos caen severamente en Matemáticas en F3: 11A pierde 8,2 pts y 11B pierde 16,0 pts respecto a F2. <strong>La caída en Matemáticas es real y afecta a los dos grupos regulares</strong>, no es un efecto demográfico.</p>
+    </div>
+
+    <div class="viz span6">
+      <div class="viz-head">
+        <div><div class="viz-title">Asistencia · <em>presentaron / inscritos</em></div></div>
+        <div class="viz-meta">Fase III</div>
+      </div>
+      <div class="viz-canvas-wrap" style="height:300px"><canvas id="chart-asistencia"></canvas></div>
+      <p class="viz-note">La tasa de asistencia es similar entre todos los grupos (81–86%), incluyendo PENSAR. Las "ausencias" no se concentran en un solo grupo. En total, 15 estudiantes de 92 inscritos no presentaron F3.</p>
+    </div>
+
+    <div class="viz span12">
+      <div class="viz-head">
+        <div><div class="viz-title">Liderazgo y alarma · <em>nominal por grupo</em> · Fase III</div></div>
+        <div class="viz-meta">Top 3 y Bottom 3 de cada grupo · puntaje global</div>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:14px;margin-top:14px" id="grp-podium"></div>
+      <p class="viz-note">Para cualquier estrategia de tutoría entre pares, los estudiantes "top" de cada grupo son candidatos naturales. Los "bottom" requieren plan individual. <strong>Karen Yissed Rodríguez Mejía</strong> (PENSAR 3A, global 114,7) y <strong>Kelly Valencia Gaitán</strong> (PENSAR 3A, 117,8) son las situaciones más urgentes.</p>
+    </div>
+
+  </div>
+
+  <div class="pull-quote">
+    «El grupo más fuerte de toda la institución (PENSAR 3C, promedio 232,7) y el grupo más débil (PENSAR 3B, promedio 171,0) están en la <em>misma modalidad</em>. La etiqueta "regular vs PENSAR" no ordena bien la realidad — el grupo específico, sí.»
+    <cite>— Hallazgo del cruce listado × simulacro</cite>
+  </div>
+</section>
+
+<!-- ============= IV. ANÁLISIS MATEMÁTICAS (foco docente) ============= -->
+<section class="section">
+  <div class="section-tag">IV · Foco · Matemáticas</div>
+  <h2>El componente <em>Aleatorio</em><br>en caída libre</h2>
+  <p class="section-lede">Matemáticas no se evalúa como un bloque: el ICFES desagrega por componentes (qué se sabe) y competencias (qué se hace con eso). El siguiente desglose revela dónde están las grietas reales.</p>
+  <div class="section-rule"></div>
+
+  <div class="viz-grid">
+
+    <div class="viz span6">
+      <div class="viz-head">
+        <div>
+          <div class="viz-title">Componentes · <em>qué se sabe</em></div>
+        </div>
+        <div class="viz-meta">Promedios institucionales</div>
+      </div>
+      <div class="viz-canvas-wrap" style="height:300px"><canvas id="chart-mat-componentes"></canvas></div>
+      <p class="viz-note"><strong>Aleatorio</strong> (estadística y probabilidad) cayó 30,7 pts en dos meses: de un fugaz 61,5 en F1 al alarmante 30,8 en F3. <strong>Geométrico-Métrico</strong> también desciende. <strong>Numérico-Variacional</strong> es el único estable.</p>
+    </div>
+
+    <div class="viz span6">
+      <div class="viz-head">
+        <div>
+          <div class="viz-title">Competencias · <em>qué se hace</em></div>
+        </div>
+        <div class="viz-meta">Promedios institucionales</div>
+      </div>
+      <div class="viz-canvas-wrap" style="height:300px"><canvas id="chart-mat-competencias"></canvas></div>
+      <p class="viz-note"><strong>Interpretación-Representación</strong> es la única competencia que mejora (+12,8 pts). <strong>Formulación-Ejecución</strong> retrocede 14,5 pts. <strong>Argumentación</strong> oscila — síntoma de aprendizaje no consolidado.</p>
+    </div>
+
+    <div class="viz span12">
+      <div class="viz-head">
+        <div>
+          <div class="viz-title">Diagnóstico Matemáticas · <em>matriz componente × competencia × fase</em></div>
+        </div>
+        <div class="viz-meta">Lectura: ¿qué bajó, qué subió, qué se mantiene?</div>
+      </div>
+
+      <div style="margin:14px 0">
+        <div class="comp-bar"><div class="comp-bar-label">Aleatorio</div>
+          <div class="comp-bar-track">
+            <div class="comp-bar-fill" style="width:61.5%;background:var(--brick)">F1 · 61,5</div>
+          </div><div class="comp-bar-num">F1</div>
+        </div>
+        <div class="comp-bar"><div class="comp-bar-label"></div>
+          <div class="comp-bar-track">
+            <div class="comp-bar-fill" style="width:44.3%;background:var(--brick-soft)">F2 · 44,3</div>
+          </div><div class="comp-bar-num">F2</div>
+        </div>
+        <div class="comp-bar"><div class="comp-bar-label"></div>
+          <div class="comp-bar-track">
+            <div class="comp-bar-fill" style="width:30.8%;background:var(--crit)">F3 · 30,8</div>
+          </div><div class="comp-bar-num">F3</div>
+        </div>
+        <div class="comp-bar" style="margin-top:14px"><div class="comp-bar-label">Geométrico-Métrico</div>
+          <div class="comp-bar-track">
+            <div class="comp-bar-fill" style="width:49.7%;background:var(--ocre)">F1 · 49,7</div>
+          </div><div class="comp-bar-num">F1</div>
+        </div>
+        <div class="comp-bar"><div class="comp-bar-label"></div>
+          <div class="comp-bar-track">
+            <div class="comp-bar-fill" style="width:46.6%;background:var(--ocre)">F2 · 46,6</div>
+          </div><div class="comp-bar-num">F2</div>
+        </div>
+        <div class="comp-bar"><div class="comp-bar-label"></div>
+          <div class="comp-bar-track">
+            <div class="comp-bar-fill" style="width:36.6%;background:var(--brick-soft)">F3 · 36,6</div>
+          </div><div class="comp-bar-num">F3</div>
+        </div>
+        <div class="comp-bar" style="margin-top:14px"><div class="comp-bar-label">Numérico-Variacional</div>
+          <div class="comp-bar-track">
+            <div class="comp-bar-fill" style="width:42.5%;background:var(--olive-soft)">F1 · 42,5</div>
+          </div><div class="comp-bar-num">F1</div>
+        </div>
+        <div class="comp-bar"><div class="comp-bar-label"></div>
+          <div class="comp-bar-track">
+            <div class="comp-bar-fill" style="width:43.6%;background:var(--olive-soft)">F2 · 43,6</div>
+          </div><div class="comp-bar-num">F2</div>
+        </div>
+        <div class="comp-bar"><div class="comp-bar-label"></div>
+          <div class="comp-bar-track">
+            <div class="comp-bar-fill" style="width:42.2%;background:var(--olive-soft)">F3 · 42,2</div>
+          </div><div class="comp-bar-num">F3</div>
+        </div>
+      </div>
+      <p class="viz-note">El componente <strong>Aleatorio</strong> requiere intervención inmediata: pasó de ser el más fuerte al más débil. El hallazgo es robusto al cambio de asistencia: ya entre F1 y F2 — con grupos prácticamente idénticos en tamaño (26 y 27) — el componente cayó 17 puntos. Esto sugiere un problema curricular o de cobertura, no un efecto del aumento de asistencia.</p>
+    </div>
+
+  </div>
+
+  <div class="pull-quote">
+    «La heterogeneidad del grupo en Matemáticas (CV = 41,4%) es casi <em>el doble</em> de la heterogeneidad en Lectura (CV = 27%). Lo que enseñamos en clase no produce el mismo aprendizaje en todos.»
+    <cite>— Lectura del coeficiente de variación, Fase III</cite>
+  </div>
+</section>
+
+<!-- ============= IV. COHORTE ESTABLE ============= -->
+<section class="section">
+  <div class="section-tag">V · Cohorte estable</div>
+  <h2>Veinticuatro <em>trayectorias</em></h2>
+  <p class="section-lede">Si filtramos solo los estudiantes que presentaron las tres pruebas (todos pertenecen a 11A o 11B — los grupos PENSAR no estuvieron en F1 ni F2), podemos ver tendencias reales sin el ruido del cambio de población. Es la base más confiable para evaluar progreso real <em>de los grupos regulares</em>.</p>
+  <div class="section-rule"></div>
+
+  <div class="viz-grid">
+    <div class="viz span6">
+      <div class="viz-head">
+        <div><div class="viz-title">Top 5 <em>mejoras</em> · cohorte estable</div></div>
+        <div class="viz-meta">Δ global F1 → F3</div>
+      </div>
+      <table class="editorial">
+        <thead><tr><th>Estudiante</th><th class="num">F1</th><th class="num">F3</th><th class="num">Δ</th></tr></thead>
+        <tbody>
+          <tr><td class="name">DAVID FELIPE ROJAS GONZALEZ</td><td class="num">307,5</td><td class="num">356,8</td><td class="num delta-pos">+49,3</td></tr>
+          <tr><td class="name">DIEGO ANDRES GAITAN JIMENEZ</td><td class="num">143,5</td><td class="num">190,1</td><td class="num delta-pos">+46,6</td></tr>
+          <tr><td class="name">STIVEN DE JESUS MERCADO AMAYA</td><td class="num">200,3</td><td class="num">240,6</td><td class="num delta-pos">+40,3</td></tr>
+          <tr><td class="name">MARIA ISABEL IJAJI CHILITO</td><td class="num">189,0</td><td class="num">227,6</td><td class="num delta-pos">+38,6</td></tr>
+          <tr><td class="name">ESTEFANIA MORALES VARGAS</td><td class="num">212,8</td><td class="num">248,9</td><td class="num delta-pos">+36,1</td></tr>
+        </tbody>
+      </table>
+      <p class="viz-note">David Felipe ya era el mejor del grupo en F1 y siguió creciendo: lidera la institución en las cinco áreas de F3.</p>
+    </div>
+
+    <div class="viz span6">
+      <div class="viz-head">
+        <div><div class="viz-title">Top 5 <em>retrocesos</em> · cohorte estable</div></div>
+        <div class="viz-meta">Δ global F1 → F3</div>
+      </div>
+      <table class="editorial">
+        <thead><tr><th>Estudiante</th><th class="num">F1</th><th class="num">F3</th><th class="num">Δ</th></tr></thead>
+        <tbody>
+          <tr><td class="name">MIGUEL ANGEL MURILLO VALENCIA</td><td class="num">238,6</td><td class="num">184,1</td><td class="num delta-neg">−54,5</td></tr>
+          <tr><td class="name">KAREN DAYANA MESA RAMIREZ</td><td class="num">170,3</td><td class="num">123,2</td><td class="num delta-neg">−47,1</td></tr>
+          <tr><td class="name">MONICA YULIETH GUTIERREZ GUAPACHA</td><td class="num">180,4</td><td class="num">135,2</td><td class="num delta-neg">−45,2</td></tr>
+          <tr><td class="name">JOHAN SMIT MELO VALENCIA</td><td class="num">231,4</td><td class="num">197,8</td><td class="num delta-neg">−33,6</td></tr>
+          <tr><td class="name">WENDY VANESA POSADA ORTIZ</td><td class="num">197,8</td><td class="num">174,9</td><td class="num delta-neg">−22,9</td></tr>
+        </tbody>
+      </table>
+      <p class="viz-note">Algunos retrocesos pueden deberse a la fatiga de un tercer simulacro o a desmotivación; otros — particularmente los más severos — requieren intervención individual.</p>
+    </div>
+
+    <div class="viz span12">
+      <div class="viz-head">
+        <div><div class="viz-title">Trayectorias individuales · <em>cohorte estable n=24</em></div></div>
+        <div class="viz-meta">Cada línea = 1 estudiante · F1 → F2 → F3 (puntaje global)</div>
+      </div>
+      <div class="viz-canvas-wrap" style="height:400px"><canvas id="chart-trayectorias"></canvas></div>
+      <p class="viz-note">Hover sobre cada línea para identificar al estudiante. Las líneas que cruzan dramáticamente sugieren cambios de comportamiento (positivos o negativos) que merecen seguimiento.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============= VI. DINÁMICA INTRA-GRUPO ============= -->
+<section class="section">
+  <div class="section-tag">VI · Dinámica intra-grupo</div>
+  <h2>Lo que <em>no</em> dice el promedio</h2>
+  <p class="section-lede">Dos grupos pueden tener el mismo promedio y ser muy distintos. Las métricas de dispersión, momentum y brechas internas revelan diferencias estructurales que las medias ocultan — y orientan intervenciones específicas para cada grupo.</p>
+  <div class="section-rule"></div>
+
+  <div class="viz-grid">
+
+    <div class="viz span6">
+      <div class="viz-head">
+        <div><div class="viz-title">Riesgo crítico <em>por grupo</em></div></div>
+        <div class="viz-meta">% con ≥3 áreas en Nivel 1 · F3</div>
+      </div>
+      <div class="viz-canvas-wrap" style="height:280px"><canvas id="chart-riesgo-grupo"></canvas></div>
+      <p class="viz-note">PENSAR 3B (70,6%) y PENSAR 3A (68,4%) concentran la urgencia. PENSAR 3C, en contraste, tiene apenas un estudiante en riesgo (6,2%). Los grupos regulares 11A y 11B se ubican en una franja intermedia (30-33%). <strong>Dos estudiantes de PENSAR 3A presentan Nivel 1 en las cinco áreas:</strong> Karen Yissed Rodríguez y Juan José Zapata.</p>
+    </div>
+
+    <div class="viz span6">
+      <div class="viz-head">
+        <div><div class="viz-title">Heterogeneidad <em>intra-grupo</em> · Mat vs Lec</div></div>
+        <div class="viz-meta">Coeficiente de Variación (%) · F3</div>
+      </div>
+      <div class="viz-canvas-wrap" style="height:280px"><canvas id="chart-cv-grupo"></canvas></div>
+      <p class="viz-note">PENSAR 3C tiene la lectura más homogénea de toda la institución (CV=16,6%) — todos sus estudiantes leen relativamente bien. Pero su matemática es la más dispersa (CV=48,3%): coexisten estudiantes muy fuertes y muy débiles. Esto sugiere que en PENSAR 3C el cuello de botella es la <em>matemática individual</em>, no el grupo en bloque.</p>
+    </div>
+
+    <div class="viz span12">
+      <div class="viz-head">
+        <div><div class="viz-title">Momentum F2 → F3 · <em>cohorte estable</em></div></div>
+        <div class="viz-meta">Δ global · n=24 · 11A y 11B</div>
+      </div>
+      <div class="viz-canvas-wrap" style="height:340px"><canvas id="chart-momentum"></canvas></div>
+      <p class="viz-note">Entre F2 y F3 la cohorte estable se polarizó. Cuatro estudiantes de 11A saltaron más de 35 puntos (Adriana Orozco +63,9; Wendy Posada +49,4; Stiven Mercado +40,1; Hansel Barros +37,1). Cuatro estudiantes de 11B cayeron más de 40 puntos (Karen Y. Calle −77,2; Nicolás Florez −61,7; Jorge Corrales −42,1; Yury Alzate −33,0 — esta última en 11A). Estas oscilaciones son demasiado grandes para ser ruido: son cambios de comportamiento que merecen seguimiento individual.</p>
+    </div>
+
+    <div class="viz span12">
+      <div class="viz-head">
+        <div><div class="viz-title">Brecha <em>Lectura − Matemáticas</em> · F3</div></div>
+        <div class="viz-meta">Estudiantes con ≥40 pts de diferencia · "buenos lectores, débiles en mate"</div>
+      </div>
+      <table class="editorial">
+        <thead><tr><th>Estudiante</th><th>Grupo</th><th class="num">Lec</th><th class="num">Mat</th><th class="num">Brecha</th></tr></thead>
+        <tbody>
+          <tr><td class="name">RUTH JIRETH LONDOÑO RENGIFO</td><td><span style="font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:700;color:var(--olive)">PENSAR 3C</span></td><td class="num">79,2</td><td class="num">12,5</td><td class="num delta-pos">+66,7</td></tr>
+          <tr><td class="name">JUAN JOSE RAMIREZ ZAPATA</td><td><span style="font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:700;color:var(--brick)">PENSAR 3B</span></td><td class="num">62,5</td><td class="num">4,2</td><td class="num delta-pos">+58,3</td></tr>
+          <tr><td class="name">JUAN JOSE AGUIRRE CANO</td><td><span style="font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:700;color:var(--olive)">PENSAR 3C</span></td><td class="num">70,8</td><td class="num">12,5</td><td class="num delta-pos">+58,3</td></tr>
+          <tr><td class="name">YURY PAOLA ALZATE GUEVARA</td><td><span style="font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:700;color:var(--prusia)">11A</span></td><td class="num">70,8</td><td class="num">16,7</td><td class="num delta-pos">+54,1</td></tr>
+          <tr><td class="name">ANA SOFIA FRANCO FERNANDEZ</td><td><span style="font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:700;color:var(--ocre)">PENSAR 3A</span></td><td class="num">83,3</td><td class="num">29,2</td><td class="num delta-pos">+54,1</td></tr>
+          <tr><td class="name">MIGUEL ANGEL MURILLO VALENCIA</td><td><span style="font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:700;color:var(--prusia)">11A</span></td><td class="num">54,2</td><td class="num">8,3</td><td class="num delta-pos">+45,9</td></tr>
+          <tr><td class="name">MARIA JOSE FRANCO FERNANDEZ</td><td><span style="font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:700;color:var(--ocre)">PENSAR 3A</span></td><td class="num">79,2</td><td class="num">33,3</td><td class="num delta-pos">+45,9</td></tr>
+          <tr><td class="name">ANA MARIA ESPINOSA DIAZ</td><td><span style="font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:700;color:var(--prusia)">11B</span></td><td class="num">87,5</td><td class="num">41,7</td><td class="num delta-pos">+45,8</td></tr>
+          <tr><td class="name">STIVEN DE JESUS MERCADO AMAYA</td><td><span style="font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:700;color:var(--prusia)">11A</span></td><td class="num">75,0</td><td class="num">33,3</td><td class="num delta-pos">+41,7</td></tr>
+          <tr><td class="name">VALERIN SOFIA GAVANZO ESTRADA</td><td><span style="font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:700;color:var(--ocre)">PENSAR 3A</span></td><td class="num">50,0</td><td class="num">8,3</td><td class="num delta-pos">+41,7</td></tr>
+        </tbody>
+      </table>
+      <p class="viz-note">Este perfil — alta lectura, baja matemática — es <em>tratable</em>: la habilidad de comprensión está; lo que falta es la algoritmia y el lenguaje matemático. Para estos 10 estudiantes, una intervención focalizada en matemáticas (sin tener que reforzar lectura) puede mover su global rápidamente. Apalancar la lectura: explicarles las matemáticas con problemas verbales y razonamiento, no solo con fórmulas.</p>
+    </div>
+
+  </div>
+
+  <div class="pull-quote">
+    «Si quito el promedio y miro el momentum, veo que entre F2 y F3 la cohorte se polarizó: cuatro estudiantes ganaron más de 35 puntos, cuatro perdieron más de 40. La <em>desviación estándar de los cambios</em> es lo que está creciendo, no el promedio.»
+    <cite>— Lectura del momentum F2→F3, cohorte estable</cite>
+  </div>
+</section>
+
+<!-- ============= VII. EQUIDAD Y DISPERSIÓN ============= -->
+<section class="section">
+  <div class="section-tag">VII · Equidad y dispersión</div>
+  <h2>La <em>brecha</em> dentro del aula</h2>
+  <p class="section-lede">El promedio puede engañar. Lo que importa es cuán lejos está el último cuartil del primero. Si esa distancia es grande, hay dos cursos en uno solo.</p>
+  <div class="section-rule"></div>
+
+  <div class="viz span12" style="border:1px solid var(--ink);background:var(--paper-2);padding:24px 28px">
+    <div class="viz-head">
+      <div><div class="viz-title">Percentiles 10–25–50–75–90 · <em>Fase III, n=77</em></div></div>
+      <div class="viz-meta">Cuanto mayor la barra, mayor la inequidad</div>
+    </div>
+
+    <!-- Boxplot-style equity rows -->
+    <div id="equity-bars"></div>
+    <p class="viz-note">El gradiente rojo→amarillo→oliva representa el rango intercuartílico (P25–P75). La línea negra vertical es la mediana. Los números a la derecha indican P90 (mejor) y P10 (peor).</p>
+  </div>
+</section>
+
+<!-- ============= VI. CORRELACIÓN ============= -->
+<section class="section">
+  <div class="section-tag">VIII · Estructura de correlaciones</div>
+  <h2>¿Qué áreas <em>viajan juntas</em>?</h2>
+  <p class="section-lede">Si un estudiante mejora en una asignatura, ¿mejora también en otra? La matriz de correlación responde — y deja a Matemáticas como caso aparte.</p>
+  <div class="section-rule"></div>
+
+  <div class="viz-grid">
+    <div class="viz span6">
+      <div class="viz-head">
+        <div><div class="viz-title">Matriz de <em>correlación de Pearson</em> · F3</div></div>
+        <div class="viz-meta">Valor 0 = sin relación · 1 = relación perfecta</div>
+      </div>
+      <div id="heatmap-corr"></div>
+      <p class="viz-note">Una correlación &lt; 0,3 se considera débil. Matemáticas con Inglés (r = 0,16) es prácticamente independiente. C. Sociales y C. Naturales (r = 0,52) sí se mueven en bloque.</p>
+    </div>
+
+    <div class="viz span6">
+      <div class="viz-head">
+        <div><div class="viz-title">Lectura interpretativa</div></div>
+      </div>
+      <div style="font-family:'Geist',sans-serif;font-size:14px;line-height:1.65;color:var(--ink-soft)">
+        <p style="margin-bottom:12px;"><span class="serif italic" style="font-size:22px;color:var(--brick)">a)</span> <strong>Matemáticas opera en un eje propio.</strong> Su correlación con todas las áreas oscila entre 0,16 y 0,31. Esto significa que un estudiante puede destacar en Lectura o Sociales y aun así no transferir esa habilidad a Matemáticas. La matemática escolar exige andamiajes específicos.</p>
+        <p style="margin-bottom:12px;"><span class="serif italic" style="font-size:22px;color:var(--brick)">b)</span> <strong>Las áreas verbales se acoplan.</strong> Sociales↔Naturales (0,52), Lectura↔Sociales (0,53) y Naturales↔Lectura (0,49) sugieren que la comprensión lectora apalanca el rendimiento en áreas con textos densos.</p>
+        <p style="margin-bottom:12px;"><span class="serif italic" style="font-size:22px;color:var(--brick)">c)</span> <strong>Inglés está parcialmente conectado</strong> con Sociales (0,50) y Naturales (0,46): probablemente porque la decodificación lectora es transversal.</p>
+        <p><strong>Implicación pedagógica:</strong> mejorar lectura crítica eleva varias áreas en bloque, pero matemáticas requiere intervención focalizada en sus propios componentes y competencias.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============= VII. ESTUDIANTES EN RIESGO Y POTENCIAL ============= -->
+<section class="section">
+  <div class="section-tag">IX · Identificación nominal</div>
+  <h2>Quién <em>requiere</em> intervención</h2>
+  <p class="section-lede">El 44,2% del grupo presenta Nivel 1 en al menos tres áreas en F3. Para cualquier programa de refuerzo o tutoría focalizada, esta es la lista corta.</p>
+  <div class="section-rule"></div>
+
+  <div class="viz-grid">
+    <div class="viz span7">
+      <div class="viz-head">
+        <div><div class="viz-title">Riesgo crítico · <em>Nivel 1 en ≥3 áreas</em></div></div>
+        <div class="viz-meta">Fase III · ordenados por puntaje global ascendente</div>
+      </div>
+      <table class="editorial">
+        <thead><tr><th>Estudiante</th><th>Grupo</th><th class="num">Global</th><th class="num">N1 en</th><th>Áreas N1</th></tr></thead>
+        <tbody id="tbl-riesgo"></tbody>
+      </table>
+      <p class="viz-note">Los primeros 5 estudiantes presentan Nivel 1 en 4 o 5 áreas: requieren plan integral. El resto puede beneficiarse de refuerzo focalizado.</p>
+    </div>
+
+    <div class="viz span5">
+      <div class="viz-head">
+        <div><div class="viz-title">Alto potencial · <em>N3-N4 en ≥3 áreas</em></div></div>
+        <div class="viz-meta">Fase III</div>
+      </div>
+      <table class="editorial">
+        <thead><tr><th>Estudiante</th><th>Grupo</th><th class="num">Global</th><th class="num">N3-4 en</th></tr></thead>
+        <tbody>
+          <tr><td class="name">DAVID FELIPE ROJAS GONZALEZ</td><td><span style="font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:700;color:var(--prusia)">11B</span></td><td class="num">356,8</td><td class="num"><span class="pill n4">4</span></td></tr>
+          <tr><td class="name">SEBASTIAN CALDERON CASTILLO</td><td><span style="font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:700;color:var(--olive)">PENSAR 3C</span></td><td class="num">311,8</td><td class="num"><span class="pill n4">4</span></td></tr>
+          <tr><td class="name">CRISTOPHER IVAN GUTIERREZ FARFAN</td><td><span style="font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:700;color:var(--olive)">PENSAR 3C</span></td><td class="num">295,2</td><td class="num"><span class="pill n3">3</span></td></tr>
+          <tr><td class="name">RUTH JIRETH LONDOÑO RENGIFO</td><td><span style="font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:700;color:var(--olive)">PENSAR 3C</span></td><td class="num">266,7</td><td class="num"><span class="pill n3">3</span></td></tr>
+        </tbody>
+      </table>
+      <p class="viz-note">Solo el 5,2% del grupo se ubica con potencial alto. Estos estudiantes pueden actuar como mentores pares o ser candidatos a programas de excelencia.</p>
+
+      <div style="margin-top:18px;padding:14px;background:var(--paper);border:1px dashed var(--ink)">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:10px;text-transform:uppercase;letter-spacing:0.12em;color:var(--brick);font-weight:700;margin-bottom:6px">Lectura nominal</div>
+        <div style="font-family:'Instrument Serif',serif;font-style:italic;font-size:18px;line-height:1.4;color:var(--ink)">«El umbral para entrar en Saber 11° con probabilidad razonable de obtener un puntaje global ≥ 250 (top tercil nacional) está, en este grupo, alrededor de los 270 puntos en la suma de los 5 simulacros».</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============= VIII. HALLAZGOS Y RECOMENDACIONES ============= -->
+<section class="section">
+  <div class="section-tag">X · Síntesis y acción</div>
+  <h2>Ocho hallazgos, <em>ocho decisiones</em></h2>
+  <p class="section-lede">No basta con medir. Esto es lo que los datos dicen que conviene priorizar para la prueba real del <strong>26 de julio de 2026</strong> — quedan menos de 12 semanas.</p>
+  <div class="section-rule"></div>
+
+  <div class="findings">
+    <div class="finding">
+      <div class="finding-num">01</div>
+      <div class="finding-tag">Hallazgo crítico</div>
+      <div class="finding-title">Componente <em>Aleatorio</em> requiere reentrenamiento</div>
+      <div class="finding-body">La caída de 30,7 puntos sugiere que estadística y probabilidad no se han trabajado consistentemente. Bloques de 3 sesiones intensivas: tablas de frecuencia, medidas de tendencia central y dispersión, probabilidad clásica y condicional, e interpretación de gráficos estadísticos.</div>
+    </div>
+
+    <div class="finding">
+      <div class="finding-num">02</div>
+      <div class="finding-tag">Apalancamiento</div>
+      <div class="finding-title">Lectura crítica como <em>palanca transversal</em></div>
+      <div class="finding-body">Su correlación con Sociales (0,53) y Naturales (0,49) sugiere que cada hora invertida en comprensión lectora rinde en tres áreas. Mantener el progreso e introducir lecturas argumentativas y comparativas (nivel 4 ICFES).</div>
+    </div>
+
+    <div class="finding">
+      <div class="finding-num">03</div>
+      <div class="finding-tag">Atención focal</div>
+      <div class="finding-title">PENSAR 3B necesita <em>refuerzo intensivo</em></div>
+      <div class="finding-body">94,1% del grupo PENSAR 3B está en Nivel 1 en Matemáticas. PENSAR 3A le sigue con 78,9%. Estos dos grupos juntos suman 36 estudiantes y concentran la mayor parte de los 34 casos de riesgo crítico. Recomendable hora protegida en horario PENSAR para nivelación matemática, con énfasis en lo numérico-variacional (la base más débil).</div>
+    </div>
+
+    <div class="finding">
+      <div class="finding-num">04</div>
+      <div class="finding-tag">Capitalizar</div>
+      <div class="finding-title">PENSAR 3C como <em>caso de estudio</em></div>
+      <div class="finding-body">El grupo más fuerte de la institución es de modalidad flexible — supera a 11A y 11B en cuatro de cinco áreas. Conviene identificar qué prácticas pedagógicas, qué profesores y qué dinámicas de grupo lo explican, para replicarlas. Tres de los cuatro estudiantes con alto potencial pertenecen a este grupo.</div>
+    </div>
+
+    <div class="finding">
+      <div class="finding-num">05</div>
+      <div class="finding-tag">Equidad</div>
+      <div class="finding-title">Brecha P90–P10 supera <em>los 35 puntos</em></div>
+      <div class="finding-body">Hay dos cursos dentro de un mismo curso. Estrategias diferenciadas (no homogéneas) son indispensables. Modelo sugerido: 70% trabajo en bloques de nivel similar + 30% en grupos heterogéneos con tutoría entre pares — los estudiantes "top" de cada grupo (ver Sección VIII) son candidatos naturales a tutores.</div>
+    </div>
+
+    <div class="finding">
+      <div class="finding-num">06</div>
+      <div class="finding-tag">Curricular</div>
+      <div class="finding-title">La competencia <em>Argumentación</em> es volátil</div>
+      <div class="finding-body">Su oscilación 34→43→35 es síntoma de aprendizaje no consolidado. Trabajar la justificación de procedimientos en clase: pedir siempre el «por qué». Es la competencia donde un cambio metodológico rinde más rápido.</div>
+    </div>
+
+    <div class="finding">
+      <div class="finding-num">07</div>
+      <div class="finding-tag">Perfil específico</div>
+      <div class="finding-title">Diez estudiantes con <em>brecha tratable</em></div>
+      <div class="finding-body">Hay 10 estudiantes con brecha de ≥40 pts entre Lectura y Matemáticas. Su comprensión está bien — lo que les falta es algoritmia y lenguaje matemático. Para Ruth Jireth Londoño, Juan José Ramírez, Yury Alzate y Ana M. Espinosa, una intervención focalizada en mate (sin tocar lectura) puede mover su global rápidamente. Apalancar usando problemas verbales y razonamiento, no fórmulas aisladas.</div>
+    </div>
+
+    <div class="finding">
+      <div class="finding-num">08</div>
+      <div class="finding-tag">Seguimiento</div>
+      <div class="finding-title">Dos paneles de control <em>distintos</em></div>
+      <div class="finding-body">Para 11A y 11B se dispone de cohorte estable de 24 estudiantes con tres mediciones — es el mejor indicador longitudinal. Para los grupos PENSAR solo hay una medición (F3): la próxima prueba será su primera comparación. Recomendable que el CEP exija que los próximos simulacros incluyan a los 5 grupos para que las cifras institucionales sean comparables a la prueba real del 26 de julio.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============= FOOTNOTE ============= -->
+<div class="footnote">
+  <h3>Nota metodológica</h3>
+  <p>Este análisis longitudinal procesa <strong>131 presentaciones individuales</strong> distribuidas en tres simulacros tipo Saber 11° aplicados por la Secretaría de Educación Departamental del Quindío entre febrero y abril de 2026, cruzadas contra el listado oficial de estudiantes inscritos por grupo (16+14+22+21+19 = 92 estudiantes en 5 grupos).</p>
+  <p style="margin-top:10px"><strong>Composición del grado once:</strong> 11A y 11B son los grupos del bachillerato regular (30 estudiantes inscritos en total). PENSAR 3A, 3B y 3C son grupos del programa <em>PENSAR</em>, modalidad flexible para personas adultas (62 estudiantes inscritos en total). Las Fases I y II solo fueron presentadas por estudiantes de 11A y 11B; en la Fase III se incorporaron los grupos PENSAR. La cohorte estable (n=24) está compuesta exclusivamente por estudiantes de 11A y 11B con presencia en las tres fases.</p>
+  <p style="margin-top:10px"><strong>Cruce de listados:</strong> 79 de 79 estudiantes que aparecen en algún simulacro fueron mapeados contra el listado oficial mediante normalización de nombres (mayúsculas, sin acentos, espacios únicos). Cero residuos.</p>
+  <p style="margin-top:10px">Los puntajes están en escala 0–100 por área; el global se reporta como suma simple de las cinco áreas (rango 0–500). Los <strong>niveles ICFES</strong> usan los rangos oficiales por área (Matemáticas: 0-35 / 36-50 / 51-70 / 71-100; Lectura Crítica: 0-35 / 36-50 / 51-65 / 66-100; Sociales y Naturales: 0-40 / 41-55 / 56-70 / 71-100; Inglés CEFR: PreA1 / A1 / A2 / B1).</p>
+  <p style="margin-top:10px">El <strong>coeficiente de variación</strong> (CV = σ/μ × 100) cuantifica heterogeneidad relativa: valores &gt;30% indican grupos no homogéneos. La <strong>matriz de correlación de Pearson</strong> mide co-movimiento lineal entre áreas (rango −1 a 1). El <strong>rango intercuartílico</strong> (IQR = P75 − P25) y la <strong>brecha decílica</strong> (P90 − P10) son métricas robustas de dispersión.</p>
+  <p style="margin-top:10px;font-style:italic;color:var(--muted)">Análisis preparado por el área de Matemáticas · I.E. Pedacito de Cielo · La Tebaida, Quindío · Mayo de 2026 · Para uso del Consejo Académico y del CEP de grado 11.</p>
+</div>
+
+</div><!-- /container -->
+
+<!-- ============================================================ -->
+<!--                      CHARTS & DATA                            -->
+<!-- ============================================================ -->
+<script>
+// Datos
+const FASES_LABELS = ['Fase I · 25 feb', 'Fase II · 24 mar', 'Fase III · 27 abr'];
+const COLORS = {
+  brick:'#a02418', brickSoft:'#c44a3c', prusia:'#1e3a5f', prusiaSoft:'#3a5a85',
+  ocre:'#c98a2c', olive:'#5d6b2f', oliveSoft:'#7a8a3f', ink:'#161512',
+  crit:'#8b1a0e', warn:'#b8541b', ok:'#5d6b2f', excel:'#2d4a1a',
+  paper:'#f3ede2'
+};
+
+// Promedios de área en cada fase (todos los estudiantes presentes)
+const promedios = {
+  'Matemáticas':       [42.47, 43.62, 30.79],
+  'Lectura Crítica':   [49.52, 47.63, 54.71],
+  'C. Sociales':       [50.00, 44.88, 40.91],
+  'C. Naturales':      [33.97, 43.18, 35.01],
+  'Inglés':            [36.61, 40.09, 40.14],
+};
+
+// Configuración global Chart.js
+Chart.defaults.font.family = "'Geist', sans-serif";
+Chart.defaults.font.size = 12;
+Chart.defaults.color = '#3a352d';
+Chart.defaults.borderColor = '#d4cab5';
+
+// ============= CHART 1: EVOLUCIÓN ÁREAS =============
+const colorMap = {
+  'Matemáticas':COLORS.brick,
+  'Lectura Crítica':COLORS.olive,
+  'C. Sociales':COLORS.prusia,
+  'C. Naturales':COLORS.ocre,
+  'Inglés':COLORS.prusiaSoft
+};
+const evDatasets = Object.entries(promedios).map(([area,vals])=>({
+  label: area,
+  data: vals,
+  borderColor: colorMap[area],
+  backgroundColor: colorMap[area]+'22',
+  borderWidth: area==='Matemáticas'?3:2,
+  pointRadius: 6, pointHoverRadius: 9,
+  pointBackgroundColor: colorMap[area],
+  pointBorderColor: COLORS.paper,
+  pointBorderWidth: 2,
+  tension: 0.25,
+  fill: false,
+}));
+
+new Chart(document.getElementById('chart-evolucion'),{
+  type:'line',
+  data:{labels:FASES_LABELS, datasets:evDatasets},
+  options:{
+    responsive:true, maintainAspectRatio:false,
+    plugins:{
+      legend:{position:'right', labels:{font:{size:12, family:"'Geist',sans-serif"}, boxWidth:14, padding:14}},
+      tooltip:{
+        backgroundColor:'#161512', titleFont:{family:"'JetBrains Mono',monospace",size:11},
+        bodyFont:{family:"'JetBrains Mono',monospace",size:12},
+        padding:12, displayColors:true, borderColor:'#a02418', borderWidth:1,
+      }
+    },
+    scales:{
+      y:{min:25,max:60,ticks:{font:{family:"'JetBrains Mono',monospace",size:10},stepSize:5},
+         grid:{color:'#d4cab5',lineWidth:0.6},title:{display:true,text:'Promedio (0–100)',font:{family:"'JetBrains Mono',monospace",size:10}}},
+      x:{ticks:{font:{family:"'JetBrains Mono',monospace",size:10}}, grid:{display:false}}
+    }
+  }
+});
+
+// ============= CHART 2: COHORTE DELTA (24 estudiantes) =============
+const cohorteDeltas = [
+  {n:'David F. Rojas', d:49.3},  {n:'Diego A. Gaitan', d:46.6},  {n:'Stiven Mercado', d:40.3},
+  {n:'María I. Ijaji', d:38.6},  {n:'Estefania Morales', d:36.1}, {n:'Jorge E. Corrales', d:2.6},
+  {n:'Adriana L. Orozco', d:15.4},{n:'Ana M. Espinosa', d:15.7},  {n:'Juan P. Pérez', d:7.7},
+  {n:'Yury P. Alzate', d:-23.3}, {n:'Nicolás Florez', d:-16.2},  {n:'Michel E. Restrepo', d:-16.5},
+  {n:'Andrés J. Orozco', d:-18.5},{n:'Hansel Barros', d:17.2},   {n:'Kender Giraldo', d:3.5},
+  {n:'Brahian Altamar', d:-29.0},{n:'Sergio Gómez', d:16.6},     {n:'Karen Y. Calle', d:-4.5},
+  {n:'Claudia M. Jurado', d:20.4},{n:'Wendy V. Posada', d:-22.9},{n:'Johan Smit Melo', d:-33.6},
+  {n:'Karen D. Mesa', d:-47.1},  {n:'Mónica Y. Gutiérrez', d:-45.2}, {n:'Miguel A. Murillo', d:-54.5},
+];
+cohorteDeltas.sort((a,b)=>b.d-a.d);
+
+new Chart(document.getElementById('chart-cohorte-delta'),{
+  type:'bar',
+  data:{
+    labels:cohorteDeltas.map(x=>x.n),
+    datasets:[{
+      label:'Δ Global F1→F3',
+      data:cohorteDeltas.map(x=>x.d),
+      backgroundColor:cohorteDeltas.map(x=>x.d>=0?COLORS.olive:COLORS.brick),
+      borderWidth:0,
+    }]
+  },
+  options:{
+    indexAxis:'y', responsive:true, maintainAspectRatio:false,
+    plugins:{legend:{display:false},
+      tooltip:{backgroundColor:'#161512',titleFont:{family:"'JetBrains Mono',monospace",size:11},
+        bodyFont:{family:"'JetBrains Mono',monospace",size:12},padding:10,
+        callbacks:{label:c=>` Δ ${c.parsed.x>=0?'+':''}${c.parsed.x} pts`}}
+    },
+    scales:{
+      x:{ticks:{font:{family:"'JetBrains Mono',monospace",size:9}},grid:{color:'#d4cab5',lineWidth:0.5},
+         title:{display:true,text:'Δ puntos',font:{size:10,family:"'JetBrains Mono',monospace"}}},
+      y:{ticks:{font:{size:9,family:"'Geist',sans-serif"}},grid:{display:false}}
+    }
+  }
+});
+
+// ============= CHART 3: NIVELES ICFES (stacked %) =============
+const niveles = {
+  'C. Naturales':    [61.0, 33.8,  3.9, 1.3],
+  'C. Sociales':     [49.4, 40.3,  5.2, 5.2],
+  'Inglés':          [29.9, 59.7,  9.1, 1.3],
+  'Lectura Crítica': [ 9.1, 36.4, 29.9, 24.7],
+  'Matemáticas':     [71.4, 22.1,  6.5, 0.0],
+};
+const nivelesAreas = Object.keys(niveles);
+const nivelesColors = [COLORS.crit, COLORS.warn, COLORS.oliveSoft, COLORS.excel];
+
+new Chart(document.getElementById('chart-niveles'),{
+  type:'bar',
+  data:{
+    labels: nivelesAreas,
+    datasets:[
+      {label:'Nivel 1', data:nivelesAreas.map(a=>niveles[a][0]), backgroundColor:nivelesColors[0]},
+      {label:'Nivel 2', data:nivelesAreas.map(a=>niveles[a][1]), backgroundColor:nivelesColors[1]},
+      {label:'Nivel 3', data:nivelesAreas.map(a=>niveles[a][2]), backgroundColor:nivelesColors[2]},
+      {label:'Nivel 4', data:nivelesAreas.map(a=>niveles[a][3]), backgroundColor:nivelesColors[3]},
+    ]
+  },
+  options:{
+    indexAxis:'y', responsive:true, maintainAspectRatio:false,
+    plugins:{
+      legend:{position:'top', labels:{font:{family:"'JetBrains Mono',monospace",size:11},boxWidth:14,padding:12,color:'#161512'}},
+      tooltip:{backgroundColor:'#161512',padding:12,
+        callbacks:{label:c=>` ${c.dataset.label}: ${c.parsed.x}%`}}
+    },
+    scales:{
+      x:{stacked:true, max:100,
+         ticks:{font:{family:"'JetBrains Mono',monospace",size:10},callback:v=>v+'%'},
+         grid:{color:'#d4cab5',lineWidth:0.5},
+         title:{display:true,text:'% estudiantes',font:{family:"'JetBrains Mono',monospace",size:10}}},
+      y:{stacked:true, ticks:{font:{family:"'JetBrains Mono',monospace",size:11,weight:'700'}},grid:{display:false}}
+    }
+  }
+});
+
+// ============= CHART 4: COMPONENTES MAT =============
+new Chart(document.getElementById('chart-mat-componentes'),{
+  type:'bar',
+  data:{
+    labels:FASES_LABELS,
+    datasets:[
+      {label:'Aleatorio', data:[61.54,44.27,30.79], backgroundColor:COLORS.brick, borderWidth:0},
+      {label:'Geométrico-Métrico', data:[49.70,46.56,36.62], backgroundColor:COLORS.ocre, borderWidth:0},
+      {label:'Numérico-Variacional', data:[42.47,43.62,42.21], backgroundColor:COLORS.olive, borderWidth:0},
+    ]
+  },
+  options:{
+    responsive:true, maintainAspectRatio:false,
+    plugins:{legend:{position:'top',labels:{font:{family:"'JetBrains Mono',monospace",size:11},boxWidth:14}},
+      tooltip:{backgroundColor:'#161512',padding:10}},
+    scales:{
+      y:{min:0,max:70,ticks:{font:{family:"'JetBrains Mono',monospace",size:10}},grid:{color:'#d4cab5',lineWidth:0.5}},
+      x:{ticks:{font:{family:"'JetBrains Mono',monospace",size:10}},grid:{display:false}}
+    }
+  }
+});
+
+// ============= CHART 5: COMPETENCIAS MAT =============
+new Chart(document.getElementById('chart-mat-competencias'),{
+  type:'line',
+  data:{
+    labels:FASES_LABELS,
+    datasets:[
+      {label:'Argumentación', data:[33.97,43.18,35.28], borderColor:COLORS.brick, backgroundColor:COLORS.brick+'22',
+       borderWidth:2.5, pointRadius:6, pointHoverRadius:9, tension:0.2,
+       pointBackgroundColor:COLORS.brick,pointBorderColor:COLORS.paper,pointBorderWidth:2},
+      {label:'Formulación-Ejecución', data:[51.92,44.72,37.40], borderColor:COLORS.ocre, backgroundColor:COLORS.ocre+'22',
+       borderWidth:2.5, pointRadius:6, pointHoverRadius:9, tension:0.2,
+       pointBackgroundColor:COLORS.ocre,pointBorderColor:COLORS.paper,pointBorderWidth:2},
+      {label:'Interpretación-Representación', data:[41.88,44.72,54.71], borderColor:COLORS.olive, backgroundColor:COLORS.olive+'22',
+       borderWidth:2.5, pointRadius:6, pointHoverRadius:9, tension:0.2,
+       pointBackgroundColor:COLORS.olive,pointBorderColor:COLORS.paper,pointBorderWidth:2},
+    ]
+  },
+  options:{
+    responsive:true, maintainAspectRatio:false,
+    plugins:{legend:{position:'top',labels:{font:{family:"'JetBrains Mono',monospace",size:11},boxWidth:14}},
+      tooltip:{backgroundColor:'#161512',padding:10}},
+    scales:{
+      y:{min:25,max:60,ticks:{font:{family:"'JetBrains Mono',monospace",size:10}},grid:{color:'#d4cab5',lineWidth:0.5}},
+      x:{ticks:{font:{family:"'JetBrains Mono',monospace",size:10}},grid:{display:false}}
+    }
+  }
+});
+
+// ============= CHART 6: TRAYECTORIAS COHORTE 24 =============
+const cohorteData = {
+  "DAVID FELIPE ROJAS GONZALEZ":[307.5,366.5,356.8],
+  "NICOLAS FLOREZ LOPEZ":[275.2,320.8,259.1],
+  "MICHEL ESTEFANY RESTREPO BERMUDEZ":[273.7,238.6,257.2],
+  "ANDRES JERONIMO OROZCO HURTADO":[254.1,262.8,235.6],
+  "ESTEFANIA MORALES VARGAS":[212.8,270.9,248.9],
+  "JORGE ELIECER CORRALES BERNAL":[239.1,283.7,241.7],
+  "STIVEN DE JESUS MERCADO AMAYA":[200.3,200.5,240.6],
+  "ANA MARIA ESPINOSA DIAZ":[237.3,241.1,253.0],
+  "JUAN PABLO PEREZ QUINTANA":[209.6,252.3,236.0],
+  "MARIA ISABEL IJAJI CHILITO":[189.0,199.4,227.6],
+  "JOHAN SMIT MELO VALENCIA":[231.4,216.8,197.8],
+  "MIGUEL ANGEL MURILLO VALENCIA":[238.6,193.2,184.1],
+  "BRAHIAN JACIR ALTAMAR JIMENEZ":[224.5,225.4,197.4],
+  "ADRIANA LISETH OROZCO BERNAL":[252.0,203.3,267.4],
+  "CLAUDIA MILENA JURADO ANGEL":[214.1,192.1,212.5],
+  "SERGIO MANUEL GOMEZ GARCIA":[211.7,196.7,213.3],
+  "DIEGO ANDRES GAITAN JIMENEZ":[143.5,187.6,190.1],
+  "YURY PAOLA ALZATE GUEVARA":[229.4,239.0,206.1],
+  "KENDER STID GIRALDO PINILLA":[198.1,177.2,180.7],
+  "WENDY VANESA POSADA ORTIZ":[197.8,125.4,174.9],
+  "KAREN YULIANA CALLE TIRADO":[180.6,253.3,176.1],
+  "HANSEL JOEL BARROS DIAZ":[154.8,135.2,172.4],
+  "KAREN DAYANA MESA RAMIREZ":[170.3,139.7,123.2],
+  "MONICA YULIETH GUTIERREZ GUAPACHA":[180.4,164.7,135.2],
+};
+
+const trayDatasets = Object.entries(cohorteData).map(([nombre,vals])=>{
+  const delta = vals[2]-vals[0];
+  const color = delta>=20 ? COLORS.excel : delta>=0 ? COLORS.olive : delta>=-25 ? COLORS.warn : COLORS.crit;
+  return {
+    label: nombre.split(' ').slice(0,2).join(' '),
+    data: vals,
+    borderColor: color,
+    backgroundColor: color+'33',
+    borderWidth: 1.6, pointRadius:3, pointHoverRadius:7,
+    tension:0.15,
+    pointBackgroundColor: color,
+  };
+});
+
+new Chart(document.getElementById('chart-trayectorias'),{
+  type:'line',
+  data:{labels:FASES_LABELS, datasets:trayDatasets},
+  options:{
+    responsive:true, maintainAspectRatio:false,
+    plugins:{
+      legend:{display:false},
+      tooltip:{
+        backgroundColor:'#161512', padding:10,
+        titleFont:{family:"'JetBrains Mono',monospace",size:11},
+        bodyFont:{family:"'JetBrains Mono',monospace",size:12},
+        callbacks:{
+          title: items => items[0].dataset.label,
+          label: c => ` ${FASES_LABELS[c.dataIndex].split('·')[0].trim()}: ${c.parsed.y}`
+        }
+      }
+    },
+    interaction:{mode:'nearest',intersect:false},
+    scales:{
+      y:{min:100,max:380,ticks:{font:{family:"'JetBrains Mono',monospace",size:10}},
+         grid:{color:'#d4cab5',lineWidth:0.5},
+         title:{display:true,text:'Puntaje global (suma 5 áreas)',font:{family:"'JetBrains Mono',monospace",size:10}}},
+      x:{ticks:{font:{family:"'JetBrains Mono',monospace",size:10}}, grid:{display:false}}
+    }
+  }
+});
+
+// ============= EQUITY BARS (manual) =============
+const equityData = [
+  {area:'Lectura Crítica', p10:33.3, p25:41.7, p50:54.2, p75:62.5, p90:78.3, color:'olive'},
+  {area:'C. Sociales',     p10:20.8, p25:29.2, p50:41.7, p75:54.2, p90:55.8, color:'prusia'},
+  {area:'C. Naturales',    p10:16.7, p25:25.0, p50:33.3, p75:45.8, p90:54.2, color:'ocre'},
+  {area:'Inglés',          p10:24.2, p25:33.3, p50:39.4, p75:45.5, p90:52.7, color:'prusiaSoft'},
+  {area:'Matemáticas',     p10:12.5, p25:20.8, p50:29.2, p75:37.5, p90:47.5, color:'brick'},
+];
+
+const eqContainer = document.getElementById('equity-bars');
+equityData.forEach(d=>{
+  const widthPct = (v)=>v+'%';
+  const iqrLeft = d.p25, iqrWidth = d.p75-d.p25;
+  const medPos = d.p50;
+  const row = document.createElement('div');
+  row.className='equity-row';
+  row.innerHTML = `
+    <div class="equity-label">${d.area}</div>
+    <div class="equity-bar">
+      <div class="equity-iqr" style="left:${widthPct(iqrLeft)};width:${widthPct(iqrWidth)}"></div>
+      <div class="equity-median" style="left:${widthPct(medPos)}"></div>
+      <div class="equity-p10" style="left:${widthPct(d.p10)};color:#fff;background:#161512;padding:1px 4px">${d.p10}</div>
+      <div class="equity-p90" style="left:${widthPct(d.p90)};color:#fff;background:#161512;padding:1px 4px">${d.p90}</div>
+    </div>
+    <div class="equity-stats">IQR ${(d.p75-d.p25).toFixed(1)}<br><span style="color:var(--muted)">Δ ${(d.p90-d.p10).toFixed(1)}</span></div>
+  `;
+  eqContainer.appendChild(row);
+});
+
+// ============= HEATMAP CORRELACIÓN =============
+const corrAreas = ['Naturales','Sociales','Inglés','Lectura','Mat'];
+const corrMatrix = [
+  [1.000, 0.515, 0.455, 0.494, 0.248],
+  [0.515, 1.000, 0.501, 0.525, 0.273],
+  [0.455, 0.501, 1.000, 0.436, 0.163],
+  [0.494, 0.525, 0.436, 1.000, 0.309],
+  [0.248, 0.273, 0.163, 0.309, 1.000],
+];
+function corrColor(v){
+  if(v===1) return '#161512';
+  if(v>=0.5) return COLORS.brick;
+  if(v>=0.4) return COLORS.brickSoft;
+  if(v>=0.3) return COLORS.ocre;
+  if(v>=0.2) return COLORS.oliveSoft;
+  return '#cfd6b8';
+}
+const hmDiv = document.getElementById('heatmap-corr');
+hmDiv.style.gridTemplateColumns = '120px repeat(5,1fr)';
+hmDiv.classList.add('heatmap');
+// header
+hmDiv.innerHTML = `<div class="heatmap-cell head"></div>` +
+  corrAreas.map(a=>`<div class="heatmap-cell head">${a}</div>`).join('');
+corrMatrix.forEach((row,i)=>{
+  hmDiv.innerHTML += `<div class="heatmap-cell row-head">${corrAreas[i]}</div>` +
+    row.map(v=>{
+      const c = corrColor(v);
+      const txt = v===1 ? '—' : v.toFixed(2);
+      const txtColor = v>=0.4 ? '#fff' : '#161512';
+      return `<div class="heatmap-cell" style="background:${c};color:${txtColor};font-weight:${v>=0.4?'700':'500'}">${txt}</div>`;
+    }).join('');
+});
+
+// ============= TABLA RIESGO =============
+const riesgoData = [
+  ['KAREN YISSED RODRIGUEZ MEJIA','PENSAR 3A',114.7,5,'Nat·Soc·Ing·Lec·Mat'],
+  ['KELLY VALENCIA GAITAN','PENSAR 3A',117.8,4,'Nat·Soc·Ing·Mat'],
+  ['JUAN JOSE ZAPATA VALENCIA','PENSAR 3A',122.0,5,'Nat·Soc·Ing·Lec·Mat'],
+  ['KAREN DAYANA MESA RAMIREZ','11B',123.2,4,'Nat·Soc·Ing·Mat'],
+  ['JOHAN ANDRES DEVIA DE LA PAVA','PENSAR 3B',133.0,4,'Nat·Soc·Ing·Mat'],
+  ['MONICA YULIETH GUTIERREZ GUAPACHA','11B',135.2,3,'Nat·Soc·Mat'],
+  ['LUISA FERNANDA GARCIA CACERES','PENSAR 3B',140.9,4,'Soc·Ing·Lec·Mat'],
+  ['ANDREY ESTEFANO SANCHEZ PAJOY','PENSAR 3B',141.6,4,'Nat·Ing·Lec·Mat'],
+  ['MANUELA HERNANDEZ TORRES','PENSAR 3C',144.7,4,'Nat·Ing·Lec·Mat'],
+  ['JUAN PABLO GARCIA PIEDRAHITA','PENSAR 3B',148.1,4,'Soc·Ing·Lec·Mat'],
+  ['EVELIN LLURANI SERNA VALENCIA','PENSAR 3B',150.4,4,'Nat·Soc·Ing·Mat'],
+  ['ANDREA CASTILLO HOYOS','PENSAR 3A',156.4,3,'Nat·Soc·Lec'],
+  ['MARIA JOSE CONÓ ECHEVERRI','PENSAR 3B',156.8,3,'Nat·Soc·Mat'],
+  ['VALERIN SOFIA GAVANZO ESTRADA','PENSAR 3A',157.9,3,'Nat·Soc·Mat'],
+  ['JHAN PAUL MARULANDA RIVAS','PENSAR 3B',160.2,3,'Nat·Soc·Lec'],
+];
+const tbl = document.getElementById('tbl-riesgo');
+riesgoData.forEach(r=>{
+  const cls = r[3]>=4?'n1':'n2';
+  const grpColor = r[1].startsWith('11')?'var(--prusia)':r[1]==='PENSAR 3C'?'var(--olive)':r[1]==='PENSAR 3B'?'var(--brick)':'var(--ocre)';
+  tbl.innerHTML += `<tr>
+    <td class="name">${r[0]}</td>
+    <td><span style="font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:700;color:${grpColor};letter-spacing:0.04em">${r[1]}</span></td>
+    <td class="num">${r[2].toFixed(1)}</td>
+    <td class="num"><span class="pill ${cls}">${r[3]}</span></td>
+    <td class="num" style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--muted)">${r[4]}</td>
+  </tr>`;
+});
+
+// ============= NUEVOS CHARTS - SECCIÓN GRUPOS =============
+
+// Datos por grupo en F3
+const gruposF3 = {
+  '11A':       {nat:36.87, soc:47.12, ing:38.46, lec:58.00, mat:30.77, n:13, color:COLORS.prusia},
+  '11B':       {nat:39.58, soc:45.83, ing:44.70, lec:57.98, mat:32.29, n:12, color:COLORS.prusiaSoft},
+  'PENSAR 3A': {nat:32.68, soc:33.55, ing:36.06, lec:52.85, mat:29.16, n:19, color:COLORS.ocre},
+  'PENSAR 3B': {nat:27.94, soc:36.28, ing:34.95, lec:45.11, mat:26.71, n:17, color:COLORS.brick},
+  'PENSAR 3C': {nat:40.38, soc:45.84, ing:48.51, lec:61.98, mat:35.94, n:16, color:COLORS.olive},
+};
+
+// Chart: 5 grupos x 5 áreas (radar/grouped bars)
+const grpAreasLabels = ['C. Naturales','C. Sociales','Inglés','Lectura Crítica','Matemáticas'];
+const grpAreasDatasets = Object.entries(gruposF3).map(([gName,gData])=>({
+  label: `${gName} (n=${gData.n})`,
+  data: [gData.nat, gData.soc, gData.ing, gData.lec, gData.mat],
+  backgroundColor: gData.color,
+  borderWidth:0,
+}));
+
+new Chart(document.getElementById('chart-grupos-areas'),{
+  type:'bar',
+  data:{labels:grpAreasLabels, datasets:grpAreasDatasets},
+  options:{
+    responsive:true, maintainAspectRatio:false,
+    plugins:{
+      legend:{position:'top', labels:{font:{family:"'JetBrains Mono',monospace",size:11},boxWidth:14,padding:14}},
+      tooltip:{backgroundColor:'#161512',padding:12,
+        titleFont:{family:"'JetBrains Mono',monospace",size:11},
+        bodyFont:{family:"'JetBrains Mono',monospace",size:12}},
+    },
+    scales:{
+      y:{min:0,max:75,ticks:{font:{family:"'JetBrains Mono',monospace",size:10}},
+         grid:{color:'#d4cab5',lineWidth:0.5},
+         title:{display:true,text:'Promedio (0–100)',font:{family:"'JetBrains Mono',monospace",size:10}}},
+      x:{ticks:{font:{family:"'JetBrains Mono',monospace",size:11,weight:'700'}},grid:{display:false}}
+    }
+  }
+});
+
+// Chart niveles por grupo (cambiable con tabs)
+const nivelesGrupo = {
+  '11A':  {nat:[61.5,38.5,0,0],   soc:[38.5,46.2,15.4,0], ing:[23.1,76.9,0,0],    lec:[7.7,23.1,30.8,38.5], mat:[69.2,23.1,7.7,0]},
+  '11B':  {nat:[41.7,50,0,8.3],   soc:[41.7,33.3,8.3,16.7],ing:[25,58.3,8.3,8.3], lec:[8.3,33.3,25,33.3],   mat:[58.3,41.7,0,0]},
+  'P3A':  {nat:[73.7,26.3,0,0],   soc:[68.4,26.3,5.3,0],   ing:[47.4,47.4,5.3,0], lec:[15.8,36.8,26.3,21.1],mat:[78.9,21.1,0,0]},
+  'P3B':  {nat:[76.5,23.5,0,0],   soc:[70.6,23.5,0,5.9],   ing:[41.2,58.8,0,0],   lec:[11.8,64.7,23.5,0],   mat:[94.1,5.9,0,0]},
+  'P3C':  {nat:[43.8,37.5,18.8,0],soc:[18.8,75,0,6.2],     ing:[6.2,62.5,31.2,0], lec:[0,18.8,43.8,37.5],   mat:[50,25,25,0]},
+};
+const grpAreasOrder = ['nat','soc','ing','lec','mat'];
+const grpAreasNames = ['C. Naturales','C. Sociales','Inglés','Lectura Crítica','Matemáticas'];
+
+let chartNivelesGrupo;
+function renderNivelesGrupo(grp){
+  const data = grpAreasOrder.map(a=>nivelesGrupo[grp][a]);
+  const datasets = [
+    {label:'Nivel 1', data:data.map(d=>d[0]), backgroundColor:COLORS.crit},
+    {label:'Nivel 2', data:data.map(d=>d[1]), backgroundColor:COLORS.warn},
+    {label:'Nivel 3', data:data.map(d=>d[2]), backgroundColor:COLORS.oliveSoft},
+    {label:'Nivel 4', data:data.map(d=>d[3]), backgroundColor:COLORS.excel},
+  ];
+  if(chartNivelesGrupo){
+    chartNivelesGrupo.data.datasets = datasets;
+    chartNivelesGrupo.update();
+  }else{
+    chartNivelesGrupo = new Chart(document.getElementById('chart-niveles-grupo'),{
+      type:'bar',
+      data:{labels:grpAreasNames, datasets},
+      options:{
+        indexAxis:'y', responsive:true, maintainAspectRatio:false,
+        plugins:{
+          legend:{position:'top',labels:{font:{family:"'JetBrains Mono',monospace",size:11},boxWidth:14,padding:12}},
+          tooltip:{backgroundColor:'#161512',padding:12,
+            callbacks:{label:c=>` ${c.dataset.label}: ${c.parsed.x}%`}}
+        },
+        scales:{
+          x:{stacked:true,max:100,
+             ticks:{font:{family:"'JetBrains Mono',monospace",size:10},callback:v=>v+'%'},
+             grid:{color:'#d4cab5',lineWidth:0.5}},
+          y:{stacked:true,ticks:{font:{family:"'JetBrains Mono',monospace",size:11,weight:'700'}},grid:{display:false}}
+        }
+      }
+    });
+  }
+}
+renderNivelesGrupo('11A');
+document.querySelectorAll('#grp-tabs .tab').forEach(b=>{
+  b.addEventListener('click',()=>{
+    document.querySelectorAll('#grp-tabs .tab').forEach(x=>x.classList.remove('active'));
+    b.classList.add('active');
+    renderNivelesGrupo(b.dataset.grp);
+  });
+});
+
+// Chart 11A vs 11B trayectoria global y matemáticas (cohorte estable)
+new Chart(document.getElementById('chart-11a-11b'),{
+  type:'line',
+  data:{
+    labels:FASES_LABELS,
+    datasets:[
+      {label:'11A · Global',data:[211.3,197.5,211.9],borderColor:COLORS.prusia,backgroundColor:COLORS.prusia+'33',
+       borderWidth:3,pointRadius:6,pointHoverRadius:9,tension:0.2,
+       pointBackgroundColor:COLORS.prusia,pointBorderColor:COLORS.paper,pointBorderWidth:2,yAxisID:'y'},
+      {label:'11B · Global',data:[214.5,243.0,220.4],borderColor:COLORS.prusiaSoft,backgroundColor:COLORS.prusiaSoft+'33',
+       borderWidth:3,pointRadius:6,pointHoverRadius:9,tension:0.2,
+       pointBackgroundColor:COLORS.prusiaSoft,pointBorderColor:COLORS.paper,pointBorderWidth:2,yAxisID:'y'},
+      {label:'11A · Matemáticas',data:[42.0,39.4,31.2],borderColor:COLORS.brick,backgroundColor:COLORS.brick+'22',
+       borderWidth:2,borderDash:[5,4],pointRadius:5,pointHoverRadius:8,tension:0.2,
+       pointBackgroundColor:COLORS.brick,yAxisID:'y2'},
+      {label:'11B · Matemáticas',data:[44.4,48.3,32.3],borderColor:COLORS.brickSoft,backgroundColor:COLORS.brickSoft+'22',
+       borderWidth:2,borderDash:[5,4],pointRadius:5,pointHoverRadius:8,tension:0.2,
+       pointBackgroundColor:COLORS.brickSoft,yAxisID:'y2'},
+    ]
+  },
+  options:{
+    responsive:true,maintainAspectRatio:false,
+    plugins:{
+      legend:{position:'top',labels:{font:{family:"'JetBrains Mono',monospace",size:10},boxWidth:14,padding:10}},
+      tooltip:{backgroundColor:'#161512',padding:10}
+    },
+    scales:{
+      y:{position:'left',min:150,max:260,
+         ticks:{font:{family:"'JetBrains Mono',monospace",size:10},color:COLORS.prusia},
+         grid:{color:'#d4cab5',lineWidth:0.5},
+         title:{display:true,text:'Global (suma 5 áreas)',font:{family:"'JetBrains Mono',monospace",size:10},color:COLORS.prusia}},
+      y2:{position:'right',min:25,max:55,
+          ticks:{font:{family:"'JetBrains Mono',monospace",size:10},color:COLORS.brick},
+          grid:{display:false},
+          title:{display:true,text:'Matemáticas (0-100)',font:{family:"'JetBrains Mono',monospace",size:10},color:COLORS.brick}},
+      x:{ticks:{font:{family:"'JetBrains Mono',monospace",size:10}},grid:{display:false}}
+    }
+  }
+});
+
+// Chart asistencia por grupo
+new Chart(document.getElementById('chart-asistencia'),{
+  type:'bar',
+  data:{
+    labels:['11A','11B','PENSAR 3A','PENSAR 3B','PENSAR 3C'],
+    datasets:[
+      {label:'Presentaron F3',data:[13,12,19,17,16],backgroundColor:COLORS.olive},
+      {label:'Ausentes F3',  data:[3,2,3,4,3],     backgroundColor:COLORS.brick},
+    ]
+  },
+  options:{
+    responsive:true,maintainAspectRatio:false,
+    plugins:{
+      legend:{position:'top',labels:{font:{family:"'JetBrains Mono',monospace",size:11},boxWidth:14}},
+      tooltip:{backgroundColor:'#161512',padding:10,
+        callbacks:{label:c=>` ${c.dataset.label}: ${c.parsed.y}`}}
+    },
+    scales:{
+      x:{stacked:true,ticks:{font:{family:"'JetBrains Mono',monospace",size:10}},grid:{display:false}},
+      y:{stacked:true,beginAtZero:true,ticks:{font:{family:"'JetBrains Mono',monospace",size:10}},
+         grid:{color:'#d4cab5',lineWidth:0.5},
+         title:{display:true,text:'estudiantes',font:{family:"'JetBrains Mono',monospace",size:10}}}
+    }
+  }
+});
+
+// Podio por grupo
+const podiumData = {
+  '11A': {top:[['Adriana L. Orozco',267.3],['Michel E. Restrepo',257.3],['Stiven Mercado',240.6]],
+          bot:[['Hansel Barros',172.3],['Wendy Posada',174.9],['Kender Giraldo',180.7]]},
+  '11B': {top:[['David F. Rojas',356.8],['Nicolás Florez',259.1],['Ana M. Espinosa',253.1]],
+          bot:[['Karen D. Mesa',123.2],['Mónica Y. Gutiérrez',135.2],['Karen Y. Calle',176.1]]},
+  'PENSAR 3A': {top:[['Ana S. Franco',281.5],['María J. Franco',270.5],['Samuel E. Sánchez',258.0]],
+                bot:[['Karen Y. Rodríguez',114.7],['Kelly Valencia',117.8],['Juan J. Zapata',122.0]]},
+  'PENSAR 3B': {top:[['Juan J. Ramírez',248.6],['Estefany L. Rincón',211.3],['Erlis J. Lacruz',203.1]],
+                bot:[['Johan A. Devia',133.0],['Luisa F. García',140.9],['Andrey E. Sánchez',141.6]]},
+  'PENSAR 3C': {top:[['Sebastián Calderón',311.8],['Cristopher Gutiérrez',295.2],['Samuel Velásquez',275.4]],
+                bot:[['Carlos M. Cantero',160.3],['Kevin A. Silva',183.0],['Juan D. Erazo',185.2]]},
+};
+const podiumDiv = document.getElementById('grp-podium');
+Object.entries(podiumData).forEach(([grp,d])=>{
+  const card = document.createElement('div');
+  card.style.cssText = 'border:1px solid var(--ink);background:var(--paper);padding:14px';
+  let html = `<div style="font-family:'JetBrains Mono',monospace;font-size:10px;text-transform:uppercase;letter-spacing:0.14em;color:var(--brick);font-weight:700;margin-bottom:8px">${grp}</div>`;
+  html += `<div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--ok);font-weight:700;margin-bottom:4px">▲ TOP 3</div>`;
+  d.top.forEach((s,i)=>{
+    html += `<div style="display:flex;justify-content:space-between;font-size:11px;padding:3px 0;border-bottom:1px solid var(--grid)">
+      <span>${i+1}. ${s[0]}</span><span class="mono" style="color:var(--ok);font-weight:700">${s[1]}</span></div>`;
+  });
+  html += `<div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--crit);font-weight:700;margin:10px 0 4px">▼ BOTTOM 3</div>`;
+  d.bot.forEach((s,i)=>{
+    html += `<div style="display:flex;justify-content:space-between;font-size:11px;padding:3px 0;border-bottom:1px solid var(--grid)">
+      <span>${i+1}. ${s[0]}</span><span class="mono" style="color:var(--crit);font-weight:700">${s[1]}</span></div>`;
+  });
+  card.innerHTML = html;
+  podiumDiv.appendChild(card);
+});
+
+// ============= NUEVOS CHARTS - SECCIÓN DINÁMICA INTRA-GRUPO =============
+
+// Chart riesgo por grupo (% en riesgo + N1 absoluto en todas)
+new Chart(document.getElementById('chart-riesgo-grupo'),{
+  type:'bar',
+  data:{
+    labels:['PENSAR 3B','PENSAR 3A','11B','11A','PENSAR 3C'],
+    datasets:[
+      {label:'% en riesgo crítico (≥3 áreas N1)',
+       data:[70.6,68.4,33.3,30.8,6.2],
+       backgroundColor:[COLORS.crit,COLORS.brick,COLORS.warn,COLORS.warn,COLORS.olive],
+       borderWidth:0},
+    ]
+  },
+  options:{
+    indexAxis:'y', responsive:true, maintainAspectRatio:false,
+    plugins:{
+      legend:{display:false},
+      tooltip:{backgroundColor:'#161512',padding:10,
+        callbacks:{label:c=>` ${c.parsed.x}%`}}
+    },
+    scales:{
+      x:{min:0,max:100,
+         ticks:{font:{family:"'JetBrains Mono',monospace",size:10},callback:v=>v+'%'},
+         grid:{color:'#d4cab5',lineWidth:0.5}},
+      y:{ticks:{font:{family:"'JetBrains Mono',monospace",size:11,weight:'700'}},grid:{display:false}}
+    }
+  }
+});
+
+// Chart CV por grupo (Mat vs Lec)
+new Chart(document.getElementById('chart-cv-grupo'),{
+  type:'bar',
+  data:{
+    labels:['11A','11B','PENSAR 3A','PENSAR 3B','PENSAR 3C'],
+    datasets:[
+      {label:'CV Matemáticas (%)',data:[40.1,44.4,32.7,34.4,48.3],backgroundColor:COLORS.brick,borderWidth:0},
+      {label:'CV Lectura (%)',data:[23.0,30.9,31.1,23.4,16.6],backgroundColor:COLORS.olive,borderWidth:0},
+    ]
+  },
+  options:{
+    responsive:true, maintainAspectRatio:false,
+    plugins:{
+      legend:{position:'top', labels:{font:{family:"'JetBrains Mono',monospace",size:11},boxWidth:14}},
+      tooltip:{backgroundColor:'#161512',padding:10,
+        callbacks:{label:c=>` ${c.dataset.label}: ${c.parsed.y}%`}}
+    },
+    scales:{
+      y:{min:0,max:60,
+         ticks:{font:{family:"'JetBrains Mono',monospace",size:10},callback:v=>v+'%'},
+         grid:{color:'#d4cab5',lineWidth:0.5},
+         title:{display:true,text:'Coef. de Variación',font:{family:"'JetBrains Mono',monospace",size:10}}},
+      x:{ticks:{font:{family:"'JetBrains Mono',monospace",size:10,weight:'700'}},grid:{display:false}}
+    }
+  }
+});
+
+// Chart momentum F2->F3 cohorte estable
+const momentumData = [
+  {n:'Adriana L. Orozco', d:63.9, gr:'11A'},
+  {n:'Wendy Posada', d:49.4, gr:'11A'},
+  {n:'Stiven Mercado', d:40.1, gr:'11A'},
+  {n:'Hansel Barros', d:37.1, gr:'11A'},
+  {n:'María I. Ijají', d:28.2, gr:'11B'},
+  {n:'Claudia M. Jurado', d:20.4, gr:'11A'},
+  {n:'Michel E. Restrepo', d:18.6, gr:'11A'},
+  {n:'Sergio Gómez', d:16.6, gr:'11A'},
+  {n:'Diego A. Gaitán', d:2.5, gr:'11A'},
+  {n:'Brahian Altamar', d:-28.0, gr:'11B'},
+  {n:'Mónica Y. Gutiérrez', d:-29.5, gr:'11B'},
+  {n:'Yury P. Alzate', d:-33.0, gr:'11A'},
+  {n:'Jorge Corrales', d:-42.1, gr:'11B'},
+  {n:'Nicolás Florez', d:-61.7, gr:'11B'},
+  {n:'Karen Y. Calle', d:-77.2, gr:'11B'},
+];
+momentumData.sort((a,b)=>b.d-a.d);
+
+new Chart(document.getElementById('chart-momentum'),{
+  type:'bar',
+  data:{
+    labels:momentumData.map(x=>`${x.n} · ${x.gr}`),
+    datasets:[{
+      label:'Δ Global F2→F3',
+      data:momentumData.map(x=>x.d),
+      backgroundColor:momentumData.map(x=>x.d>=20?COLORS.excel:x.d>=0?COLORS.olive:x.d>=-30?COLORS.warn:COLORS.crit),
+      borderWidth:0,
+    }]
+  },
+  options:{
+    indexAxis:'y', responsive:true, maintainAspectRatio:false,
+    plugins:{legend:{display:false},
+      tooltip:{backgroundColor:'#161512',padding:10,
+        callbacks:{label:c=>` Δ ${c.parsed.x>=0?'+':''}${c.parsed.x.toFixed(1)} pts`}}
+    },
+    scales:{
+      x:{ticks:{font:{family:"'JetBrains Mono',monospace",size:10}},grid:{color:'#d4cab5',lineWidth:0.5},
+         title:{display:true,text:'Δ puntaje global F2 → F3',font:{family:"'JetBrains Mono',monospace",size:10}}},
+      y:{ticks:{font:{family:"'JetBrains Mono',monospace",size:10}},grid:{display:false}}
+    }
+  }
+});
+
+</script>
+</body>
+</html>
