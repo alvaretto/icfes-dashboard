@@ -309,9 +309,9 @@ table.editorial .name{font-weight:500;color:var(--ink)}
 <!-- ============= SECUENCIA NUMÉRICA INTRO ============= -->
 <div class="numbers">
   <div><div class="lab">Fases analizadas</div><div class="val">3</div></div>
-  <div><div class="lab">Total presentaciones</div><div class="val">131</div></div>
-  <div><div class="lab">Grupos · F3</div><div class="val">5 <em>11A·11B·P3A·P3B·P3C</em></div></div>
-  <div><div class="lab">Cohorte estable</div><div class="val">24 <em>solo 11A+11B</em></div></div>
+  <div><div class="lab">Total presentaciones</div><div class="val">179</div></div>
+  <div><div class="lab">Grupos · F2 y F3</div><div class="val">5 <em>11A·11B·P3A·P3B·P3C</em></div></div>
+  <div><div class="lab">Cohorte estable F1·F2·F3</div><div class="val">24 <em>solo 11A+11B</em></div></div>
   <div><div class="lab">Promedio Fase III</div><div class="val">201,6</div></div>
   <div><div class="lab">Mejor grupo F3</div><div class="val">P3C <em>232,7</em></div></div>
 </div>
@@ -406,7 +406,7 @@ table.editorial .name{font-weight:500;color:var(--ink)}
 <section class="section">
   <div class="section-tag">II · Evolución longitudinal</div>
   <h2>Tres fases, <em>cinco trayectorias</em></h2>
-  <p class="section-lede">Cómo se movió el promedio de cada área entre febrero, marzo y abril de 2026. Importante: en F1 y F2 solo presentaron los grupos regulares 11A y 11B (n≈26-27); en F3 se incorporaron los tres grupos del programa <em>PENSAR</em> (modalidad flexible para adultos), llevando la asistencia a 77 presentaciones. Los promedios fase contra fase no son estrictamente comparables.</p>
+  <p class="section-lede">Cómo se movió el promedio de cada área entre febrero, marzo y abril de 2026. Importante: en F1 solo presentaron los grupos regulares 11A y 11B (n≈27); en F2 se sumaron los tres grupos del programa <em>PENSAR</em> (n=48), elevando la asistencia a ~75 presentaciones; en F3 la cifra alcanzó 77. Los promedios F1→F2 cambian de población — no son estrictamente comparables — y por eso esta sección reporta dos series: la de los regulares (línea continua, datos disponibles desde F1) y la del programa PENSAR (línea punteada, datos desde F2).</p>
   <div class="section-rule"></div>
 
   <div class="viz-grid">
@@ -419,7 +419,7 @@ table.editorial .name{font-weight:500;color:var(--ink)}
         <div class="viz-meta">25 feb → 24 mar → 27 abr 2026<br>Escala 0–100</div>
       </div>
       <div class="viz-canvas-wrap" style="height:340px"><canvas id="chart-evolucion"></canvas></div>
-      <p class="viz-note">El "salto" de F2 a F3 se explica por la incorporación de los grupos PENSAR (modalidad flexible). En la <strong>cohorte estable de 11A y 11B</strong> (n=24), el promedio global se mantiene casi constante (211→218→216), pero <strong>Matemáticas sí cae genuinamente</strong>: 43,2 → 43,8 → 31,8. Esa caída no es artefacto demográfico — es real.</p>
+      <p class="viz-note">El "salto" entre F1 y F2 se explica por la incorporación de los grupos PENSAR a partir de la segunda fase. En la <strong>cohorte estable de 11A y 11B</strong> (n=24), el promedio global se mantiene casi constante (211→218→216), pero <strong>Matemáticas sí cae genuinamente</strong>: 43,2 → 43,8 → 31,8. Esa caída no es artefacto demográfico — es real. Por su parte, el agregado PENSAR (n=48 en F2 y n=52 en F3) muestra un retroceso global entre F2 y F3 (214,0 → 194,8) con una caída pronunciada en Matemáticas (42,2 → 30,4) y en Naturales (42,9 → 33,5), pero un avance claro en Lectura (45,0 → 53,1).</p>
     </div>
 
     <div class="viz span4">
@@ -679,7 +679,7 @@ table.editorial .name{font-weight:500;color:var(--ink)}
 <section class="section">
   <div class="section-tag">V · Cohorte estable</div>
   <h2>Veinticuatro <em>trayectorias</em></h2>
-  <p class="section-lede">Si filtramos solo los estudiantes que presentaron las tres pruebas (todos pertenecen a 11A o 11B — los grupos PENSAR no estuvieron en F1 ni F2), podemos ver tendencias reales sin el ruido del cambio de población. Es la base más confiable para evaluar progreso real <em>de los grupos regulares</em>.</p>
+  <p class="section-lede">Si filtramos solo los estudiantes que presentaron las tres pruebas (todos pertenecen a 11A o 11B — los grupos PENSAR no estuvieron en F1, aunque sí en F2 y F3), podemos ver tendencias reales sin el ruido del cambio de población. Es la base más confiable para evaluar progreso real <em>de los grupos regulares</em>. Para PENSAR, la cohorte F2→F3 (n≈48) se reporta más abajo en esta misma sección.</p>
   <div class="section-rule"></div>
 
   <div class="viz-grid">
@@ -726,6 +726,16 @@ table.editorial .name{font-weight:500;color:var(--ink)}
       </div>
       <div class="viz-canvas-wrap" style="height:400px"><canvas id="chart-trayectorias"></canvas></div>
       <p class="viz-note">Hover sobre cada línea para identificar al estudiante. Las líneas que cruzan dramáticamente sugieren cambios de comportamiento (positivos o negativos) que merecen seguimiento.</p>
+    </div>
+
+    <!-- Bloque añadido tras integrar el reporte PENSAR Fase 2 (24 mar 2026) -->
+    <div class="viz span12">
+      <div class="viz-head">
+        <div><div class="viz-title">Cohorte PENSAR <em>F2 → F3</em> · agregado por área</div></div>
+        <div class="viz-meta">n=48 (F2) · n=52 (F3) · ponderado por grupo</div>
+      </div>
+      <div class="viz-canvas-wrap" style="height:340px"><canvas id="chart-pensar-f2f3"></canvas></div>
+      <p class="viz-note">Con la integración del reporte oficial de PENSAR Fase 2, el programa cuenta ahora con dos puntos longitudinales en cada área. La caída en <strong>Matemáticas (−11,8 pts)</strong> y en <strong>Naturales (−9,4 pts)</strong> es del mismo signo y orden de magnitud que la observada en el cohorte estable de 11A+11B, lo que sugiere un fenómeno transversal (fatiga del tercer simulacro o variación en la forma del instrumento), no un problema específico de modalidad. <strong>Lectura Crítica avanza +8,1 pts en PENSAR</strong>, replicando el patrón institucional. El global agregado retrocede 19,2 pts (214,0 → 194,8).</p>
     </div>
   </div>
 </section>
@@ -952,7 +962,7 @@ table.editorial .name{font-weight:500;color:var(--ink)}
       <div class="finding-num">08</div>
       <div class="finding-tag">Seguimiento</div>
       <div class="finding-title">Dos paneles de control <em>distintos</em></div>
-      <div class="finding-body">Para 11A y 11B se dispone de cohorte estable de 24 estudiantes con tres mediciones — es el mejor indicador longitudinal. Para los grupos PENSAR solo hay una medición (F3): la próxima prueba será su primera comparación. Recomendable que el CEP exija que los próximos simulacros incluyan a los 5 grupos para que las cifras institucionales sean comparables a la prueba real del 26 de julio.</div>
+      <div class="finding-body">Para 11A y 11B se dispone de cohorte estable de 24 estudiantes con tres mediciones — es el mejor indicador longitudinal. Para los grupos PENSAR ya hay <strong>dos mediciones (F2 y F3)</strong>: el agregado retrocede en Matemáticas (42,2 → 30,4) y avanza en Lectura (45,0 → 53,1); el resto de áreas se mueven dentro del ±5 pts. La próxima prueba consolidaría una verdadera trayectoria de tres puntos también para PENSAR. Recomendable que el CEP exija que todos los próximos simulacros incluyan a los 5 grupos para asegurar comparabilidad institucional plena con la prueba real del 26 de julio.</div>
     </div>
   </div>
 </section>
@@ -960,8 +970,9 @@ table.editorial .name{font-weight:500;color:var(--ink)}
 <!-- ============= FOOTNOTE ============= -->
 <div class="footnote">
   <h3>Nota metodológica</h3>
-  <p>Este análisis longitudinal procesa <strong>131 presentaciones individuales</strong> distribuidas en tres simulacros tipo Saber 11° aplicados por la Secretaría de Educación Departamental del Quindío entre febrero y abril de 2026, cruzadas contra el listado oficial de estudiantes inscritos por grupo (16+14+22+21+19 = 92 estudiantes en 5 grupos).</p>
-  <p style="margin-top:10px"><strong>Composición del grado once:</strong> 11A y 11B son los grupos del bachillerato regular (30 estudiantes inscritos en total). PENSAR 3A, 3B y 3C son grupos del programa <em>PENSAR</em>, modalidad flexible para personas adultas (62 estudiantes inscritos en total). Las Fases I y II solo fueron presentadas por estudiantes de 11A y 11B; en la Fase III se incorporaron los grupos PENSAR. La cohorte estable (n=24) está compuesta exclusivamente por estudiantes de 11A y 11B con presencia en las tres fases.</p>
+  <p>Este análisis longitudinal procesa <strong>179 presentaciones individuales</strong> distribuidas en tres simulacros tipo Saber 11° aplicados por la Secretaría de Educación Departamental del Quindío entre febrero y abril de 2026, cruzadas contra el listado oficial de estudiantes inscritos por grupo (16+14+22+21+19 = 92 estudiantes en 5 grupos).</p>
+  <p style="margin-top:10px"><strong>Composición del grado once:</strong> 11A y 11B son los grupos del bachillerato regular (30 estudiantes inscritos en total). PENSAR 3A, 3B y 3C son grupos del programa <em>PENSAR</em>, modalidad flexible para personas adultas (62 estudiantes inscritos en total). La Fase I solo fue presentada por estudiantes de 11A y 11B; los grupos PENSAR se incorporaron desde la Fase II (24 marzo 2026, n=48 en el reporte específico de PENSAR Fase 2) y continuaron en la Fase III. La cohorte estable de tres mediciones (n=24) está compuesta exclusivamente por estudiantes de 11A y 11B con presencia en las tres fases; PENSAR cuenta con cohorte propia de dos mediciones (F2→F3).</p>
+  <p style="margin-top:10px"><strong>Fuentes:</strong> reporte global F1 ("primer simulacro"), reporte F2 sin PENSAR ("(2)"), reporte F2 PENSAR ("(PENSAR)" · 24 mar 2026, recientemente integrado) y reporte F3 ("(SIN PENSAR)" + grupos PENSAR consolidados en F3). Todos en formato PDF emitidos por la SED Quindío.</p>
   <p style="margin-top:10px"><strong>Cruce de listados:</strong> 79 de 79 estudiantes que aparecen en algún simulacro fueron mapeados contra el listado oficial mediante normalización de nombres (mayúsculas, sin acentos, espacios únicos). Cero residuos.</p>
   <p style="margin-top:10px">Los puntajes están en escala 0–100 por área; el global se reporta como suma simple de las cinco áreas (rango 0–500). Los <strong>niveles ICFES</strong> usan los rangos oficiales por área (Matemáticas: 0-35 / 36-50 / 51-70 / 71-100; Lectura Crítica: 0-35 / 36-50 / 51-65 / 66-100; Sociales y Naturales: 0-40 / 41-55 / 56-70 / 71-100; Inglés CEFR: PreA1 / A1 / A2 / B1).</p>
   <p style="margin-top:10px">El <strong>coeficiente de variación</strong> (CV = σ/μ × 100) cuantifica heterogeneidad relativa: valores &gt;30% indican grupos no homogéneos. La <strong>matriz de correlación de Pearson</strong> mide co-movimiento lineal entre áreas (rango −1 a 1). El <strong>rango intercuartílico</strong> (IQR = P75 − P25) y la <strong>brecha decílica</strong> (P90 − P10) son métricas robustas de dispersión.</p>
@@ -983,13 +994,23 @@ const COLORS = {
   paper:'#f3ede2'
 };
 
-// Promedios de área en cada fase (todos los estudiantes presentes)
+// Promedios de área en cada fase — serie regular (11A + 11B)
 const promedios = {
   'Matemáticas':       [42.47, 43.62, 30.79],
   'Lectura Crítica':   [49.52, 47.63, 54.71],
   'C. Sociales':       [50.00, 44.88, 40.91],
   'C. Naturales':      [33.97, 43.18, 35.01],
   'Inglés':            [36.61, 40.09, 40.14],
+};
+
+// Promedios de área PENSAR (sólo F2 y F3 — F1 no presentado).
+// F2: reporte oficial 24 marzo 2026, n=48. F3: ponderado por n_grupo (3A=19, 3B=17, 3C=16).
+const promediosPENSAR = {
+  'Matemáticas':       [null, 42.23, 30.45],
+  'Lectura Crítica':   [null, 44.99, 53.13],
+  'C. Sociales':       [null, 42.88, 38.22],
+  'C. Naturales':      [null, 42.90, 33.50],
+  'Inglés':            [null, 41.02, 39.53],
 };
 
 // Configuración global Chart.js
@@ -1007,7 +1028,7 @@ const colorMap = {
   'Inglés':COLORS.prusiaSoft
 };
 const evDatasets = Object.entries(promedios).map(([area,vals])=>({
-  label: area,
+  label: area+' · 11A+11B',
   data: vals,
   borderColor: colorMap[area],
   backgroundColor: colorMap[area]+'22',
@@ -1019,6 +1040,25 @@ const evDatasets = Object.entries(promedios).map(([area,vals])=>({
   tension: 0.25,
   fill: false,
 }));
+// Serie PENSAR — punteada, mismo color por área, F1 vacío
+Object.entries(promediosPENSAR).forEach(([area,vals])=>{
+  evDatasets.push({
+    label: area+' · PENSAR',
+    data: vals,
+    borderColor: colorMap[area],
+    backgroundColor: colorMap[area]+'11',
+    borderWidth: 1.5,
+    borderDash: [6,4],
+    pointStyle: 'rectRot',
+    pointRadius: 5, pointHoverRadius: 8,
+    pointBackgroundColor: COLORS.paper,
+    pointBorderColor: colorMap[area],
+    pointBorderWidth: 2,
+    tension: 0.25,
+    fill: false,
+    spanGaps: false,
+  });
+});
 
 new Chart(document.getElementById('chart-evolucion'),{
   type:'line',
@@ -1620,6 +1660,44 @@ new Chart(document.getElementById('chart-momentum'),{
       x:{ticks:{font:{family:"'JetBrains Mono',monospace",size:10}},grid:{color:'#d4cab5',lineWidth:0.5},
          title:{display:true,text:'Δ puntaje global F2 → F3',font:{family:"'JetBrains Mono',monospace",size:10}}},
       y:{ticks:{font:{family:"'JetBrains Mono',monospace",size:10}},grid:{display:false}}
+    }
+  }
+});
+
+// ============= CHART: PENSAR F2 → F3 (agregado por área) =============
+const pensarF2 = {Mat:42.23, Lec:44.99, Soc:42.88, Nat:42.90, Ing:41.02};
+const pensarF3 = {Mat:30.45, Lec:53.13, Soc:38.22, Nat:33.50, Ing:39.53};
+const pensarAreas = ['Mat','Lec','Soc','Nat','Ing'];
+const pensarLabels = ['Matemáticas','Lectura Crítica','C. Sociales','C. Naturales','Inglés'];
+const pensarColors = [COLORS.brick,COLORS.olive,COLORS.prusia,COLORS.ocre,COLORS.prusiaSoft];
+
+new Chart(document.getElementById('chart-pensar-f2f3'),{
+  type:'bar',
+  data:{
+    labels: pensarLabels,
+    datasets:[
+      {label:'F2 · 24 mar', data:pensarAreas.map(a=>pensarF2[a]),
+        backgroundColor:pensarColors.map(c=>c+'66'),
+        borderColor:pensarColors, borderWidth:1.5},
+      {label:'F3 · 27 abr', data:pensarAreas.map(a=>pensarF3[a]),
+        backgroundColor:pensarColors, borderColor:pensarColors, borderWidth:1.5}
+    ]
+  },
+  options:{
+    responsive:true, maintainAspectRatio:false,
+    plugins:{
+      legend:{position:'right', labels:{font:{size:12, family:"'Geist',sans-serif"}, boxWidth:14, padding:14}},
+      tooltip:{backgroundColor:'#161512',
+        titleFont:{family:"'JetBrains Mono',monospace",size:11},
+        bodyFont:{family:"'JetBrains Mono',monospace",size:12},padding:12,
+        callbacks:{label:c=>` ${c.dataset.label}: ${c.parsed.y.toFixed(1)} pts`}}
+    },
+    scales:{
+      y:{min:25, max:60,
+         ticks:{font:{family:"'JetBrains Mono',monospace",size:10},stepSize:5},
+         grid:{color:'#d4cab5',lineWidth:0.6},
+         title:{display:true,text:'Promedio (0–100)',font:{family:"'JetBrains Mono',monospace",size:10}}},
+      x:{ticks:{font:{family:"'JetBrains Mono',monospace",size:11,weight:'700'}},grid:{display:false}}
     }
   }
 });
