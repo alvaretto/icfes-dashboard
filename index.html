@@ -314,6 +314,7 @@ table.editorial .name{font-weight:500;color:var(--ink)}
   <div><div class="lab">Cohorte estable F1·F2·F3</div><div class="val">24 <em>solo 11A+11B</em></div></div>
   <div><div class="lab">Promedio Fase III</div><div class="val">201,6</div></div>
   <div><div class="lab">Mejor grupo F3</div><div class="val">P3C <em>232,7</em></div></div>
+  <div><div class="lab">Trayectoria histórica</div><div class="val">10 <em>años · Saber 11° oficial</em></div></div>
 </div>
 
 <!-- ============= I. RESUMEN EJECUTIVO ============= -->
@@ -901,9 +902,53 @@ table.editorial .name{font-weight:500;color:var(--ink)}
   </div>
 </section>
 
-<!-- ============= VIII. HALLAZGOS Y RECOMENDACIONES ============= -->
+<!-- ============= X. TRAYECTORIA HISTÓRICA OFICIAL ============= -->
 <section class="section">
-  <div class="section-tag">X · Síntesis y acción</div>
+  <div class="section-tag">X · Trayectoria histórica · 2016–2025</div>
+  <h2>Diez años, <em>una década</em> de Saber 11°</h2>
+  <p class="section-lede">Los simulacros 2026 no se leen aislados. Cruzando los reportes oficiales del ICFES <em>"Saber 11° por Aplicación · Establecimientos Educativos"</em> de los últimos diez años, aparecen tres patrones que condicionan cualquier proyección al examen del 26 de julio: la institución viene cayendo, el bachillerato regular entró en regresión sostenida desde 2022, y el programa <em>PENSAR</em> está convergiendo con el regular en un Saber 11° real, no en simulacros.</p>
+  <div class="section-rule"></div>
+
+  <div class="viz-grid">
+
+    <div class="viz span12">
+      <div class="viz-head">
+        <div><div class="viz-title">Promedio global del establecimiento · <em>Saber 11° oficial</em></div></div>
+        <div class="viz-meta">2016-2 → 2025-3 · escala 0–500</div>
+      </div>
+      <div class="viz-canvas-wrap" style="height:340px"><canvas id="chart-hist-ee"></canvas></div>
+      <p class="viz-note">El promedio del establecimiento cayó 25 puntos en una década (246 → 221). La caída se aceleró tras 2019 con la pandemia y después con la incorporación del programa PENSAR al reporte (2022), que jala hacia abajo el promedio agregado por composición — no necesariamente por deterioro. Para evaluar progreso real conviene mirar las series desagregadas (siguiente gráfico).</p>
+    </div>
+
+    <div class="viz span12">
+      <div class="viz-head">
+        <div><div class="viz-title">Regular (UNICA) vs PENSAR (TARDE) · <em>Saber 11° oficial</em></div></div>
+        <div class="viz-meta">2017–2025 · escala 0–500</div>
+      </div>
+      <div class="viz-canvas-wrap" style="height:380px"><canvas id="chart-hist-regvsp"></canvas></div>
+      <p class="viz-note">La <strong>brecha entre Regular (UNICA) y PENSAR (TARDE) se está cerrando</strong>: 40 pts (2022) → 41 pts (2023) → 37 pts (2024) → <strong>20 pts (2025)</strong>. PENSAR no solo no se queda atrás — está convergiendo. La línea de Regular, en cambio, viene cayendo: 252 → 249 → 240 → 234 (−18 pts en 3 años). Lo que el dashboard institucional viene leyendo como "el grado once cae" es, sobre todo, una caída del bachillerato regular. La línea MAÑANA (2016-2019) corresponde al bachillerato regular previo a Jornada Única.</p>
+    </div>
+
+    <div class="viz span12">
+      <div class="viz-head">
+        <div><div class="viz-title">Matemáticas · <em>Regular vs PENSAR</em> · 2022-2025</div></div>
+        <div class="viz-meta">Cuatro años con ambas modalidades · 0–100</div>
+      </div>
+      <div class="viz-canvas-wrap" style="height:300px"><canvas id="chart-hist-mat"></canvas></div>
+      <p class="viz-note">En <strong>Matemáticas</strong> la brecha también se cierra: +8 (2022) → +12 (2023) → +8 (2024) → <strong>+5 pts (2025)</strong>. El dato es revelador para el simulacro 2026: en Fase III de abril, la cohorte regular obtuvo Mat=31. Si esa cifra se mantiene en julio, sería una caída de <strong>16 pts vs Saber 11° agosto 2025 (Mat=47)</strong> — lejos de cualquier comportamiento histórico de la institución.</p>
+    </div>
+
+  </div>
+
+  <div class="pull-quote">
+    «El programa flexible para extraedad <em>está cerrando</em> la brecha en el Saber 11° oficial. Lo que el simulacro 2026 muestra contraintuitivo (PENSAR 3C arriba) tiene un correlato en la trayectoria histórica: la convergencia es real, no un artefacto del simulacro.»
+    <cite>— Lectura cruzada con los reportes oficiales 2022-2025</cite>
+  </div>
+</section>
+
+<!-- ============= XI. HALLAZGOS Y RECOMENDACIONES ============= -->
+<section class="section">
+  <div class="section-tag">XI · Síntesis y acción</div>
   <h2>Ocho hallazgos, <em>ocho decisiones</em></h2>
   <p class="section-lede">No basta con medir. Esto es lo que los datos dicen que conviene priorizar para la prueba real del <strong>26 de julio de 2026</strong> — quedan menos de 12 semanas.</p>
   <div class="section-rule"></div>
@@ -1697,6 +1742,129 @@ new Chart(document.getElementById('chart-pensar-f2f3'),{
          ticks:{font:{family:"'JetBrains Mono',monospace",size:10},stepSize:5},
          grid:{color:'#d4cab5',lineWidth:0.6},
          title:{display:true,text:'Promedio (0–100)',font:{family:"'JetBrains Mono',monospace",size:10}}},
+      x:{ticks:{font:{family:"'JetBrains Mono',monospace",size:11,weight:'700'}},grid:{display:false}}
+    }
+  }
+});
+
+// ============= TRAYECTORIA HISTÓRICA OFICIAL 2016-2025 =============
+// Datos extraídos de los 10 PDFs ICFES "Saber 11° por Aplicación · Establecimientos Educativos"
+// para DANE 163401000298 (I.E. Pedacito de Cielo) — convención sede/jornada decodificada por año.
+const HIST_PERIODOS = ['2016','2017','2018','2019','2020','2021','2022','2023','2024','2025'];
+// EE consolidado (todas las jornadas combinadas)
+const histEE = [246, 236, 233, 233, 221, 224, 230, 224, 219, 221];
+// Bachillerato Regular: serie unificada MAÑANA (2016-2019) + UNICA (2020+)
+const histRegular = [246, 240, 246, 254, 221, 224, 252, 249, 240, 234];
+// PENSAR (TARDE) — solo desde 2022
+const histPensar  = [null, null, null, null, null, null, 212, 208, 203, 214];
+
+new Chart(document.getElementById('chart-hist-ee'),{
+  type:'line',
+  data:{
+    labels: HIST_PERIODOS,
+    datasets:[{
+      label:'Promedio global EE',
+      data: histEE,
+      borderColor: COLORS.ink, backgroundColor: COLORS.ink+'15',
+      borderWidth: 3, pointRadius: 6, pointHoverRadius: 9,
+      pointBackgroundColor: COLORS.ink, pointBorderColor: COLORS.paper, pointBorderWidth: 2,
+      tension: 0.18, fill: true,
+    }]
+  },
+  options:{
+    responsive:true, maintainAspectRatio:false,
+    plugins:{
+      legend:{display:false},
+      tooltip:{backgroundColor:'#161512',
+        titleFont:{family:"'JetBrains Mono',monospace",size:11},
+        bodyFont:{family:"'JetBrains Mono',monospace",size:12},padding:12,
+        callbacks:{label:c=>` ${c.parsed.y} pts (escala 0–500)`}}
+    },
+    scales:{
+      y:{min:200, max:260,
+         ticks:{font:{family:"'JetBrains Mono',monospace",size:10},stepSize:10},
+         grid:{color:'#d4cab5',lineWidth:0.6},
+         title:{display:true,text:'Promedio global',font:{family:"'JetBrains Mono',monospace",size:10}}},
+      x:{ticks:{font:{family:"'JetBrains Mono',monospace",size:11}},grid:{display:false}}
+    }
+  }
+});
+
+// MAÑANA (2017-2019) y UNICA (2020+) son ambos "Regular" pero los separamos visualmente para mostrar la transición a Jornada Única
+const histManana   = [246, 240, 246, 254, null, null, null, null, null, null];
+const histUnica    = [null, null, null, null, 221, 224, 252, 249, 240, 234];
+
+new Chart(document.getElementById('chart-hist-regvsp'),{
+  type:'line',
+  data:{
+    labels: HIST_PERIODOS,
+    datasets:[
+      {label:'Regular · MAÑANA (pre-2020)', data: histManana,
+        borderColor: COLORS.prusiaSoft, backgroundColor: COLORS.prusiaSoft+'15',
+        borderWidth: 2, borderDash:[2,2],
+        pointRadius: 6, pointBackgroundColor: COLORS.prusiaSoft, pointBorderColor: COLORS.paper, pointBorderWidth: 2,
+        tension: 0.18, fill: false, spanGaps: false},
+      {label:'Regular · UNICA (2020+)', data: histUnica,
+        borderColor: COLORS.prusia, backgroundColor: COLORS.prusia+'15',
+        borderWidth: 3,
+        pointRadius: 7, pointBackgroundColor: COLORS.prusia, pointBorderColor: COLORS.paper, pointBorderWidth: 2,
+        tension: 0.18, fill: false, spanGaps: false},
+      {label:'PENSAR · TARDE (modelo flexible)', data: histPensar,
+        borderColor: COLORS.brick, backgroundColor: COLORS.brick+'15',
+        borderWidth: 3,
+        pointRadius: 7, pointBackgroundColor: COLORS.brick, pointBorderColor: COLORS.paper, pointBorderWidth: 2,
+        tension: 0.18, fill: false, spanGaps: false},
+    ]
+  },
+  options:{
+    responsive:true, maintainAspectRatio:false,
+    plugins:{
+      legend:{position:'top', labels:{font:{size:12, family:"'Geist',sans-serif"}, boxWidth:14, padding:14, usePointStyle:true}},
+      tooltip:{backgroundColor:'#161512',
+        titleFont:{family:"'JetBrains Mono',monospace",size:11},
+        bodyFont:{family:"'JetBrains Mono',monospace",size:12},padding:12,
+        callbacks:{label:c=> c.parsed.y!=null ? ` ${c.dataset.label}: ${c.parsed.y} pts` : ''}}
+    },
+    scales:{
+      y:{min:195, max:265,
+         ticks:{font:{family:"'JetBrains Mono',monospace",size:10},stepSize:10},
+         grid:{color:'#d4cab5',lineWidth:0.6},
+         title:{display:true,text:'Promedio global (0–500)',font:{family:"'JetBrains Mono',monospace",size:10}}},
+      x:{ticks:{font:{family:"'JetBrains Mono',monospace",size:11}},grid:{display:false}}
+    }
+  }
+});
+
+// Matemáticas Regular vs PENSAR · 2022-2025
+const HIST_MAT_AÑOS = ['2022','2023','2024','2025'];
+const histMatRegular = [51, 52, 49, 47];
+const histMatPensar  = [43, 40, 41, 42];
+
+new Chart(document.getElementById('chart-hist-mat'),{
+  type:'bar',
+  data:{
+    labels: HIST_MAT_AÑOS,
+    datasets:[
+      {label:'Regular (UNICA)',  data: histMatRegular,
+        backgroundColor: COLORS.prusia, borderColor: COLORS.prusia, borderWidth:1.5},
+      {label:'PENSAR (TARDE)',   data: histMatPensar,
+        backgroundColor: COLORS.brick,  borderColor: COLORS.brick,  borderWidth:1.5},
+    ]
+  },
+  options:{
+    responsive:true, maintainAspectRatio:false,
+    plugins:{
+      legend:{position:'top', labels:{font:{size:12, family:"'Geist',sans-serif"}, boxWidth:14, padding:14}},
+      tooltip:{backgroundColor:'#161512',
+        titleFont:{family:"'JetBrains Mono',monospace",size:11},
+        bodyFont:{family:"'JetBrains Mono',monospace",size:12},padding:12,
+        callbacks:{label:c=>` ${c.dataset.label}: ${c.parsed.y} pts`}}
+    },
+    scales:{
+      y:{min:30, max:60,
+         ticks:{font:{family:"'JetBrains Mono',monospace",size:10},stepSize:5},
+         grid:{color:'#d4cab5',lineWidth:0.6},
+         title:{display:true,text:'Promedio Matemáticas (0–100)',font:{family:"'JetBrains Mono',monospace",size:10}}},
       x:{ticks:{font:{family:"'JetBrains Mono',monospace",size:11,weight:'700'}},grid:{display:false}}
     }
   }
