@@ -907,7 +907,7 @@ table.editorial .name{font-weight:500;color:var(--ink)}
 <section class="section">
   <div class="section-tag">X · Trayectoria histórica · 2016–2025</div>
   <h2>Diez años, <em>una década</em> de Saber 11°</h2>
-  <p class="section-lede">Los simulacros 2026 no se leen aislados. Cruzando los reportes oficiales del ICFES <em>"Saber 11° por Aplicación · Establecimientos Educativos"</em> de los últimos diez años, aparecen tres patrones que condicionan cualquier proyección al examen del 26 de julio: la institución viene cayendo, el bachillerato regular entró en regresión sostenida desde 2022, y el programa <em>PENSAR</em> está convergiendo con el regular en un Saber 11° real, no en simulacros.</p>
+  <p class="section-lede">Los simulacros 2026 no se leen aislados. Cruzando los reportes oficiales del ICFES <em>"Saber 11° por Aplicación · Establecimientos Educativos"</em> de los últimos diez años — y desambiguando las etiquetas administrativas de jornada (que no indican el modelo educativo) usando la heurística "el modelo con puntaje más bajo es el Flexible", verificada año a año — emergen tres patrones que condicionan cualquier proyección al examen del 26 de julio: la institución viene cayendo, el Modelo Flexible (CAMINAR/PENSAR) se reporta al menos desde 2017 con puntajes consistentemente inferiores al Regular, y la brecha entre los dos modelos en el último cuatrienio cerró 20 pts.</p>
   <div class="section-rule"></div>
 
   <div class="viz-grid">
@@ -933,11 +933,11 @@ table.editorial .name{font-weight:500;color:var(--ink)}
 
     <div class="viz span12">
       <div class="viz-head">
-        <div><div class="viz-title">Regular vs PENSAR · <em>Saber 11° oficial</em></div></div>
+        <div><div class="viz-title">Regular vs Flexible · <em>Saber 11° oficial</em></div></div>
         <div class="viz-meta">2016–2025 · escala 0–500 · dos modelos educativos</div>
       </div>
       <div class="viz-canvas-wrap" style="height:380px"><canvas id="chart-hist-regvsp"></canvas></div>
-      <p class="viz-note">Solo hay dos modelos educativos en el grado once de Pedacito: el <strong>bachillerato Regular</strong> (la línea azul, continua desde 2016 — la etiqueta de la jornada en el reporte ICFES cambió de "MAÑANA" a "UNICA" durante la transición a Jornada Única entre 2017 y 2020, pero es el mismo modelo) y el <strong>Modelo Pedagógico PENSAR</strong> (línea roja, desde 2022). La <strong>brecha Regular vs PENSAR se está cerrando</strong>: 40 pts (2022) → 41 pts (2023) → 37 pts (2024) → <strong>20 pts (2025)</strong>. PENSAR no solo no se queda atrás — está convergiendo. La línea Regular, en cambio, viene cayendo: 252 → 249 → 240 → 234 (−18 pts en 3 años). Lo que el dashboard institucional viene leyendo como "el grado once cae" es, sobre todo, una caída del bachillerato regular.</p>
+      <p class="viz-note">El Modelo Flexible (línea roja: CAMINAR antes, PENSAR ahora) está reportado en el ICFES <strong>al menos desde 2017</strong>, no desde 2022 como podría sugerir la última asignación de jornada. La etiqueta administrativa cambió: <strong>UNICA</strong> en 2017-2019 (donde sus puntajes 235/213/210 quedaron por debajo de MAÑANA/Regular 240/246/254 con brechas de 5/33/44 pts) y <strong>TARDE</strong> en 2022-2025. Para <strong>2016, 2020 y 2021</strong> el reporte trae una sola jornada consolidada (rombos grises), por lo que no se pueden separar los dos modelos. La <strong>brecha Regular vs Flexible se está cerrando</strong> en el último cuatrienio: 40 pts (2022) → 41 (2023) → 37 (2024) → <strong>20 pts (2025)</strong>. La línea Regular, en cambio, viene cayendo: 252 → 234 (−18 pts en 3 años) — la regresión es del Regular, no de la institución como un todo.</p>
     </div>
 
     <!-- ===== BLOQUE B · Grilla por modelo × área (5 mini-charts) ===== -->
@@ -968,7 +968,7 @@ table.editorial .name{font-weight:500;color:var(--ink)}
           <div style="height:200px"><canvas id="chart-hist-jorn-ing"></canvas></div>
         </div>
       </div>
-      <p class="viz-note" style="margin-top:18px"><strong>Lecturas clave por área</strong> · <em>Lectura crítica</em>: Regular se mantiene cerca de 51; PENSAR estable en 45-47. · <em>Matemáticas</em>: Regular cae de 51 a 47 entre 2022 y 2025 (−4 pts); PENSAR estable cerca de 41. · <em>Sociales</em>: Regular cae 50→44 (−6 pts) — la caída más severa de toda la institución; PENSAR oscila entre 38-40. · <em>Naturales</em>: Regular cae 49→44 (−5 pts); PENSAR varía 39-42. · <em>Inglés</em>: única área donde Regular se mantiene (48→46) y PENSAR mejora ligeramente (42→44) — la convergencia más cercana entre los dos modelos.</p>
+      <p class="viz-note" style="margin-top:18px"><strong>Lecturas clave por área</strong> (con la asignación heurística para 2017-2019 y 2022-2025) · <em>Lectura crítica</em>: Regular oscila 51-54; Flexible 45-50, brecha 4-8 pts. · <em>Matemáticas</em>: Regular cae 53→47 entre 2019 y 2025; Flexible estable 40-45, brecha 6-12 pts. · <em>Sociales</em>: Regular cae 50→44; Flexible 38-46, brecha 6-12 pts. · <em>Naturales</em>: Regular cae 50→44; Flexible 39-47, brecha 4-9 pts. · <em>Inglés</em>: Regular se mantiene 46-50; Flexible 41-45, brecha 3-9 pts (la más estrecha). Los años 2016, 2020 y 2021 quedan en blanco porque el reporte ICFES solo trae una jornada y no se pueden separar los dos modelos.</p>
     </div>
 
     <div class="viz span12">
@@ -993,8 +993,8 @@ table.editorial .name{font-weight:500;color:var(--ink)}
   </div>
 
   <div class="pull-quote">
-    «El programa flexible para extraedad <em>está cerrando</em> la brecha en el Saber 11° oficial. Lo que el simulacro 2026 muestra contraintuitivo (PENSAR 3C arriba) tiene un correlato en la trayectoria histórica: la convergencia es real, no un artefacto del simulacro.»
-    <cite>— Lectura cruzada con los reportes oficiales 2022-2025</cite>
+    «El Modelo Flexible para extraedad ha estado en Pedacito desde antes de 2017 — Saber 11° lo registra desde entonces, aunque bajo etiquetas administrativas distintas (UNICA en 2017-2019, TARDE en 2022-2025). Su brecha frente al Regular se ha estrechado en el último cuatrienio (40 → 20 pts), y eso reposiciona la lectura del simulacro 2026.»
+    <cite>— Síntesis de los reportes oficiales 2017-2025</cite>
   </div>
 </section>
 
@@ -1066,7 +1066,7 @@ table.editorial .name{font-weight:500;color:var(--ink)}
       <div class="finding-num">09</div>
       <div class="finding-tag">Lectura histórica</div>
       <div class="finding-title">El simulacro 2026 <em>no es un mal año aislado</em></div>
-      <div class="finding-body">Cruzando con los reportes oficiales de los últimos diez Saber 11° (Sección X), tres patrones reposicionan toda la lectura del simulacro 2026: <strong>(i)</strong> el bachillerato Regular viene en regresión sostenida desde 2022 (252 → 249 → 240 → 234, una caída de <strong>−6 pts por año</strong>) — la Mat=31 de Fase III no es ruido del simulacro, es la prolongación de esa tendencia; <strong>(ii)</strong> PENSAR está <em>convergiendo</em> con Regular en el examen real (brecha 40→20 pts en 4 años) — el resultado contraintuitivo de PENSAR 3C en F3 tiene base histórica, no es accidental; <strong>(iii)</strong> si Regular mantiene su pendiente, julio 2026 cerraría en ~228 globales, piso histórico de la institución desde 2014. <strong>Decisión</strong>: el plan de los próximos 12 semanas debe priorizar el bachillerato Regular tanto como PENSAR — los hallazgos 03 y 04 deben ejecutarse en paralelo, no en secuencia. Y conviene comunicar al CEP esta lectura macro para que las decisiones no se tomen contra el simulacro 2026 sino contra una década de datos.</div>
+      <div class="finding-body">Cruzando con los reportes oficiales de los últimos diez Saber 11° (Sección X) y desambiguando la asignación de jornada → modelo educativo con la heurística "el modelo más bajo es el Flexible", tres patrones reposicionan la lectura del simulacro 2026: <strong>(i)</strong> el Modelo Flexible (CAMINAR/PENSAR) tiene presencia documentada al menos desde 2017 (no desde 2022) — la trayectoria del programa es más larga de lo que el dashboard sugería inicialmente; <strong>(ii)</strong> el bachillerato Regular viene en regresión sostenida desde 2022 (252 → 234, <strong>−6 pts por año</strong>) — la Mat=31 de Fase III es la prolongación de esa tendencia, no ruido; <strong>(iii)</strong> la brecha Regular vs Flexible cerró 20 pts en 4 años (40→20), pero esa convergencia se debe casi enteramente a la <em>caída del Regular</em>, no al ascenso del Flexible (que se mantuvo entre 203 y 214). <strong>Decisión</strong>: el plan de los próximos 12 semanas debe priorizar el bachillerato Regular tanto como el Modelo Flexible — los hallazgos 03 y 04 deben ejecutarse en paralelo, no en secuencia. Y conviene comunicar al CEP esta lectura macro para que las decisiones no se tomen contra el simulacro 2026 sino contra casi una década de datos.</div>
     </div>
   </div>
 </section>
@@ -1849,11 +1849,16 @@ new Chart(document.getElementById('chart-hist-ee'),{
   }
 });
 
-// Hay 2 modelos educativos, no 3. La etiqueta "MAÑANA" fue la jornada del Regular antes de
-// que el colegio entrara a Jornada Única (transición 2017-2020); desde 2020, Regular = UNICA.
-// Para 2016-2021 la línea Regular usa el EE consolidado (que es solo Regular en esos años).
-// Para 2022-2025 la línea Regular usa solo UNICA (porque desde 2022 el EE incluye también PENSAR).
-const histRegularUnif = [246, 236, 233, 233, 221, 224, 252, 249, 240, 234];
+// Hay 2 modelos educativos en Pedacito desde antes de 2017: Regular y Flexible (CAMINAR/PENSAR).
+// El reporte ICFES los clasifica con etiquetas administrativas que NO indican el modelo:
+//   2017-2019 · UNICA = Flexible (puntaje más bajo)  · MAÑANA = Regular (puntaje más alto)
+//   2020-2021 · solo UNICA · NO separable (etiqueta única consolidada en años de pandemia)
+//   2022-2025 · TARDE = Flexible (verificado con n=62 en 2025 = P3A+P3B+P3C) · UNICA = Regular
+// Heurística confirmada con el usuario: el modelo con puntajes más bajos cada año es el Flexible.
+const histRegularUnif  = [null, 240, 246, 254, null, null, 252, 249, 240, 234];
+const histFlexibleHist = [null, 235, 213, 210, null, null, 212, 208, 203, 214];
+// Para 2016, 2020, 2021 mostramos el EE consolidado (no separable)
+const histNoSeparable  = [246, null, null, null, 221, 224, null, null, null, null];
 
 new Chart(document.getElementById('chart-hist-regvsp'),{
   type:'line',
@@ -1865,11 +1870,17 @@ new Chart(document.getElementById('chart-hist-regvsp'),{
         borderWidth: 3,
         pointRadius: 7, pointBackgroundColor: COLORS.prusia, pointBorderColor: COLORS.paper, pointBorderWidth: 2,
         tension: 0.18, fill: false, spanGaps: false},
-      {label:'Flexible · PENSAR', data: histPensar,
+      {label:'Flexible (CAMINAR/PENSAR)', data: histFlexibleHist,
         borderColor: COLORS.brick, backgroundColor: COLORS.brick+'15',
         borderWidth: 3,
         pointRadius: 7, pointBackgroundColor: COLORS.brick, pointBorderColor: COLORS.paper, pointBorderWidth: 2,
         tension: 0.18, fill: false, spanGaps: false},
+      {label:'Mezcla (no separable)', data: histNoSeparable,
+        borderColor: COLORS.muted || '#7a7163', backgroundColor: 'transparent',
+        borderWidth: 1.5, borderDash:[3,3],
+        pointRadius: 5, pointStyle:'rectRot', pointBackgroundColor: COLORS.paper,
+        pointBorderColor: '#7a7163', pointBorderWidth: 2,
+        tension: 0, fill: false, spanGaps: false},
     ]
   },
   options:{
@@ -1943,14 +1954,15 @@ new Chart(document.getElementById('chart-hist-ee-areas'),{
   }
 });
 
-// Por modelo × área · 5 mini-charts. Regular fundido (MAÑANA+UNICA → una sola serie).
-// Para 2016-2021 usa EE consolidado (que es solo Regular en esos años); para 2022-2025 usa UNICA.
+// Por modelo × área · 5 mini-charts. Heurística "más bajo = Flexible" verificada en datos globales.
+// Regular  = MAÑANA (2017-2019) + UNICA (2022-2025) | Flexible = UNICA (2017-2019) + TARDE (2022-2025)
+// Años no separables: 2016 (solo MAÑANA), 2020-2021 (solo UNICA, mezcla pandemia)
 const histModeloArea = {
-  'lc':  {Regular:[50,50,50,50,49,47,53,52,51,51], Flexible:[null,null,null,null,null,null,47,45,45,47]},
-  'mat': {Regular:[48,45,46,48,45,45,51,52,49,47], Flexible:[null,null,null,null,null,null,43,40,41,42]},
-  'soc': {Regular:[48,46,45,43,42,43,50,49,44,44], Flexible:[null,null,null,null,null,null,39,40,38,39]},
-  'nat': {Regular:[51,47,45,46,42,44,49,48,47,44], Flexible:[null,null,null,null,null,null,42,41,39,42]},
-  'ing': {Regular:[50,46,47,45,42,45,48,47,48,46], Flexible:[null,null,null,null,null,null,42,42,41,44]},
+  'lc':  {Regular:[null,51,52,54,null,null,53,52,51,51], Flexible:[null,50,46,46,null,null,47,45,45,47]},
+  'mat': {Regular:[null,45,49,53,null,null,51,52,49,47], Flexible:[null,45,42,43,null,null,43,40,41,42]},
+  'soc': {Regular:[null,47,48,47,null,null,50,49,44,44], Flexible:[null,46,41,38,null,null,39,40,38,39]},
+  'nat': {Regular:[null,48,47,50,null,null,49,48,47,44], Flexible:[null,47,41,41,null,null,42,41,39,42]},
+  'ing': {Regular:[null,48,50,49,null,null,48,47,48,46], Flexible:[null,45,44,41,null,null,42,42,41,44]},
 };
 
 function buildJornadaChart(canvasId, areaKey){
