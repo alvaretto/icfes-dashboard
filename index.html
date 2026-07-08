@@ -375,7 +375,7 @@ body.mod-single .container{padding-top:26px}
 <section class="section" data-mod="1">
   <div class="section-tag">I · Resumen ejecutivo</div>
   <h2>Cinco cifras que <em>importan</em></h2>
-  <p class="section-lede">La <strong>Fase IV (26 may)</strong> rompe la tendencia a la baja: el consolidado institucional sube a 238,1 y Matemáticas rebota de 30,8 a 40,5, con el riesgo crítico cayendo de 44,2% a 33,8%. Aun así persisten señales estructurales — heterogeneidad, brechas decílicas y descorrelación de Matemáticas, medidas en detalle sobre la Fase III: la distancia entre el primer y el último cuartil supera los 35 puntos en cuatro de las cinco áreas, y Lectura Crítica se mantiene como la fortaleza relativa.</p>
+  <p class="section-lede">La <strong>Fase IV (26 may)</strong> rompe la tendencia a la baja: el consolidado institucional sube a 238,1 y Matemáticas rebota de 30,8 a 40,5, con el riesgo crítico cayendo de 44,2% a 33,8%. Aun así persisten señales estructurales, medidas en detalle sobre la Fase IV: la brecha decílica (P10–P90) supera los 37 puntos en las cinco áreas y se amplió en Lectura e Inglés, y Matemáticas —pese al rebote— sigue sin ningún Nivel 4. La novedad de F4 es que Matemáticas dejó de operar en un eje propio: ahora correlaciona con el resto. Lectura Crítica se mantiene como la fortaleza relativa.</p>
   <div class="section-rule"></div>
 
   <div class="kpi-grid">
@@ -436,21 +436,21 @@ body.mod-single .container{padding-top:26px}
 
     <div class="kpi span4 accent-prusia">
       <div>
-        <div class="kpi-label">Brecha decílica P90−P10 · Lectura</div>
-        <div class="kpi-num mono">37,5<small> pts</small></div>
+        <div class="kpi-label">Brecha decílica P90−P10 · Lectura · F4</div>
+        <div class="kpi-num mono">48,7<small> pts</small></div>
       </div>
       <div>
-        <div class="kpi-sub">El estudiante en el percentil 90 saca 37,5 puntos más que el del percentil 10. Brecha similar en Naturales y Matemáticas.</div>
+        <div class="kpi-sub">El estudiante en el percentil 90 saca 48,7 puntos más que el del percentil 10 — la brecha se amplió en F4. Inglés queda cerca (48,1); Matemáticas es la más pareja (37,5).</div>
       </div>
     </div>
 
     <div class="kpi span4 accent-brick">
       <div>
-        <div class="kpi-label">Correlación Mat ↔ otras áreas · F3</div>
-        <div class="kpi-num mono">0,16<small> – </small>0,31</div>
+        <div class="kpi-label">Correlación Mat ↔ otras áreas · F4</div>
+        <div class="kpi-num mono">0,40<small> – </small>0,58</div>
       </div>
       <div>
-        <div class="kpi-sub">Matemáticas está descorrelacionada del resto del rendimiento. Un estudiante puede ser fuerte en otras áreas y débil en matemáticas — y viceversa.</div>
+        <div class="kpi-sub">En F4 Matemáticas <strong>se acopló</strong> al resto (en F3 era 0,16–0,31): quien subió en general, subió también en Matemáticas. Dejó de ser un eje aislado.</div>
       </div>
     </div>
 
@@ -571,23 +571,23 @@ body.mod-single .container{padding-top:26px}
     <div class="viz span4">
       <div class="viz-head">
         <div>
-          <div class="viz-title">Δ Global · <em>cohorte estable</em></div>
+          <div class="viz-title">Δ Global · <em>cohorte estable</em> · F1→F4</div>
         </div>
-        <div class="viz-meta">n=24 · F1 → F3</div>
+        <div class="viz-meta">n=24 · F1 → F4</div>
       </div>
       <div class="viz-canvas-wrap" style="height:340px"><canvas id="chart-cohorte-delta"></canvas></div>
-      <p class="viz-note">Cada barra es un estudiante. Verde: avanzó. Rojo: retrocedió. La altura de la barra indica la magnitud del cambio en el puntaje global (suma de las 5 áreas).</p>
+      <p class="viz-note">Cada barra es un estudiante de la cohorte regular. Verde: avanzó de F1 a F4; rojo: retrocedió. Con la Fase IV el balance se vuelca al verde: <strong>19 de 24 mejoran</strong> respecto a su punto de partida, encabezados por María Ijají (+109,7). Solo cinco retroceden.</p>
     </div>
 
     <div class="viz span12">
       <div class="viz-head">
         <div>
-          <div class="viz-title">Distribución de <em>niveles ICFES</em> por área (Fase III)</div>
+          <div class="viz-title">Distribución de <em>niveles ICFES</em> por área (Fase IV)</div>
         </div>
-        <div class="viz-meta">% estudiantes por nivel · n=77</div>
+        <div class="viz-meta">% estudiantes por nivel · n=74</div>
       </div>
       <div class="viz-canvas-wrap" style="height:280px"><canvas id="chart-niveles"></canvas></div>
-      <p class="viz-note">Los rangos de niveles son los oficiales del ICFES y varían por área. Lectura Crítica es la única donde más del 50% supera Nivel 1. En Matemáticas <strong>ningún estudiante alcanza Nivel 4</strong>.</p>
+      <p class="viz-note">Los rangos de niveles son los oficiales del ICFES y varían por área. En F4 el <strong>Nivel 1 se reduce fuerte</strong> frente a F3 (Matemáticas 71%→30%, Naturales 61%→26%) y aparecen estudiantes en Niveles 3–4 en todas las áreas. Aun así, <strong>Matemáticas sigue sin ningún Nivel 4</strong> — el techo es lo que falta mover.</p>
     </div>
 
   </div>
@@ -999,13 +999,13 @@ body.mod-single .container{padding-top:26px}
 
   <div class="viz span12" style="border:1px solid var(--ink);background:var(--paper-2);padding:24px 28px">
     <div class="viz-head">
-      <div><div class="viz-title">Percentiles 10–25–50–75–90 · <em>Fase III, n=77</em></div></div>
+      <div><div class="viz-title">Percentiles 10–25–50–75–90 · <em>Fase IV, n=74</em></div></div>
       <div class="viz-meta">Cuanto mayor la barra, mayor la inequidad</div>
     </div>
 
     <!-- Boxplot-style equity rows -->
     <div id="equity-bars"></div>
-    <p class="viz-note">El gradiente rojo→amarillo→oliva representa el rango intercuartílico (P25–P75). La línea negra vertical es la mediana. Los números a la derecha indican P90 (mejor) y P10 (peor).</p>
+    <p class="viz-note">El gradiente rojo→amarillo→oliva representa el rango intercuartílico (P25–P75). La línea negra vertical es la mediana. Los números a la derecha indican P90 (mejor) y P10 (peor). <strong>En F4 el rebote fue desigual:</strong> la brecha P10–P90 se amplió en Lectura (48,7) e Inglés (48,1) — subieron sobre todo los de arriba. Matemáticas es la más equitativa (Δ 37,5), pero por un techo bajo, no por piso alto.</p>
   </div>
 </section>
 
@@ -1013,17 +1013,17 @@ body.mod-single .container{padding-top:26px}
 <section class="section" data-mod="8">
   <div class="section-tag">VIII · Estructura de correlaciones</div>
   <h2>¿Qué áreas <em>viajan juntas</em>?</h2>
-  <p class="section-lede">Si un estudiante mejora en una asignatura, ¿mejora también en otra? La matriz de correlación responde — y deja a Matemáticas como caso aparte.</p>
+  <p class="section-lede">Si un estudiante mejora en una asignatura, ¿mejora también en otra? La matriz de correlación responde. En F3 Matemáticas operaba en un eje propio; <strong>en F4 se acopla mucho más al resto</strong> — una señal de que el rebote fue integral, no de un área suelta.</p>
   <div class="section-rule"></div>
 
   <div class="viz-grid">
     <div class="viz span6">
       <div class="viz-head">
-        <div><div class="viz-title">Matriz de <em>correlación de Pearson</em> · F3</div></div>
+        <div><div class="viz-title">Matriz de <em>correlación de Pearson</em> · F4</div></div>
         <div class="viz-meta">Valor 0 = sin relación · 1 = relación perfecta</div>
       </div>
       <div id="heatmap-corr"></div>
-      <p class="viz-note">Una correlación &lt; 0,3 se considera débil. Matemáticas con Inglés (r = 0,16) es prácticamente independiente. C. Sociales y C. Naturales (r = 0,52) sí se mueven en bloque.</p>
+      <p class="viz-note">En F4 <strong>ninguna correlación es ya débil</strong>: Matemáticas, que en F3 rondaba 0,16–0,31, ahora se mueve con Lectura (0,58), Naturales (0,51) e Inglés (0,45). El bloque más fuerte es Naturales↔Sociales (0,63) y Sociales↔Lectura (0,62).</p>
     </div>
 
     <div class="viz span6">
@@ -1031,10 +1031,10 @@ body.mod-single .container{padding-top:26px}
         <div><div class="viz-title">Lectura interpretativa</div></div>
       </div>
       <div style="font-family:'Geist',sans-serif;font-size:14px;line-height:1.65;color:var(--ink-soft)">
-        <p style="margin-bottom:12px;"><span class="serif italic" style="font-size:22px;color:var(--brick)">a)</span> <strong>Matemáticas opera en un eje propio.</strong> Su correlación con todas las áreas oscila entre 0,16 y 0,31. Esto significa que un estudiante puede destacar en Lectura o Sociales y aun así no transferir esa habilidad a Matemáticas. La matemática escolar exige andamiajes específicos.</p>
-        <p style="margin-bottom:12px;"><span class="serif italic" style="font-size:22px;color:var(--brick)">b)</span> <strong>Las áreas verbales se acoplan.</strong> Sociales↔Naturales (0,52), Lectura↔Sociales (0,53) y Naturales↔Lectura (0,49) sugieren que la comprensión lectora apalanca el rendimiento en áreas con textos densos.</p>
-        <p style="margin-bottom:12px;"><span class="serif italic" style="font-size:22px;color:var(--brick)">c)</span> <strong>Inglés está parcialmente conectado</strong> con Sociales (0,50) y Naturales (0,46): probablemente porque la decodificación lectora es transversal.</p>
-        <p><strong>Implicación pedagógica:</strong> mejorar lectura crítica eleva varias áreas en bloque, pero matemáticas requiere intervención focalizada en sus propios componentes y competencias.</p>
+        <p style="margin-bottom:12px;"><span class="serif italic" style="font-size:22px;color:var(--brick)">a)</span> <strong>Matemáticas se integró en F4.</strong> Su correlación con el resto pasó de 0,16–0,31 (F3) a <strong>0,40–0,58</strong>: ahora se mueve con Lectura (0,58), Naturales (0,51) e Inglés (0,45). Ya no es un eje aislado — quien subió en general, subió también en Matemáticas.</p>
+        <p style="margin-bottom:12px;"><span class="serif italic" style="font-size:22px;color:var(--brick)">b)</span> <strong>El bloque verbal-social es el más acoplado.</strong> Naturales↔Sociales (0,63), Sociales↔Lectura (0,62) y Naturales↔Inglés (0,59) confirman que la comprensión lectora apalanca las áreas con textos densos.</p>
+        <p style="margin-bottom:12px;"><span class="serif italic" style="font-size:22px;color:var(--brick)">c)</span> <strong>El eslabón más suelto ahora es Inglés↔Lectura</strong> (0,36): el inglés depende más de vocabulario propio que de la lectura en español.</p>
+        <p><strong>Implicación pedagógica:</strong> el acoplamiento de F4 sugiere que una intervención integral en comprensión y razonamiento rinde en varias áreas a la vez — pero conviene confirmar si es efecto real o del instrumento único de F4, contra la prueba del 26 de julio.</p>
       </div>
     </div>
   </div>
@@ -1044,14 +1044,14 @@ body.mod-single .container{padding-top:26px}
 <section class="section" data-mod="9">
   <div class="section-tag">IX · Identificación nominal</div>
   <h2>Quién <em>requiere</em> intervención</h2>
-  <p class="section-lede">El 44,2% del grupo presenta Nivel 1 en al menos tres áreas en F3. Para cualquier programa de refuerzo o tutoría focalizada, esta es la lista corta.</p>
+  <p class="section-lede">En Fase IV, <strong>14,9% de los estudiantes (11 de 74)</strong> presentan Nivel 1 en al menos tres áreas — una caída fuerte frente al 44,2% de F3. La lista corta se acorta, y eso permite concentrar el refuerzo individual en quienes de verdad lo necesitan antes del 26 de julio.</p>
   <div class="section-rule"></div>
 
   <div class="viz-grid">
     <div class="viz span7">
       <div class="viz-head">
         <div><div class="viz-title">Riesgo crítico · <em>Nivel 1 en ≥3 áreas</em></div></div>
-        <div class="viz-meta">Fase III · ordenados por puntaje global ascendente</div>
+        <div class="viz-meta">Fase IV · ordenados por puntaje global ascendente</div>
       </div>
       <table class="editorial">
         <thead><tr><th>Estudiante</th><th>Grupo</th><th class="num">Global</th><th class="num">N1 en</th><th>Áreas N1</th></tr></thead>
@@ -1063,18 +1063,20 @@ body.mod-single .container{padding-top:26px}
     <div class="viz span5">
       <div class="viz-head">
         <div><div class="viz-title">Alto potencial · <em>N3-N4 en ≥3 áreas</em></div></div>
-        <div class="viz-meta">Fase III</div>
+        <div class="viz-meta">Fase IV</div>
       </div>
       <table class="editorial">
         <thead><tr><th>Estudiante</th><th>Grupo</th><th class="num">Global</th><th class="num">N3-4 en</th></tr></thead>
         <tbody>
-          <tr><td class="name">DAVID FELIPE ROJAS GONZALEZ</td><td><span style="font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:700;color:var(--prusia)">11B</span></td><td class="num">356,8</td><td class="num"><span class="pill n4">4</span></td></tr>
-          <tr><td class="name">SEBASTIAN CALDERON CASTILLO</td><td><span style="font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:700;color:var(--olive)">PENSAR 3C</span></td><td class="num">311,8</td><td class="num"><span class="pill n4">4</span></td></tr>
-          <tr><td class="name">CRISTOPHER IVAN GUTIERREZ FARFAN</td><td><span style="font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:700;color:var(--olive)">PENSAR 3C</span></td><td class="num">295,2</td><td class="num"><span class="pill n3">3</span></td></tr>
-          <tr><td class="name">RUTH JIRETH LONDOÑO RENGIFO</td><td><span style="font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:700;color:var(--olive)">PENSAR 3C</span></td><td class="num">266,7</td><td class="num"><span class="pill n3">3</span></td></tr>
+          <tr><td class="name">JHON ALEXANDER MORALES BENITEZ</td><td><span style="font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:700;color:var(--olive)">PENSAR 3C</span></td><td class="num">426,7</td><td class="num"><span class="pill n4">5</span></td></tr>
+          <tr><td class="name">CHAMTALL MARTINEZ GIRALDO</td><td><span style="font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:700;color:var(--ocre)">PENSAR 3A</span></td><td class="num">421,7</td><td class="num"><span class="pill n4">5</span></td></tr>
+          <tr><td class="name">JEAN PAUL IDARRAGA PINO</td><td><span style="font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:700;color:var(--olive)">PENSAR 3C</span></td><td class="num">359,3</td><td class="num"><span class="pill n4">5</span></td></tr>
+          <tr><td class="name">DAVID FELIPE ROJAS GONZALEZ</td><td><span style="font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:700;color:var(--prusia)">11B</span></td><td class="num">342,6</td><td class="num"><span class="pill n4">4</span></td></tr>
+          <tr><td class="name">SEBASTIAN CALDERON CASTILLO</td><td><span style="font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:700;color:var(--olive)">PENSAR 3C</span></td><td class="num">336,5</td><td class="num"><span class="pill n4">4</span></td></tr>
+          <tr><td class="name">CRISTOPHER IVAN GUTIERREZ FARFAN</td><td><span style="font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:700;color:var(--olive)">PENSAR 3C</span></td><td class="num">336,5</td><td class="num"><span class="pill n4">5</span></td></tr>
         </tbody>
       </table>
-      <p class="viz-note">Solo el 5,2% del grupo se ubica con potencial alto. Estos estudiantes pueden actuar como mentores pares o ser candidatos a programas de excelencia.</p>
+      <p class="viz-note">En F4 el alto potencial se multiplica: <strong>15 de 74 (20,3%)</strong> alcanzan N3-N4 en ≥3 áreas, frente al 5,2% de F3. Tres estudiantes (Jhon Morales, Chamtall Giraldo, Jean Idárraga) están en N3-N4 en <strong>las cinco áreas</strong>. Candidatos naturales a mentoría entre pares y a programas de excelencia.</p>
 
       <div style="margin-top:18px;padding:14px;background:var(--paper);border:1px dashed var(--ink)">
         <div style="font-family:'JetBrains Mono',monospace;font-size:10px;text-transform:uppercase;letter-spacing:0.12em;color:var(--brick);font-weight:700;margin-bottom:6px">Lectura nominal</div>
@@ -1380,15 +1382,16 @@ new Chart(document.getElementById('chart-evolucion'),{
 });
 
 // ============= CHART 2: COHORTE DELTA (24 estudiantes) =============
+// Δ Global F1→F4 · cohorte regular presente en F1 y F4 (n=24, ponderado ICFES)
 const cohorteDeltas = [
-  {n:'David F. Rojas', d:49.3},  {n:'Diego A. Gaitan', d:46.6},  {n:'Stiven Mercado', d:40.3},
-  {n:'María I. Ijaji', d:38.6},  {n:'Estefania Morales', d:36.1}, {n:'Jorge E. Corrales', d:2.6},
-  {n:'Adriana L. Orozco', d:15.4},{n:'Ana M. Espinosa', d:15.7},  {n:'Juan P. Pérez', d:7.7},
-  {n:'Yury P. Alzate', d:-23.3}, {n:'Nicolás Florez', d:-16.2},  {n:'Michel E. Restrepo', d:-16.5},
-  {n:'Andrés J. Orozco', d:-18.5},{n:'Hansel Barros', d:17.2},   {n:'Kender Giraldo', d:3.5},
-  {n:'Brahian Altamar', d:-29.0},{n:'Sergio Gómez', d:16.6},     {n:'Karen Y. Calle', d:-4.5},
-  {n:'Claudia M. Jurado', d:20.4},{n:'Wendy V. Posada', d:-22.9},{n:'Johan Smit Melo', d:-33.6},
-  {n:'Karen D. Mesa', d:-47.1},  {n:'Mónica Y. Gutiérrez', d:-45.2}, {n:'Miguel A. Murillo', d:-54.5},
+  {n:'Maria I. Ijaji', d:109.7}, {n:'Juan P. Espitia', d:77.2}, {n:'Juan P. Perez', d:74.1},
+  {n:'Diego A. Gaitan', d:69.9}, {n:'Jorge E. Corrales', d:67.5}, {n:'Brahian J. Altamar', d:66.5},
+  {n:'Ana M. Espinosa', d:46.2}, {n:'Michel E. Restrepo', d:44.8}, {n:'Andres J. Orozco', d:44.8},
+  {n:'David F. Rojas', d:38.4}, {n:'Sergio M. Gomez', d:33.5}, {n:'Yury P. Alzate', d:25.3},
+  {n:'Hansel J. Barros', d:20.8}, {n:'Karen Y. Calle', d:20.3}, {n:'Adriana L. Orozco', d:19.5},
+  {n:'Nicolas Florez', d:14.9}, {n:'Claudia M. Jurado', d:12.0}, {n:'Miguel A. Murillo', d:9.6},
+  {n:'Monica Y. Gutierrez', d:1.5}, {n:'Wendy V. Posada', d:-36.4}, {n:'Karen D. Mesa', d:-38.0},
+  {n:'Juan C. Rengifo', d:-40.1}, {n:'Kender S. Giraldo', d:-43.0}, {n:'Johan S. Melo', d:-47.0},
 ];
 cohorteDeltas.sort((a,b)=>b.d-a.d);
 
@@ -1419,12 +1422,13 @@ new Chart(document.getElementById('chart-cohorte-delta'),{
 });
 
 // ============= CHART 3: NIVELES ICFES (stacked %) =============
+// Distribución de niveles institucional · Fase IV (n=74)
 const niveles = {
-  'C. Naturales':    [61.0, 33.8,  3.9, 1.3],
-  'C. Sociales':     [49.4, 40.3,  5.2, 5.2],
-  'Inglés':          [29.9, 59.7,  9.1, 1.3],
-  'Lectura Crítica': [ 9.1, 36.4, 29.9, 24.7],
-  'Matemáticas':     [71.4, 22.1,  6.5, 0.0],
+  'C. Naturales':    [25.7, 60.8, 10.8, 2.7],
+  'C. Sociales':     [ 9.5, 45.9, 37.8, 6.8],
+  'Inglés':          [27.0, 56.8,  8.1, 8.1],
+  'Lectura Crítica': [13.5, 44.6, 32.4, 9.5],
+  'Matemáticas':     [29.7, 56.8, 13.5, 0.0],
 };
 const nivelesAreas = Object.keys(niveles);
 const nivelesColors = [COLORS.crit, COLORS.warn, COLORS.oliveSoft, COLORS.excel];
@@ -1584,12 +1588,13 @@ new Chart(document.getElementById('chart-trayectorias'),{
 });
 
 // ============= EQUITY BARS (manual) =============
+// Percentiles por área · Fase IV (n=74)
 const equityData = [
-  {area:'Lectura Crítica', p10:33.3, p25:41.7, p50:54.2, p75:62.5, p90:78.3, color:'olive'},
-  {area:'C. Sociales',     p10:20.8, p25:29.2, p50:41.7, p75:54.2, p90:55.8, color:'prusia'},
-  {area:'C. Naturales',    p10:16.7, p25:25.0, p50:33.3, p75:45.8, p90:54.2, color:'ocre'},
-  {area:'Inglés',          p10:24.2, p25:33.3, p50:39.4, p75:45.5, p90:52.7, color:'prusiaSoft'},
-  {area:'Matemáticas',     p10:12.5, p25:20.8, p50:29.2, p75:37.5, p90:47.5, color:'brick'},
+  {area:'Lectura Crítica', p10:29.2, p25:34.3, p50:54.2, p75:70.8, p90:77.9, color:'olive'},
+  {area:'C. Sociales',     p10:33.3, p25:42.7, p50:56.2, p75:66.7, p90:75.0, color:'prusia'},
+  {area:'C. Naturales',    p10:20.8, p25:30.2, p50:41.7, p75:50.0, p90:62.5, color:'ocre'},
+  {area:'Inglés',          p10:25.0, p25:28.1, p50:37.5, p75:50.0, p90:73.1, color:'prusiaSoft'},
+  {area:'Matemáticas',     p10:25.0, p25:29.2, p50:37.5, p75:50.0, p90:62.5, color:'brick'},
 ];
 
 const eqContainer = document.getElementById('equity-bars');
@@ -1614,12 +1619,13 @@ equityData.forEach(d=>{
 
 // ============= HEATMAP CORRELACIÓN =============
 const corrAreas = ['Naturales','Sociales','Inglés','Lectura','Mat'];
+// Correlación de Pearson entre áreas · Fase IV (n=74) — orden Nat, Soc, Ing, Lec, Mat
 const corrMatrix = [
-  [1.000, 0.515, 0.455, 0.494, 0.248],
-  [0.515, 1.000, 0.501, 0.525, 0.273],
-  [0.455, 0.501, 1.000, 0.436, 0.163],
-  [0.494, 0.525, 0.436, 1.000, 0.309],
-  [0.248, 0.273, 0.163, 0.309, 1.000],
+  [1.000, 0.634, 0.593, 0.484, 0.505],
+  [0.634, 1.000, 0.484, 0.617, 0.403],
+  [0.593, 0.484, 1.000, 0.355, 0.451],
+  [0.484, 0.617, 0.355, 1.000, 0.583],
+  [0.505, 0.403, 0.451, 0.583, 1.000],
 ];
 function corrColor(v){
   if(v===1) return '#161512';
@@ -1646,22 +1652,19 @@ corrMatrix.forEach((row,i)=>{
 });
 
 // ============= TABLA RIESGO =============
+// Riesgo crítico · Fase IV · estudiantes con Nivel 1 en ≥3 áreas
 const riesgoData = [
-  ['KAREN YISSED RODRIGUEZ MEJIA','PENSAR 3A',114.7,5,'Nat·Soc·Ing·Lec·Mat'],
-  ['KELLY VALENCIA GAITAN','PENSAR 3A',117.8,4,'Nat·Soc·Ing·Mat'],
-  ['JUAN JOSE ZAPATA VALENCIA','PENSAR 3A',122.0,5,'Nat·Soc·Ing·Lec·Mat'],
-  ['KAREN DAYANA MESA RAMIREZ','11B',123.2,4,'Nat·Soc·Ing·Mat'],
-  ['JOHAN ANDRES DEVIA DE LA PAVA','PENSAR 3B',133.0,4,'Nat·Soc·Ing·Mat'],
-  ['MONICA YULIETH GUTIERREZ GUAPACHA','11B',135.2,3,'Nat·Soc·Mat'],
-  ['LUISA FERNANDA GARCIA CACERES','PENSAR 3B',140.9,4,'Soc·Ing·Lec·Mat'],
-  ['ANDREY ESTEFANO SANCHEZ PAJOY','PENSAR 3B',141.6,4,'Nat·Ing·Lec·Mat'],
-  ['MANUELA HERNANDEZ TORRES','PENSAR 3C',144.7,4,'Nat·Ing·Lec·Mat'],
-  ['JUAN PABLO GARCIA PIEDRAHITA','PENSAR 3B',148.1,4,'Soc·Ing·Lec·Mat'],
-  ['EVELIN LLURANI SERNA VALENCIA','PENSAR 3B',150.4,4,'Nat·Soc·Ing·Mat'],
-  ['ANDREA CASTILLO HOYOS','PENSAR 3A',156.4,3,'Nat·Soc·Lec'],
-  ['MARIA JOSE CONÓ ECHEVERRI','PENSAR 3B',156.8,3,'Nat·Soc·Mat'],
-  ['VALERIN SOFIA GAVANZO ESTRADA','PENSAR 3A',157.9,3,'Nat·Soc·Mat'],
-  ['JHAN PAUL MARULANDA RIVAS','PENSAR 3B',160.2,3,'Nat·Soc·Lec'],
+  ['KELLY VALENCIA GAITAN','PENSAR 3A',125.1,4,'Nat·Soc·Lec·Mat'],
+  ['CARLOS MARIO CANTERO HOYOS','PENSAR 3C',129.8,4,'Nat·Ing·Lec·Mat'],
+  ['KAREN DAYANA MESA RAMIREZ','11B',133.3,3,'Nat·Lec·Mat'],
+  ['ANDREA CASTILLO HOYOS','PENSAR 3A',145.3,3,'Nat·Soc·Ing'],
+  ['KAREN YISSED RODRIGUEZ MEJIA','PENSAR 3A',145.3,3,'Nat·Soc·Ing'],
+  ['JUAN JOSE ZAPATA VALENCIA','PENSAR 3A',149.0,3,'Nat·Ing·Mat'],
+  ['WENDY VANESA POSADA ORTIZ','11A',155.0,3,'Nat·Soc·Ing'],
+  ['KENDER STID GIRALDO PINILLA','11A',155.1,3,'Nat·Ing·Mat'],
+  ['MIGUEL ANGEL CARDONA SERNA','PENSAR 3C',155.2,3,'Soc·Ing·Mat'],
+  ['KEVIN ALFONSO SILVA MATEUS','PENSAR 3C',162.2,3,'Ing·Lec·Mat'],
+  ['JHON ESTEBAN ROMERO HERNANDEZ','PENSAR 3B',182.7,3,'Nat·Ing·Mat'],
 ];
 const tbl = document.getElementById('tbl-riesgo');
 riesgoData.forEach(r=>{
