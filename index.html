@@ -321,6 +321,110 @@ body.mod-single .container{padding-top:26px}
     border:none;cursor:pointer;text-align:left}
 }
 </style>
+<style>
+/* ========== COMPARATIVAS ESCALONADAS POR FASE ========== */
+/* Header horizontal (tab-bar) — vive en el Resumen y se repite en cada vista de
+   comparación para navegar entre fases. NO usa el panel de navegación vertical. */
+.cmp-header{display:flex;flex-wrap:wrap;align-items:stretch;border:1px solid var(--ink);
+  background:var(--paper-2);margin-bottom:28px}
+.cmp-header-lead{display:flex;flex-direction:column;justify-content:center;gap:2px;
+  padding:12px 18px;background:var(--ink);color:var(--paper);flex:0 0 auto;min-width:200px}
+.cmp-header-tag{font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:700;
+  text-transform:uppercase;letter-spacing:.1em}
+.cmp-header-hint{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.05em;
+  color:rgba(243,237,226,0.6);text-transform:uppercase}
+.cmp-header-tabs{display:flex;flex:1 1 auto;flex-wrap:wrap}
+.cmp-tab{flex:1 1 0;min-width:160px;display:flex;flex-direction:column;gap:3px;justify-content:center;
+  padding:12px 18px;text-decoration:none;color:var(--ink);border-left:1px solid var(--grid);
+  transition:background .12s,color .12s;cursor:pointer}
+.cmp-tab:hover{background:rgba(160,36,24,0.07)}
+.cmp-tab.active{background:var(--brick);color:var(--paper)}
+.cmp-tab.active .ct-sub{color:rgba(243,237,226,0.78)}
+.cmp-tab .ct-step{font-family:'JetBrains Mono',monospace;font-size:14px;font-weight:700;
+  letter-spacing:.01em;display:flex;align-items:center;gap:7px}
+.cmp-tab .ct-sub{font-family:'JetBrains Mono',monospace;font-size:9px;text-transform:uppercase;
+  letter-spacing:.08em;color:var(--muted)}
+/* Responsividad móvil OBLIGATORIA del header */
+@media(max-width:900px){
+  .cmp-tab{min-width:130px}
+  .cmp-header-lead{min-width:150px}
+}
+@media(max-width:680px){
+  .cmp-header{flex-direction:column}
+  .cmp-header-lead{flex:1 1 auto;min-width:0}
+  .cmp-header-tabs{flex-direction:column}
+  .cmp-tab{flex:1 1 auto;min-width:0;border-left:none;border-top:1px solid var(--grid);
+    flex-direction:row;justify-content:space-between;align-items:center;gap:10px}
+}
+/* Guard de responsividad móvil (GLOBAL): las grillas INLINE de 5 y 6 columnas
+   (mini-KPIs de F4, tarjetas por curso) no colapsaban y desbordaban en móvil.
+   Las grillas por CSS (12-col .kpi-grid/.viz-grid, .numbers auto-fit) ya son responsive. */
+@media(max-width:900px){
+  [style*="repeat(5,"],[style*="repeat(6,"]{grid-template-columns:repeat(3,1fr)!important}
+}
+@media(max-width:560px){
+  [style*="repeat(5,"],[style*="repeat(6,"]{grid-template-columns:repeat(2,1fr)!important}
+}
+
+/* Vista de comparación */
+.cmp-layout{display:grid;grid-template-columns:236px 1fr;gap:28px;align-items:start}
+.cmp-rail{position:sticky;top:24px;border:1px solid var(--ink);background:var(--paper-2);padding:16px 0}
+.cmp-rail-title{font-family:'JetBrains Mono',monospace;font-size:9px;text-transform:uppercase;letter-spacing:.12em;
+  color:var(--ink);font-weight:700;padding:0 16px 10px;margin-bottom:4px;border-bottom:1px solid var(--grid)}
+.cmp-rail-item{display:flex;justify-content:space-between;gap:8px;align-items:baseline;padding:8px 16px;
+  font-family:'Geist',sans-serif;font-size:13px;color:var(--ink-soft);text-decoration:none;
+  border-left:3px solid transparent;transition:background .12s,border-color .12s;cursor:pointer}
+.cmp-rail-item:hover{background:rgba(160,36,24,0.06);border-left-color:var(--brick);color:var(--ink)}
+.cmp-rail-item .ri-k{font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--muted)}
+.cmp-rail-item.ext::after{content:'→';color:var(--muted);font-family:'JetBrains Mono',monospace}
+.cmp-rail-item.out::after{content:'↗';color:var(--muted);font-family:'JetBrains Mono',monospace}
+.cmp-rail-sep{font-family:'JetBrains Mono',monospace;font-size:9px;text-transform:uppercase;letter-spacing:.1em;
+  color:var(--muted);padding:12px 16px 4px;margin-top:6px;border-top:1px solid var(--grid);font-weight:700}
+.cmp-body{min-width:0}
+.cmp-body [id]{scroll-margin-top:24px}
+/* Guard anti-overflow (GLOBAL, todo el dashboard): un canvas de Chart.js creado en
+   una sección oculta puede quedar más ancho que su contenedor y provocar scroll
+   horizontal de la página al mostrarse (afecta módulos II, III… y las comparativas).
+   max-width:100% lo acota; el ResizeObserver de Chart.js re-renderiza al ancho real.
+   Los 30 charts del dashboard son descendientes de .viz, así que este selector los cubre. */
+.viz canvas{max-width:100%!important}
+.cmp-body .viz{max-width:100%;overflow:hidden}
+.cmp-body .viz-canvas-wrap{max-width:100%}
+
+/* Cabecera de Δ global */
+.cmp-global{display:grid;grid-template-columns:1fr auto 1fr;border:1px solid var(--ink);background:var(--paper-2);margin-bottom:22px}
+.cmp-global-cell{padding:20px 24px;display:flex;flex-direction:column;gap:4px;justify-content:center}
+.cmp-global-cell.mid{background:var(--ink);color:var(--paper);text-align:center;align-items:center;min-width:190px}
+.cmp-global-lab{font-family:'JetBrains Mono',monospace;font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:var(--muted)}
+.cmp-global-cell.mid .cmp-global-lab{color:rgba(243,237,226,0.65)}
+.cmp-global-num{font-family:'Instrument Serif',serif;font-size:52px;line-height:1;letter-spacing:-0.03em;color:var(--ink)}
+.cmp-delta-big{font-family:'Instrument Serif',serif;font-size:60px;line-height:1;letter-spacing:-0.03em}
+.cmp-delta-big.pos{color:#9fce7a}.cmp-delta-big.neg{color:#e88a7d}.cmp-delta-big.flat{color:var(--ocre)}
+.cmp-global-sub{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.06em}
+
+/* Caveat */
+.cmp-caveat{border:1px solid var(--ink);border-left:5px solid var(--ocre);background:var(--paper-2);
+  padding:14px 18px;margin-bottom:22px;font-family:'Source Serif 4',Georgia,serif;font-size:15px;line-height:1.55;color:var(--ink-soft)}
+.cmp-caveat.warn{border-left-color:var(--brick)}
+.cmp-caveat b{color:var(--ink)}
+.cmp-caveat-k{font-family:'JetBrains Mono',monospace;font-size:9px;text-transform:uppercase;letter-spacing:.12em;color:var(--brick);font-weight:700;display:block;margin-bottom:4px}
+
+.cmp-tablewrap{overflow-x:auto}
+.cmp-subtitle{font-family:'Source Serif 4',Georgia,serif;font-size:16px;font-style:italic;color:var(--ink);margin:18px 0 8px;font-weight:600}
+
+@media(max-width:1100px){
+  .cmp-layout{grid-template-columns:1fr}
+  .cmp-rail{position:static;display:flex;flex-wrap:wrap;padding:12px 8px}
+  .cmp-rail-title{width:100%;border-bottom:none}
+  .cmp-rail-item{border-left:none;border:1px solid var(--grid);border-radius:3px;margin:3px}
+  .cmp-rail-item:hover{border-left:none;border-color:var(--brick)}
+  .cmp-rail-sep{width:100%;border-top:none}
+}
+@media(max-width:680px){
+  .cmp-global{grid-template-columns:1fr}
+  .cmp-global-cell.mid{order:-1}
+}
+</style>
 </head>
 
 <body>
@@ -377,6 +481,18 @@ body.mod-single .container{padding-top:26px}
   <h2>Cinco cifras que <em>importan</em></h2>
   <p class="section-lede">La <strong>Fase IV (26 may)</strong> rompe la tendencia a la baja: el consolidado institucional sube a 238,1 y Matemáticas rebota de 30,8 a 40,5, con el riesgo crítico (Nivel 1 en ≥3 áreas) cayendo de 44,2% a 14,9%. Aun así persisten señales estructurales, medidas en detalle sobre la Fase IV: la brecha decílica (P10–P90) supera los 37 puntos en las cinco áreas y se amplió en Lectura e Inglés, y Matemáticas —pese al rebote— sigue sin ningún Nivel 4. La novedad de F4 es que Matemáticas dejó de operar en un eje propio: ahora correlaciona con el resto. Lectura Crítica se mantiene como la fortaleza relativa.</p>
   <div class="section-rule"></div>
+
+  <nav class="cmp-header" aria-label="Comparativas escalonadas por fase">
+    <div class="cmp-header-lead">
+      <span class="cmp-header-tag">Comparativas por fase</span>
+      <span class="cmp-header-hint">Avances y retrocesos · delta ICFES</span>
+    </div>
+    <div class="cmp-header-tabs">
+      <a class="cmp-tab" href="#cmp-12" data-go="cmp-12"><span class="ct-step">Fase I → II</span><span class="ct-sub">Regulares · limpio</span></a>
+      <a class="cmp-tab" href="#cmp-23" data-go="cmp-23"><span class="ct-step">Fase II → III</span><span class="ct-sub">Cambia la composición</span></a>
+      <a class="cmp-tab" href="#cmp-34" data-go="cmp-34"><span class="ct-step">Fase III → IV</span><span class="ct-sub">Rompe la caída</span></a>
+    </div>
+  </nav>
 
   <div class="kpi-grid">
 
@@ -1254,6 +1370,11 @@ body.mod-single .container{padding-top:26px}
     </div>
   </div>
 </section>
+
+<!-- ============= COMPARATIVAS ESCALONADAS POR FASE (contenido inyectado por JS) ============= -->
+<section class="section cmp-section" data-mod="cmp-12" aria-label="Comparativa Fase I contra Fase II"></section>
+<section class="section cmp-section" data-mod="cmp-23" aria-label="Comparativa Fase II contra Fase III"></section>
+<section class="section cmp-section" data-mod="cmp-34" aria-label="Comparativa Fase III contra Fase IV"></section>
 
 <!-- ============= FOOTNOTE ============= -->
 <div class="footnote">
@@ -2440,9 +2561,149 @@ new Chart(document.getElementById('chart-hist-mat'),{
 });
 
 
+// ============= COMPARATIVAS ESCALONADAS POR FASE =============
+// Avances/retrocesos entre fases consecutivas. TODOS los deltas se computan aquí
+// desde `promedios` y `promediosPENSAR` (única fuente de verdad) con la fórmula
+// oficial ICFES ponderada (3·LC+3·Mat+3·Soc+3·Nat+1·Ing)/13×5 — reproduce el
+// global de F4 (238,1) y los deltas ya publicados en los módulos I y XI.
+(function(){
+  const AREAS=['Lectura Crítica','Matemáticas','C. Sociales','C. Naturales','Inglés'];
+  const W={'Lectura Crítica':3,'Matemáticas':3,'C. Sociales':3,'C. Naturales':3,'Inglés':1};
+  const ABBR={'Lectura Crítica':'Lectura','Matemáticas':'Matemát.','C. Sociales':'Sociales','C. Naturales':'Naturales','Inglés':'Inglés'};
+  const RO=['I','II','III','IV'];
+  const num=(x,d=1)=> x==null?'—':x.toFixed(d).replace('.',',');
+  const signed=(x,d=1)=> x==null?'—':(x>0?'+':(x<0?'−':'±'))+Math.abs(x).toFixed(d).replace('.',',');
+  const gAt=(s,i)=>{let n=0,de=0;for(const a of AREAS){const v=s[a][i];if(v==null)return null;n+=W[a]*v;de+=W[a];}return n/de*5;};
+  const cls=d=> d==null?'delta-zero':(Math.abs(d)<0.5?'delta-zero':(d>0?'delta-pos':'delta-neg'));
+  const arr=d=> d==null?'·':(Math.abs(d)<0.5?'≈':(d>0?'▲':'▼'));
+  const rows=(s,i,j)=> AREAS.map(a=>{const fi=s[a][i],fj=s[a][j],d=(fi==null||fj==null)?null:fj-fi;return{a,fi,fj,d};});
+
+  function tableHTML(s,i,j,title){
+    const rs=rows(s,i,j), g0=gAt(s,i), g1=gAt(s,j), gd=(g0==null||g1==null)?null:g1-g0;
+    const body=rs.map(r=>`<tr><td class="name">${r.a}</td><td class="num">${num(r.fi)}</td><td class="num">${num(r.fj)}</td><td class="num ${cls(r.d)}">${arr(r.d)} ${signed(r.d)}</td></tr>`).join('');
+    const grow=`<tr style="border-top:1.5px solid var(--ink)"><td class="name">Global ICFES <span style="color:var(--muted);font-weight:400">(0–500)</span></td><td class="num">${num(g0)}</td><td class="num">${num(g1)}</td><td class="num ${cls(gd)}">${arr(gd)} ${signed(gd)}</td></tr>`;
+    return `${title?`<div class="cmp-subtitle">${title}</div>`:''}<div class="cmp-tablewrap"><table class="editorial"><thead><tr><th>Área</th><th style="text-align:right">Fase ${RO[i]}</th><th style="text-align:right">Fase ${RO[j]}</th><th style="text-align:right">Δ avance/retroceso</th></tr></thead><tbody>${body}${grow}</tbody></table></div>`;
+  }
+
+  const PAIRS=[
+    { id:'cmp-12', i:0, j:1, tag:'Comparativa escalonada · I → II', h:'Fase I <em>→</em> Fase II', roman:'I → II', pensar:false,
+      lede:'Primer salto de la serie, sobre los mismos grupos regulares (11A + 11B): el programa <em>PENSAR</em> aún no presentaba en la Fase I. Por eso aquí el avance/retroceso es <em>limpio</em> — ningún cambio de población lo contamina.',
+      caveat:{k:'Cómo leer el delta', warn:false, html:'Comparación <b>limpia</b>: en la serie institucional, tanto la Fase I como la Fase II corresponden a los grupos regulares 11A + 11B. PENSAR se incorpora a la institución desde la Fase II, pero su primer punto propio es F2 — no hay F1 con qué compararlo todavía.'},
+      crossto:[['5','Cohorte estable · regulares'],['4','Foco Matemáticas'],['2','Evolución longitudinal']] },
+    { id:'cmp-23', i:1, j:2, tag:'Comparativa escalonada · II → III', h:'Fase II <em>→</em> Fase III', roman:'II → III', pensar:true,
+      lede:'La transición más delicada de leer. En la serie institucional, la Fase II son <em>solo regulares</em> y la Fase III ya es el <em>consolidado</em> con PENSAR incorporado: el descenso mezcla caída real con cambio de composición. Para separar señal de artefacto, se contrasta con la serie PENSAR sobre su propia población.',
+      caveat:{k:'⚠ Cambio de composición', warn:true, html:'El delta institucional <b>no es a población constante</b>: Fase II = regulares (11A+11B); Fase III = consolidado (entran los tres grupos PENSAR). Parte del descenso es composición, no aprendizaje. La <b>serie PENSAR (misma población, F2→F3)</b> de abajo permite ver cuánto del movimiento es real: si PENSAR también cae, el descenso no es un mero artefacto de mezcla.'},
+      crossto:[['3','Análisis por grupo'],['6','Dinámica intra-grupo'],['4','Foco Matemáticas']] },
+    { id:'cmp-34', i:2, j:3, tag:'Comparativa escalonada · III → IV', h:'Fase III <em>→</em> Fase IV', roman:'III → IV', pensar:true,
+      lede:'El tramo que <em>rompe la caída</em>. Ambas fases son consolidado institucional; la Fase IV —reconstruida por enlace nominal (0 huérfanos, 0 duplicados)— marca el punto más alto de la serie. Avance comparable, sin cambio de población.',
+      caveat:{k:'Cómo leer el delta', warn:false, html:'Ambas fases son <b>consolidado institucional</b>, así que el delta es comparable. La Fase IV llegó sin columna de grupo y se reconstruyó por enlace nominal. <b>Cautela</b>: al ser un instrumento consolidado único, parte del alza podría deberse a la dificultad de la prueba; contrástese con la cohorte estable (módulo V), que también sube.'},
+      crossto:[['5','Cohorte estable'],['3','Por grupo · toggle F3/F4'],['2','Evolución longitudinal']] },
+  ];
+
+  // Header horizontal (tab-bar) reutilizado en cada vista; el .active lo pone el motor de nav
+  const HEADER=`<nav class="cmp-header" aria-label="Comparativas escalonadas por fase">`
+    +`<div class="cmp-header-lead"><span class="cmp-header-tag">Comparativas por fase</span><span class="cmp-header-hint">Avances y retrocesos · delta ICFES</span></div>`
+    +`<div class="cmp-header-tabs">`
+    +`<a class="cmp-tab" href="#cmp-12" data-go="cmp-12"><span class="ct-step">Fase I → II</span><span class="ct-sub">Regulares · limpio</span></a>`
+    +`<a class="cmp-tab" href="#cmp-23" data-go="cmp-23"><span class="ct-step">Fase II → III</span><span class="ct-sub">Cambia la composición</span></a>`
+    +`<a class="cmp-tab" href="#cmp-34" data-go="cmp-34"><span class="ct-step">Fase III → IV</span><span class="ct-sub">Rompe la caída</span></a>`
+    +`</div></nav>`;
+
+  PAIRS.forEach(p=>{
+    const sec=document.querySelector(`.cmp-section[data-mod="${p.id}"]`);
+    if(!sec) return;
+    const g0=gAt(promedios,p.i), g1=gAt(promedios,p.j), gd=g1-g0;
+    const gdCls=Math.abs(gd)<0.5?'flat':(gd>0?'pos':'neg');
+    const railCross=p.crossto.map(([go,lab])=>`<a class="cmp-rail-item ext" href="#mod-${go}" data-go="${go}">${lab}</a>`).join('');
+    const pensarTable=p.pensar?tableHTML(promediosPENSAR,p.i,p.j,'Serie PENSAR · misma población ('+p.roman+')'):'';
+    sec.innerHTML=`
+      ${HEADER}
+      <div class="section-tag">${p.tag}</div>
+      <h2>${p.h}</h2>
+      <p class="section-lede">${p.lede}</p>
+      <div class="section-rule"></div>
+      <div class="cmp-layout">
+        <aside class="cmp-rail" aria-label="Índice de la comparativa ${p.roman}">
+          <div class="cmp-rail-title">Lo esencial de esta transición</div>
+          <a class="cmp-rail-item internal" href="#${p.id}-global"><span>Δ Global institucional</span><span class="ri-k">ICFES</span></a>
+          <a class="cmp-rail-item internal" href="#${p.id}-caveat"><span>Cómo leer el delta</span><span class="ri-k">nota</span></a>
+          <a class="cmp-rail-item internal" href="#${p.id}-areas"><span>Δ por área</span><span class="ri-k">5</span></a>
+          <a class="cmp-rail-item internal" href="#${p.id}-table"><span>Tabla comparativa</span><span class="ri-k">tab</span></a>
+          <div class="cmp-rail-sep">Profundizar · dashboard de Fases</div>
+          ${railCross}
+          <div class="cmp-rail-sep">Equivalente por años</div>
+          <a class="cmp-rail-item out" href="https://resultados-icfes-pcielo-2025.streamlit.app/" target="_blank" rel="noopener">Saber 11° · 2024–2025</a>
+        </aside>
+        <div class="cmp-body">
+          <div class="cmp-global" id="${p.id}-global">
+            <div class="cmp-global-cell"><span class="cmp-global-lab">Global · Fase ${RO[p.i]}</span><span class="cmp-global-num mono">${num(g0)}</span></div>
+            <div class="cmp-global-cell mid"><span class="cmp-global-lab">Δ Avance / retroceso</span><span class="cmp-delta-big ${gdCls}">${signed(gd)}</span><span class="cmp-global-sub">puntos · escala 0–500</span></div>
+            <div class="cmp-global-cell"><span class="cmp-global-lab">Global · Fase ${RO[p.j]}</span><span class="cmp-global-num mono">${num(g1)}</span></div>
+          </div>
+          <div class="cmp-caveat ${p.caveat.warn?'warn':''}" id="${p.id}-caveat"><span class="cmp-caveat-k">${p.caveat.k}</span>${p.caveat.html}</div>
+          <div class="viz span12" id="${p.id}-areas">
+            <div class="viz-head"><div class="viz-title">Δ por área · <em>avance/retroceso</em></div><div class="viz-meta">${p.roman}<br>escala 0–100 por área</div></div>
+            <div class="viz-canvas-wrap" style="height:300px"><canvas id="${p.id}-canvas"></canvas></div>
+            <div class="viz-note">Barras a la derecha del cero = avance; a la izquierda = retroceso. ${p.pensar?'Se muestran la serie institucional y la serie PENSAR (misma población) para separar señal de artefacto.':'Serie de grupos regulares (11A + 11B), población constante entre ambas fases.'}</div>
+          </div>
+          <div class="viz span12" id="${p.id}-table">
+            <div class="viz-head"><div class="viz-title">Tabla comparativa área por área</div><div class="viz-meta">Δ = Fase ${RO[p.j]} − Fase ${RO[p.i]}</div></div>
+            ${tableHTML(promedios,p.i,p.j, p.pensar?'Serie institucional ('+p.roman+')':'')}
+            ${pensarTable}
+          </div>
+        </div>
+      </div>`;
+
+    // Chart Δ por área (barras horizontales, verde=avance / rojo=retroceso)
+    const rInst=rows(promedios,p.i,p.j);
+    const datasets=[{
+      label:'Institucional (Δ)',
+      data:rInst.map(r=>r.d==null?null:+r.d.toFixed(1)),
+      backgroundColor:rInst.map(r=>r.d>=0?COLORS.olive:COLORS.brick),
+      borderWidth:0, barPercentage:0.72, categoryPercentage:0.8,
+    }];
+    if(p.pensar){
+      const rP=rows(promediosPENSAR,p.i,p.j);
+      datasets.push({
+        label:'PENSAR · misma población (Δ)',
+        data:rP.map(r=>r.d==null?null:+r.d.toFixed(1)),
+        backgroundColor:rP.map(r=>r.d>=0?COLORS.oliveSoft+'cc':COLORS.brickSoft+'cc'),
+        borderColor:COLORS.ink, borderWidth:1, barPercentage:0.72, categoryPercentage:0.8,
+      });
+    }
+    new Chart(document.getElementById(p.id+'-canvas'),{
+      type:'bar',
+      data:{labels:AREAS.map(a=>ABBR[a]), datasets},
+      options:{
+        indexAxis:'y', responsive:true, maintainAspectRatio:false,
+        plugins:{
+          legend:{display:p.pensar, position:'top', labels:{font:{family:"'JetBrains Mono',monospace",size:10},boxWidth:12,padding:10,color:'#161512'}},
+          tooltip:{backgroundColor:'#161512',padding:10,
+            titleFont:{family:"'JetBrains Mono',monospace",size:11},bodyFont:{family:"'JetBrains Mono',monospace",size:12},
+            callbacks:{label:c=>` ${c.dataset.label}: ${c.parsed.x>=0?'+':'−'}${Math.abs(c.parsed.x).toFixed(1)} pts`}}
+        },
+        scales:{
+          x:{grid:{color:'#d4cab5',lineWidth:0.5},ticks:{font:{family:"'JetBrains Mono',monospace",size:10},callback:v=>(v>0?'+':'')+v},
+             title:{display:true,text:'Δ puntos (0–100 por área)',font:{family:"'JetBrains Mono',monospace",size:10}}},
+          y:{grid:{display:false},ticks:{font:{family:"'JetBrains Mono',monospace",size:11,weight:'700'}}}
+        }
+      }
+    });
+  });
+
+  // Scroll interno del rail sin ensuciar el hash
+  document.querySelectorAll('.cmp-rail-item.internal').forEach(a=>{
+    a.addEventListener('click',e=>{
+      e.preventDefault();
+      const t=document.querySelector(a.getAttribute('href'));
+      if(t) t.scrollIntoView({behavior:'smooth',block:'start'});
+    });
+  });
+})();
+
 // ===== NAVEGACIÓN MODULAR =====
 (function(){
-  const links=[...document.querySelectorAll('.modlink')];
+  const links=[...document.querySelectorAll('[data-go]')];
   const secs=[...document.querySelectorAll('.section[data-mod]')];
   const nav=document.querySelector('.modnav');
   function resizeIn(el){ el.querySelectorAll('canvas').forEach(c=>{ const ch=(window.Chart&&Chart.getChart)?Chart.getChart(c):null; if(ch) ch.resize(); }); }
@@ -2458,7 +2719,7 @@ new Chart(document.getElementById('chart-hist-mat'),{
       const active=secs.find(s=>s.dataset.mod===go);
       if(active){ requestAnimationFrame(()=>resizeIn(active)); }
     }
-    try{ history.replaceState(null,'', go==='all'?'#todo':'#mod-'+go); }catch(e){}
+    try{ const h = go==='all'?'#todo':(String(go).indexOf('cmp')===0?'#'+go:'#mod-'+go); history.replaceState(null,'',h); }catch(e){}
     window.scrollTo(0,0);
     if(nav) nav.classList.remove('open');
   }
@@ -2467,7 +2728,8 @@ new Chart(document.getElementById('chart-hist-mat'),{
   if(tog) tog.addEventListener('click',()=>nav.classList.toggle('open'));
   // estado inicial desde el hash, o Resumen por defecto
   const m=(location.hash.match(/^#mod-(\d+)$/));
-  show(location.hash==='#todo'?'all':(m?m[1]:'1'));
+  const cm=(location.hash.match(/^#(cmp-\d+)$/));
+  show(location.hash==='#todo'?'all':(cm?cm[1]:(m?m[1]:'1')));
 })();
 </script>
 </body>
