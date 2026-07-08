@@ -9,8 +9,8 @@ Análisis longitudinal de cuatro simulacros tipo Saber 11° (Fases I, II, III y 
 - 10 secciones analíticas con gráficas interactivas (Chart.js)
 - Análisis por grupo (11A, 11B, PENSAR 3A, 3B, 3C)
 - Cohorte estable de 24 estudiantes (11A+11B) con tres mediciones; cohorte de 4 fases (n=22) a nivel consolidado
-- Cohorte PENSAR F2→F3 (n≈48) — incorporada tras integrar el reporte oficial PENSAR Fase 2 del 24 marzo 2026
-- Fase IV (26 may 2026, n=74): consolidado institucional, punto más alto de la serie (global 235,2)
+- Cohorte PENSAR F2→F3→F4 — F2 del reporte oficial PENSAR Fase 2 (24 mar 2026, n≈48); F4 reconstruido por enlace nominal (n=49, global 235,9)
+- Fase IV (26 may 2026, n=74): consolidado institucional, punto más alto de la serie (global 238,1, fórmula oficial ICFES ponderada)
 - Identificación nominal de riesgo crítico y alto potencial
 - 10 hallazgos con recomendaciones data-driven
 
@@ -20,7 +20,7 @@ Análisis longitudinal de cuatro simulacros tipo Saber 11° (Fases I, II, III y 
 - F2 regulares · *I.E PEDACITO DE CIELO(2).pdf* (24 mar 2026)
 - F2 PENSAR · *I.E PEDACITO DE CIELO (PENSAR).pdf* (24 mar 2026)
 - F3 · *I.E PEDACITO DE CIELO (SIN PENSAR).pdf* + reporte consolidado F3 (27 abr 2026)
-- F4 · *I.E PEDACITO DE CIELO FASE IV.pdf* (26 may 2026) — consolidado institucional, n=74, **sin desglose por grupo/modalidad**; promedios verificados recomputando el roster completo
+- F4 · *I.E PEDACITO DE CIELO FASE IV.pdf* (26 may 2026) — consolidado institucional, n=74, **con detalle por estudiante pero sin columna de grupo/modalidad** (el grupo se reconstruyó por enlace nominal contra el roster oficial); promedios verificados recomputando el roster completo
 
 ## Tecnología
 
