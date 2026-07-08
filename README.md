@@ -30,6 +30,7 @@ Este dashboard convierte **253+ presentaciones individuales** en inteligencia ac
 - **Cohorte estable:** solo los estudiantes presentes en varias fases. Es el indicador longitudinal más confiable, porque elimina el ruido del cambio de población entre pruebas.
 - **Regular vs PENSAR:** la etiqueta administrativa no ordena el rendimiento — **el grupo específico y su momento, sí**. En F3 los extremos eran ambos PENSAR; en F4 se invierten y son ambos regulares.
 - **Toggle F3/F4:** en las gráficas de "foto de una fase" (grupos por área, niveles, riesgo, etc.) un selector permite comparar la Fase III con la Fase IV.
+- **Comparativas escalonadas por fase:** un *header horizontal* (barra de pestañas) en el Resumen —repetido al inicio de cada vista de comparación— enlaza tres transiciones paso a paso, **Fase I→II · Fase II→III · Fase III→IV**, con el avance/retroceso por área y global (fórmula oficial ICFES) y la advertencia de composición donde cambia la población. Ver [«Comparativas escalonadas por fase»](#comparativas-escalonadas-por-fase).
 
 ---
 
@@ -51,6 +52,22 @@ Este dashboard convierte **253+ presentaciones individuales** en inteligencia ac
 
 ---
 
+## Comparativas escalonadas por fase
+
+Además de las 11 secciones, el **Resumen** abre con un **header horizontal** (barra de pestañas, repetida al inicio de cada vista) que enlaza tres **comparaciones paso a paso** entre fases consecutivas. Cada vista calcula el **avance/retroceso por área y global** con la fórmula oficial ICFES, directamente desde los promedios por fase (la misma fuente que alimenta las gráficas; el Δ global de F3→F4 reproduce el **+36,4** de la sección XI), y cruza hacia las secciones que profundizan cada transición.
+
+| Transición | Δ global | Qué muestra | Advertencia de lectura | Cruza con |
+|---|---|---|---|---|
+| **Fase I → II** | +5,2 | Δ por área y global de los grupos regulares (11A+11B) | **Limpia** — misma población; PENSAR aún no presentaba en F1 | §V Cohorte estable · §IV Matemáticas · §II Evolución |
+| **Fase II → III** | −20,6 | Δ institucional **+ serie PENSAR de contraste** (misma población) | ⚠ **Cambio de composición** — F2 es solo regulares, F3 ya es consolidado (entran los PENSAR); se contrasta con la serie PENSAR para separar señal de artefacto | §III Por grupo · §VI Intra-grupo · §IV Matemáticas |
+| **Fase III → IV** | +36,4 | Δ por área y global; ambas consolidado; F4 reconstruida por enlace nominal | Comparable, pero parte del alza puede deberse a la dificultad del instrumento (contrástese con la cohorte estable) | §V Cohorte estable · §III Por grupo · §II Evolución |
+
+Cada vista incluye un **panel lateral curado** con accesos internos (Δ global, Δ por área, tabla comparativa) y un enlace a la **comparativa equivalente por años** en la app Saber 11° 2024–2025 ([resultados-icfes-pcielo-2025.streamlit.app](https://resultados-icfes-pcielo-2025.streamlit.app/)). El header y todas las vistas son **responsive**: en móvil el header se apila y las grillas de tarjetas colapsan a 2–3 columnas.
+
+> **Nota metodológica.** El quiebre de composición de la serie está en **F2→F3** (no en F1→F2): en los datos, la Fase I y la Fase II son de solo regulares y la Fase III ya es consolidado. Por eso F1→II es la comparación limpia y F2→III lleva la advertencia — coherente con la sección II («Evolución longitudinal»).
+
+---
+
 ## Fuentes (PDFs SED Quindío)
 
 - **F1** · *I.E PEDACITO DE CIELO primer simulacro.pdf* (25 feb 2026) — solo grupos regulares 11A+11B (global 212,6).
@@ -63,7 +80,7 @@ Roster de matrícula: *Listado-Oficial-TODOS-julio2026.xls* (84 estudiantes en 5
 
 ## Tecnología
 
-Archivo HTML autocontenido. Solo requiere conexión a internet para cargar fuentes (Google Fonts) y Chart.js (cdnjs). Sirve directamente vía GitHub Pages.
+Archivo HTML autocontenido. Solo requiere conexión a internet para cargar fuentes (Google Fonts) y Chart.js (cdnjs). Sirve directamente vía GitHub Pages. La navegación es **modular** (un módulo por pantalla, más el modo «Todo (una página)» y las comparativas por fase) y **responsive** en escritorio y móvil: la barra lateral colapsa a un menú «☰ Módulos», el header de comparativas se apila y las grillas de tarjetas se reajustan.
 
 ---
 
