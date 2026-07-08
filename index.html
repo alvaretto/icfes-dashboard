@@ -840,7 +840,7 @@ body.mod-single .container{padding-top:26px}
 <section class="section" data-mod="5">
   <div class="section-tag">V · Cohorte estable</div>
   <h2>Veinticuatro <em>trayectorias</em></h2>
-  <p class="section-lede">Si filtramos solo los estudiantes que presentaron las tres pruebas (todos pertenecen a 11A o 11B — los grupos PENSAR no estuvieron en F1, aunque sí en F2 y F3), podemos ver tendencias reales sin el ruido del cambio de población. Es la base más confiable para evaluar progreso real <em>de los grupos regulares</em>. Para PENSAR, la cohorte F2→F3→F4 se reporta más abajo en esta misma sección. <strong>Nota Fase IV:</strong> el PDF de F4 (26 may) llegó <strong>sin columna de grupo, pero con detalle por estudiante</strong>; el enlace nominal contra el roster oficial recuperó el grupo de cada uno, de modo que el <strong>agregado PENSAR ya incorpora su punto F4</strong> (gráfica al final de esta sección, global 235,9). Los paneles de trayectoria por estudiante de aquí abajo grafican F1–F3. A nivel consolidado, la cohorte presente en las cuatro fases (n=22) sube su promedio global ~+25 pts (≈219 → ≈244).</p>
+  <p class="section-lede">Si filtramos solo los estudiantes que presentaron las tres pruebas (todos pertenecen a 11A o 11B — los grupos PENSAR no estuvieron en F1, aunque sí en F2 y F3), podemos ver tendencias reales sin el ruido del cambio de población. Es la base más confiable para evaluar progreso real <em>de los grupos regulares</em>. Al final de esta sección, dos paneles agregan las cuatro fases <em>por área</em>: la cohorte 11A+11B (F1→F4) y la de PENSAR (F2→F4, sin F1 porque no presentó). <strong>Nota Fase IV:</strong> el PDF de F4 (26 may) llegó <strong>sin columna de grupo, pero con detalle por estudiante</strong>; el enlace nominal contra el roster oficial recuperó el grupo de cada uno, de modo que el <strong>agregado PENSAR ya incorpora su punto F4</strong> (gráfica al final de esta sección, global 235,9). Los paneles de trayectoria por estudiante de aquí abajo grafican F1–F3. A nivel consolidado, la cohorte presente en las cuatro fases (n=22) sube su promedio global ~+25 pts (≈219 → ≈244).</p>
   <div class="section-rule"></div>
 
   <div class="viz-grid">
@@ -887,6 +887,16 @@ body.mod-single .container{padding-top:26px}
       </div>
       <div class="viz-canvas-wrap" style="height:400px"><canvas id="chart-trayectorias"></canvas></div>
       <p class="viz-note">Hover sobre cada línea para identificar al estudiante. Las líneas que cruzan dramáticamente sugieren cambios de comportamiento (positivos o negativos) que merecen seguimiento.</p>
+    </div>
+
+    <!-- Bloque 11A+11B agregado por área en las 4 fases (análogo al de PENSAR) -->
+    <div class="viz span12">
+      <div class="viz-head">
+        <div><div class="viz-title">Cohorte 11A+11B (regular) <em>F1 → F2 → F3 → F4</em> · agregado por área</div></div>
+        <div class="viz-meta">n≈24–25 por fase · presentes cada día · ponderado por grupo · F3/F4 reconstr. por enlace nominal</div>
+      </div>
+      <div class="viz-canvas-wrap" style="height:340px"><canvas id="chart-reg11-areas"></canvas></div>
+      <p class="viz-note">Equivalente al panel PENSAR, ahora para la cohorte regular en las <strong>cuatro fases</strong>. <strong>Matemáticas</strong> repite el mismo colapso de F3 (43,6 → 31,4) que se ve a nivel institucional y en PENSAR, y rebota en F4 (→ 41,7) — confirma que la caída del tercer simulacro es <strong>transversal</strong> (fatiga o forma del instrumento), no de una modalidad. <strong>Lectura Crítica</strong> es la fortaleza sostenida (salta a 57 en F3 y se mantiene). <strong>C. Sociales</strong> da el mayor salto en F4 (46,7 → 58,0). El global ponderado sube 217 → 222 → 215 → <strong>242 en F4</strong>, el punto más alto de la serie. <span style="color:var(--muted)">F1 y F2 salen de los reportes oficiales de regulares; F3 y F4 se reconstruyen filtrando el subset 11A+11B por enlace nominal — validado: el global ponderado reproduce exacto el del panel maestro (215,5 y 242,4).</span></p>
     </div>
 
     <!-- Bloque añadido tras integrar el reporte PENSAR Fase 2 (24 mar 2026) -->
@@ -2026,6 +2036,51 @@ new Chart(document.getElementById('chart-pensar-f2f3'),{
     },
     scales:{
       y:{min:25, max:60,
+         ticks:{font:{family:"'JetBrains Mono',monospace",size:10},stepSize:5},
+         grid:{color:'#d4cab5',lineWidth:0.6},
+         title:{display:true,text:'Promedio (0–100)',font:{family:"'JetBrains Mono',monospace",size:10}}},
+      x:{ticks:{font:{family:"'JetBrains Mono',monospace",size:11,weight:'700'}},grid:{display:false}}
+    }
+  }
+});
+
+// ============= CHART: Regular 11A+11B F1→F2→F3→F4 (agregado por área) =============
+// F1: reporte oficial F1 (solo regulares, pág.1). F2: reporte oficial F2 "SIN PENSAR" (regulares, pág.1).
+// F3: subset 11A+11B del consolidado F3, filtrado por enlace nominal (n=24; global ponderado 215,5 = panel).
+// F4: subset 11A+11B del PDF Fase IV, enlace nominal (n=25; global ponderado 242,4 = panel).
+// Metodología idéntica a PENSAR: media por estudiante presente cada fase = ponderado por grupo.
+const reg11 = {
+  F1:{Mat:42.47, Lec:49.52, Soc:50.00, Nat:33.97, Ing:36.61},
+  F2:{Mat:43.62, Lec:47.63, Soc:44.88, Nat:43.18, Ing:40.09},
+  F3:{Mat:31.43, Lec:57.28, Soc:46.70, Nat:37.50, Ing:41.67},
+  F4:{Mat:41.68, Lec:57.66, Soc:58.00, Nat:39.50, Ing:39.63}
+};
+new Chart(document.getElementById('chart-reg11-areas'),{
+  type:'bar',
+  data:{
+    labels: pensarLabels,
+    datasets:[
+      {label:'F1 · 25 feb', data:pensarAreas.map(a=>reg11.F1[a]),
+        backgroundColor:pensarColors.map(c=>c+'33'), borderColor:pensarColors, borderWidth:1},
+      {label:'F2 · 24 mar', data:pensarAreas.map(a=>reg11.F2[a]),
+        backgroundColor:pensarColors.map(c=>c+'66'), borderColor:pensarColors, borderWidth:1},
+      {label:'F3 · 27 abr (reconstr.)', data:pensarAreas.map(a=>reg11.F3[a]),
+        backgroundColor:pensarColors.map(c=>c+'AA'), borderColor:pensarColors, borderWidth:1.5, borderDash:[4,3]},
+      {label:'F4 · 26 may (reconstr.)', data:pensarAreas.map(a=>reg11.F4[a]),
+        backgroundColor:pensarColors, borderColor:pensarColors, borderWidth:1.5, borderDash:[4,3]}
+    ]
+  },
+  options:{
+    responsive:true, maintainAspectRatio:false,
+    plugins:{
+      legend:{position:'right', labels:{font:{size:12, family:"'Geist',sans-serif"}, boxWidth:14, padding:14}},
+      tooltip:{backgroundColor:'#161512',
+        titleFont:{family:"'JetBrains Mono',monospace",size:11},
+        bodyFont:{family:"'JetBrains Mono',monospace",size:12},padding:12,
+        callbacks:{label:c=>` ${c.dataset.label}: ${c.parsed.y.toFixed(1)} pts`}}
+    },
+    scales:{
+      y:{min:25, max:62,
          ticks:{font:{family:"'JetBrains Mono',monospace",size:10},stepSize:5},
          grid:{color:'#d4cab5',lineWidth:0.6},
          title:{display:true,text:'Promedio (0–100)',font:{family:"'JetBrains Mono',monospace",size:10}}},
