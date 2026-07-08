@@ -154,6 +154,10 @@ h1.title em{font-style:italic;color:var(--brick)}
 .kpi.accent-crit{background:#1a1410;color:var(--paper);border-color:#1a1410}
 .kpi.accent-crit .kpi-label,.kpi.accent-crit .kpi-sub{color:rgba(243,237,226,0.7)}
 .kpi.accent-crit .kpi-num{color:var(--paper)}
+.kpi.accent-crit .trend-up{color:#a9d488}
+.kpi.accent-crit .trend-down{color:#f0a08f}
+.kpi.accent-crit .kpi-num small{color:rgba(243,237,226,0.72)}
+.kpi.accent-crit [style*="--ok"]{color:#a9d488!important}
 
 /* ========== GRAFICO BLOCKS ========== */
 .viz-grid{display:grid;grid-template-columns:repeat(12,1fr);gap:20px}
@@ -756,7 +760,7 @@ a:focus-visible,button:focus-visible,[tabindex]:focus-visible{outline:2.5px soli
 
     <div class="kpi span4 accent-prusia">
       <div>
-        <div class="kpi-label">11A · regular <span style="color:#c44a3c;font-size:0.5em;display:block;margin-top:2px">▼ MÁS DÉBIL EN F4</span></div>
+        <div class="kpi-label">11A · regular <span style="color:var(--crit);font-size:0.5em;display:block;margin-top:2px">▼ MÁS DÉBIL EN F4</span></div>
         <div class="kpi-num mono">225<small>,9</small></div>
       </div>
       <div>
@@ -930,7 +934,7 @@ a:focus-visible,button:focus-visible,[tabindex]:focus-visible{outline:2.5px soli
         </div>
         <div class="comp-bar"><div class="comp-bar-label"></div>
           <div class="comp-bar-track">
-            <div class="comp-bar-fill" style="width:44.3%;background:var(--brick-soft)">F2 · 44,3</div>
+            <div class="comp-bar-fill" style="width:44.3%;background:var(--brick)">F2 · 44,3</div>
           </div><div class="comp-bar-num">F2</div>
         </div>
         <div class="comp-bar"><div class="comp-bar-label"></div>
@@ -955,7 +959,7 @@ a:focus-visible,button:focus-visible,[tabindex]:focus-visible{outline:2.5px soli
         </div>
         <div class="comp-bar"><div class="comp-bar-label"></div>
           <div class="comp-bar-track">
-            <div class="comp-bar-fill" style="width:36.6%;background:var(--brick-soft)">F3 · 36,6</div>
+            <div class="comp-bar-fill" style="width:36.6%;background:var(--brick)">F3 · 36,6</div>
           </div><div class="comp-bar-num">F3</div>
         </div>
         <div class="comp-bar"><div class="comp-bar-label"></div>
@@ -965,17 +969,17 @@ a:focus-visible,button:focus-visible,[tabindex]:focus-visible{outline:2.5px soli
         </div>
         <div class="comp-bar" style="margin-top:14px"><div class="comp-bar-label">Numérico-Variacional</div>
           <div class="comp-bar-track">
-            <div class="comp-bar-fill" style="width:42.5%;background:var(--olive-soft)">F1 · 42,5</div>
+            <div class="comp-bar-fill" style="width:42.5%;background:var(--olive-soft);color:var(--ink)">F1 · 42,5</div>
           </div><div class="comp-bar-num">F1</div>
         </div>
         <div class="comp-bar"><div class="comp-bar-label"></div>
           <div class="comp-bar-track">
-            <div class="comp-bar-fill" style="width:43.6%;background:var(--olive-soft)">F2 · 43,6</div>
+            <div class="comp-bar-fill" style="width:43.6%;background:var(--olive-soft);color:var(--ink)">F2 · 43,6</div>
           </div><div class="comp-bar-num">F2</div>
         </div>
         <div class="comp-bar"><div class="comp-bar-label"></div>
           <div class="comp-bar-track">
-            <div class="comp-bar-fill" style="width:42.2%;background:var(--olive-soft)">F3 · 42,2</div>
+            <div class="comp-bar-fill" style="width:42.2%;background:var(--olive-soft);color:var(--ink)">F3 · 42,2</div>
           </div><div class="comp-bar-num">F3</div>
         </div>
         <div class="comp-bar"><div class="comp-bar-label"></div>
@@ -1118,7 +1122,7 @@ a:focus-visible,button:focus-visible,[tabindex]:focus-visible{outline:2.5px soli
       <table class="editorial">
         <thead><tr><th>Estudiante</th><th>Grupo</th><th class="num">Lec</th><th class="num">Mat</th><th class="num">Brecha</th></tr></thead>
         <tbody>
-          <tr><td class="name">STEFANY MARIN SALGADO</td><td><span style="font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:700;color:var(--ocre)">PENSAR 3A</span></td><td class="num">91,7</td><td class="num">37,5</td><td class="num delta-pos">+54,2</td></tr>
+          <tr><td class="name">STEFANY MARIN SALGADO</td><td><span style="font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:700;color:#8a5a12">PENSAR 3A</span></td><td class="num">91,7</td><td class="num">37,5</td><td class="num delta-pos">+54,2</td></tr>
           <tr><td class="name">JUAN PABLO PEREZ QUINTANA</td><td><span style="font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:700;color:var(--prusia)">11A</span></td><td class="num">70,8</td><td class="num">20,8</td><td class="num delta-pos">+50,0</td></tr>
           <tr><td class="name">ANDRES JERONIMO OROZCO HURTADO</td><td><span style="font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:700;color:var(--prusia)">11B</span></td><td class="num">83,3</td><td class="num">37,5</td><td class="num delta-pos">+45,8</td></tr>
           <tr><td class="name">MARIA JOSE MUÑOZ VALENCIA</td><td><span style="font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:700;color:var(--brick)">PENSAR 3B</span></td><td class="num">70,8</td><td class="num">25,0</td><td class="num delta-pos">+45,8</td></tr>
@@ -1214,7 +1218,7 @@ a:focus-visible,button:focus-visible,[tabindex]:focus-visible{outline:2.5px soli
         <thead><tr><th>Estudiante</th><th>Grupo</th><th class="num">Global</th><th class="num">N3-4 en</th></tr></thead>
         <tbody>
           <tr><td class="name">JHON ALEXANDER MORALES BENITEZ</td><td><span style="font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:700;color:var(--olive)">PENSAR 3C</span></td><td class="num">426,7</td><td class="num"><span class="pill n4">5</span></td></tr>
-          <tr><td class="name">CHAMTALL MARTINEZ GIRALDO</td><td><span style="font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:700;color:var(--ocre)">PENSAR 3A</span></td><td class="num">421,7</td><td class="num"><span class="pill n4">5</span></td></tr>
+          <tr><td class="name">CHAMTALL MARTINEZ GIRALDO</td><td><span style="font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:700;color:#8a5a12">PENSAR 3A</span></td><td class="num">421,7</td><td class="num"><span class="pill n4">5</span></td></tr>
           <tr><td class="name">JEAN PAUL IDARRAGA PINO</td><td><span style="font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:700;color:var(--olive)">PENSAR 3C</span></td><td class="num">359,3</td><td class="num"><span class="pill n4">5</span></td></tr>
           <tr><td class="name">DAVID FELIPE ROJAS GONZALEZ</td><td><span style="font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:700;color:var(--prusia)">11B</span></td><td class="num">342,6</td><td class="num"><span class="pill n4">4</span></td></tr>
           <tr><td class="name">SEBASTIAN CALDERON CASTILLO</td><td><span style="font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:700;color:var(--olive)">PENSAR 3C</span></td><td class="num">336,5</td><td class="num"><span class="pill n4">4</span></td></tr>
@@ -1288,7 +1292,7 @@ a:focus-visible,button:focus-visible,[tabindex]:focus-visible{outline:2.5px soli
           <div style="height:200px"><canvas id="chart-hist-jorn-soc" role="img" aria-label="Histórico de Sociales por modelo, regular frente a flexible"></canvas></div>
         </div>
         <div>
-          <div style="font-family:'JetBrains Mono',monospace;font-size:11px;text-transform:uppercase;letter-spacing:0.12em;color:var(--ocre);font-weight:700;margin-bottom:4px">Ciencias naturales</div>
+          <div style="font-family:'JetBrains Mono',monospace;font-size:11px;text-transform:uppercase;letter-spacing:0.12em;color:#8a5a12;font-weight:700;margin-bottom:4px">Ciencias naturales</div>
           <div style="height:200px"><canvas id="chart-hist-jorn-nat" role="img" aria-label="Histórico de Ciencias Naturales por modelo, regular frente a flexible"></canvas></div>
         </div>
         <div style="grid-column:span 2;max-width:50%">
@@ -1821,7 +1825,7 @@ const riesgoData = [
 const tbl = document.getElementById('tbl-riesgo');
 riesgoData.forEach(r=>{
   const cls = r[3]>=4?'n1':'n2';
-  const grpColor = r[1].startsWith('11')?'var(--prusia)':r[1]==='PENSAR 3C'?'var(--olive)':r[1]==='PENSAR 3B'?'var(--brick)':'var(--ocre)';
+  const grpColor = r[1].startsWith('11')?'var(--prusia)':r[1]==='PENSAR 3C'?'var(--olive)':r[1]==='PENSAR 3B'?'var(--brick)':'#8a5a12';
   tbl.innerHTML += `<tr>
     <td class="name">${r[0]}</td>
     <td><span style="font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:700;color:${grpColor};letter-spacing:0.04em">${r[1]}</span></td>
