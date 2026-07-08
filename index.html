@@ -4,11 +4,24 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Dashboard ICFES Saber 11° · I.E. Pedacito de Cielo · Análisis Longitudinal 2026</title>
+<meta name="description" content="Análisis longitudinal de cuatro simulacros Saber 11° 2026 de la I.E. Pedacito de Cielo (La Tebaida, Quindío): evolución por área, cohorte estable, equidad, correlaciones y riesgo crítico, con la fórmula oficial ICFES.">
+<link rel="canonical" href="https://alvaretto.github.io/icfes-dashboard/">
+<meta name="theme-color" content="#161512">
+<meta name="color-scheme" content="light">
+<link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2032%2032'%3E%3Crect%20width='32'%20height='32'%20fill='%23161512'/%3E%3Crect%20x='6'%20y='17'%20width='4'%20height='9'%20fill='%23c44a3c'/%3E%3Crect%20x='14'%20y='11'%20width='4'%20height='15'%20fill='%23f3ede2'/%3E%3Crect%20x='22'%20y='6'%20width='4'%20height='20'%20fill='%23c98a2c'/%3E%3C/svg%3E">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Dashboard ICFES Saber 11° · I.E. Pedacito de Cielo">
+<meta property="og:description" content="Análisis longitudinal de cuatro simulacros Saber 11° 2026: evolución por área, equidad y riesgo crítico.">
+<meta property="og:url" content="https://alvaretto.github.io/icfes-dashboard/">
+<meta property="og:locale" content="es_CO">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Dashboard ICFES Saber 11° · I.E. Pedacito de Cielo">
+<meta name="twitter:description" content="Análisis longitudinal de cuatro simulacros Saber 11° 2026.">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500;700&family=Geist:wght@300;400;500;600;700&family=Source+Serif+4:ital,wght@0,400;0,600;1,400;1,600&display=swap" rel="stylesheet">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.js" defer integrity="sha384-FcQlsUOd0TJjROrBxhJdUhXTUgNJQxTMcxZe6nHbaEfFL1zjQ+bq/uRoBQxb0KMo" crossorigin="anonymous"></script>
 
 <style>
 :root{
@@ -28,7 +41,7 @@
   --warn:#b8541b;
   --ok:#5d6b2f;
   --excel:#2d4a1a;
-  --muted:#7a7163;
+  --muted:#655c4f;
   --grid:#d4cab5;
 }
 
@@ -133,7 +146,7 @@ h1.title em{font-style:italic;color:var(--brick)}
 .kpi-trend{display:inline-flex;align-items:center;gap:6px;font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:700;margin-top:6px}
 .trend-up{color:var(--ok)}
 .trend-down{color:var(--crit)}
-.trend-flat{color:var(--ocre)}
+.trend-flat{color:var(--ink-soft)}
 .kpi.accent-brick{border-left:5px solid var(--brick)}
 .kpi.accent-prusia{border-left:5px solid var(--prusia)}
 .kpi.accent-ocre{border-left:5px solid var(--ocre)}
@@ -184,7 +197,7 @@ table.editorial .name{font-weight:500;color:var(--ink)}
   text-transform:uppercase;
 }
 .pill.n1{background:#f5d0c8;color:var(--crit)}
-.pill.n2{background:#f5dcb8;color:var(--warn)}
+.pill.n2{background:#f5dcb8;color:#8a3f14}
 .pill.n3{background:#dbe2b9;color:var(--olive)}
 .pill.n4{background:#b8c9a1;color:var(--excel)}
 
@@ -425,9 +438,31 @@ body.mod-single .container{padding-top:26px}
   .cmp-global-cell.mid{order:-1}
 }
 </style>
+<style>
+/* Skip-link (WCAG 2.4.1 Bypass Blocks) */
+.skip-link{position:absolute;left:-9999px;top:0;z-index:100;background:var(--ink);color:var(--paper);
+  padding:10px 16px;font-family:'JetBrains Mono',monospace;font-size:12px;text-decoration:none}
+.skip-link:focus{left:8px;top:8px}
+/* Indicador de foco propio y consistente (WCAG 2.4.7 / 2.4.11) */
+a:focus-visible,button:focus-visible,[tabindex]:focus-visible{outline:2.5px solid var(--brick);outline-offset:2px;border-radius:2px}
+/* Respetar prefers-reduced-motion (WCAG 2.3.3 / MDN) */
+@media(prefers-reduced-motion:reduce){
+  *{animation-duration:0.001ms!important;animation-iteration-count:1!important;transition-duration:0.001ms!important;scroll-behavior:auto!important}
+}
+/* Impresión legible */
+@media print{
+  .modnav,.modnav-toggle,.skip-link,.cmp-header{display:none!important}
+  .container{margin-left:0!important;max-width:none!important;padding:0!important}
+  body.mod-single .section{display:block!important}
+  body.mod-single .masthead,body.mod-single .numbers,body.mod-single .footnote{display:block!important}
+  *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+}
+</style>
 </head>
 
 <body>
+<a href="#main-content" class="skip-link">Saltar al contenido principal</a>
+<noscript><div style="padding:16px 20px;background:#8b1a0e;color:#f3ede2;font-family:sans-serif;font-size:14px">Este dashboard necesita JavaScript para renderizar las gráficas y la navegación. Actívalo en tu navegador para ver el análisis.</div></noscript>
 <nav class="modnav" aria-label="Navegación de módulos">
   <div class="modnav-brand">Dashboard <em>ICFES</em><span>Simulacros 2026</span></div>
   <a href="#todo" class="modlink modlink-all" data-go="all">▸ Todo (una página)</a>
@@ -445,7 +480,7 @@ body.mod-single .container{padding-top:26px}
   <div class="modnav-foot">I.E. Pedacito de Cielo · La Tebaida</div>
 </nav>
 <button class="modnav-toggle" aria-label="Menú">☰ Módulos</button>
-<div class="container">
+<main class="container" id="main-content">
 
 <!-- ============= MASTHEAD ============= -->
 <header class="masthead">
@@ -655,7 +690,7 @@ body.mod-single .container{padding-top:26px}
           <div style="font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:700;color:var(--crit)">5.º · foco rojo</div>
         </div>
       </div>
-      <div class="viz-canvas-wrap" style="height:360px"><canvas id="chart-f4-cursos"></canvas></div>
+      <div class="viz-canvas-wrap" style="height:360px"><canvas id="chart-f4-cursos" role="img" aria-label="Promedios por área de cada curso en la Fase IV (11A, 11B y PENSAR 3A, 3B, 3C)"></canvas></div>
       <p class="viz-note"><strong>El consolidado (238,1) esconde una brecha de 34 puntos entre cursos.</strong> Este desglose no imputa ningún dato: cada uno de los 74 estudiantes del roster de Fase IV se enlazó por nombre contra el listado oficial de matrícula por curso — <strong>el validador del enlace es que los 74 emparejaron sin ambigüedad</strong> (0 huérfanos, 0 duplicados). Todos los globales usan la <strong>fórmula oficial ICFES</strong> (ponderado 3·LC+3·Mat+3·Soc+3·Nat+1·Inglés ÷13 ×5); por eso el consolidado recomputado es 238,1 y no los 238,1 que la SED publicó usando suma simple. <strong>11B (260,2) y PENSAR 3C (246,3) son las locomotoras del rebote</strong> — 11B concentra la mayor proporción de estudiantes de alto desempeño. En el extremo opuesto, <strong>11A (225,9) es el grupo regular más débil</strong>, arrastrado por Matemáticas (35,9), C. Naturales (36,5) e Inglés (36,3). Corolario para el 26 de julio: la brecha real de Fase IV <strong>no es <em>regular vs PENSAR</em></strong> (242,4 vs 235,9, casi empatados) <strong>sino entre cursos</strong>; el foco de intervención prioritario es 11A. <span style="color:var(--muted)">Reconstrucción por enlace nominal contra <em>Listado-Oficial-TODOS-julio2026</em>; 74/74 emparejados sin ambigüedad.</span></p>
     </div>
   </div>
@@ -666,7 +701,7 @@ body.mod-single .container{padding-top:26px}
         <div><div class="viz-title">Trayectoria <em>por curso</em> · F1 → F4</div></div>
         <div class="viz-meta">promedio global de cada curso en cada fase · PENSAR entra en F2</div>
       </div>
-      <div class="viz-canvas-wrap" style="height:380px"><canvas id="chart-tray-cursos"></canvas></div>
+      <div class="viz-canvas-wrap" style="height:380px"><canvas id="chart-tray-cursos" role="img" aria-label="Trayectoria del promedio global de cada curso a lo largo de las cuatro fases"></canvas></div>
       <p class="viz-note">Cada línea es el <strong>promedio global del curso en cada fase</strong> (todos los presentes ese día; la composición cambia entre fases, a diferencia de la cohorte estable). <strong>PENSAR entra en Fase II</strong> —no presentó Fase I—, por eso sus líneas arrancan en F2. Patrones: <strong>PENSAR 3A (+25) y 3B (+47) dan el mayor salto en Fase IV</strong> tras venir cayendo; <strong>11B es la más volátil</strong> (sube a 248 en F2, baja a 220 en F3, cierra en 260); <strong>11A cae en F2 (199) y se recupera con fuerza</strong> hasta superar su punto de partida (226). La volatilidad entre fases (p. ej. PENSAR 3C 264→231→246) refleja en parte la <strong>distinta dificultad de cada instrumento</strong>, no solo aprendizaje —por eso la comparación limpia sigue siendo contra la prueba real del 26 de julio—. <span style="color:var(--muted)">Reconstruido por enlace nominal contra el listado oficial en las 4 fases; usa el global oficial ponderado ICFES por estudiante.</span></p>
     </div>
   </div>
@@ -680,7 +715,7 @@ body.mod-single .container{padding-top:26px}
         </div>
         <div class="viz-meta">25 feb → 24 mar → 27 abr → 26 may 2026<br>Escala 0–100</div>
       </div>
-      <div class="viz-canvas-wrap" style="height:340px"><canvas id="chart-evolucion"></canvas></div>
+      <div class="viz-canvas-wrap" style="height:340px"><canvas id="chart-evolucion" role="img" aria-label="Evolución del promedio por área entre Fase I y Fase IV, series institucional y PENSAR"></canvas></div>
       <p class="viz-note">El "salto" entre F1 y F2 se explica por la incorporación de los grupos PENSAR a partir de la segunda fase. En la <strong>cohorte estable de 11A y 11B</strong> (n=24), el promedio global se mantiene casi constante (218→223→217), pero <strong>Matemáticas sí cae genuinamente</strong>: 43,2 → 43,8 → 31,8. Esa caída no es artefacto demográfico — es real. Por su parte, el agregado PENSAR (n=48 en F2 y n=52 en F3) muestra un retroceso global entre F2 y F3 (215,4 → 195,0) con una caída pronunciada en Matemáticas (42,2 → 30,4) y en Naturales (42,9 → 33,5), pero un avance claro en Lectura (45,0 → 53,1). <strong>Fase IV rompe la tendencia a la baja:</strong> el consolidado institucional sube a 238,1 (+36,4 vs F3), el punto más alto de la serie, con rebote en Matemáticas (30,8 → 40,5, +9,7), Sociales (40,9 → 55,4, +14,4) y Naturales (35,0 → 42,2, +7,2), mientras Lectura se mantiene alta (54,7 → 53,9). El alza es comparable a nivel consolidado (F3 y F4 ambos agregan todos los grupos), y la <strong>cohorte estable presente en las cuatro fases (n=22) también sube ~+25 pts</strong> (≈219 → ≈244), lo que indica que el rebote es al menos parcialmente genuino y no solo composición; con todo, al ser F4 un instrumento único conviene confirmarlo contra la prueba real del 26 de julio.</p>
     </div>
 
@@ -691,7 +726,7 @@ body.mod-single .container{padding-top:26px}
         </div>
         <div class="viz-meta">n=24 · F1 → F4</div>
       </div>
-      <div class="viz-canvas-wrap" style="height:340px"><canvas id="chart-cohorte-delta"></canvas></div>
+      <div class="viz-canvas-wrap" style="height:340px"><canvas id="chart-cohorte-delta" role="img" aria-label="Avance o retroceso del puntaje global por estudiante de la cohorte estable, de Fase I a Fase IV"></canvas></div>
       <p class="viz-note">Cada barra es un estudiante de la cohorte regular. Verde: avanzó de F1 a F4; rojo: retrocedió. Con la Fase IV el balance se vuelca al verde: <strong>19 de 24 mejoran</strong> respecto a su punto de partida, encabezados por María Ijají (+109,7). Solo cinco retroceden.</p>
     </div>
 
@@ -702,7 +737,7 @@ body.mod-single .container{padding-top:26px}
         </div>
         <div class="viz-meta">% estudiantes por nivel · n=74</div>
       </div>
-      <div class="viz-canvas-wrap" style="height:280px"><canvas id="chart-niveles"></canvas></div>
+      <div class="viz-canvas-wrap" style="height:280px"><canvas id="chart-niveles" role="img" aria-label="Distribución porcentual de niveles de desempeño 1 a 4 por área en la Fase IV"></canvas></div>
       <p class="viz-note">Los rangos de niveles son los oficiales del ICFES y varían por área. En F4 el <strong>Nivel 1 se reduce fuerte</strong> frente a F3 (Matemáticas 71%→30%, Naturales 61%→26%) y aparecen estudiantes en Niveles 3–4 en todas las áreas. Aun así, <strong>Matemáticas sigue sin ningún Nivel 4</strong> — el techo es lo que falta mover.</p>
     </div>
 
@@ -787,7 +822,7 @@ body.mod-single .container{padding-top:26px}
         <button class="tab" data-fase="F3">Fase III</button>
         <button class="tab active" data-fase="F4">Fase IV</button>
       </div>
-      <div class="viz-canvas-wrap" style="height:380px"><canvas id="chart-grupos-areas"></canvas></div>
+      <div class="viz-canvas-wrap" style="height:380px"><canvas id="chart-grupos-areas" role="img" aria-label="Promedio por área de cada grupo, con comparación entre Fase III y Fase IV"></canvas></div>
       <p class="viz-note">Alterna F3 y F4. En <strong>F3</strong>, PENSAR 3C superaba a los regulares en 4 de 5 áreas y 3B era el más débil. En <strong>F4 el cuadro se empareja</strong>: 11B lidera claramente (Mat 47,9 · Soc 60,1), pero PENSAR 3A y 3B suben en todas las áreas y ya no hay un grupo "de otra liga" — la brecha por área se estrecha, salvo Matemáticas, donde 11B se despega.</p>
     </div>
 
@@ -809,7 +844,7 @@ body.mod-single .container{padding-top:26px}
         <button class="tab" data-grp="P3C">PENSAR 3C</button>
       </div>
 
-      <div class="viz-canvas-wrap" style="height:280px"><canvas id="chart-niveles-grupo"></canvas></div>
+      <div class="viz-canvas-wrap" style="height:280px"><canvas id="chart-niveles-grupo" role="img" aria-label="Distribución de niveles de desempeño por grupo"></canvas></div>
       <p class="viz-note">Elige grupo y fase. La mejora F3→F4 en Matemáticas es notable: PENSAR 3B pasa de <strong>94% en Nivel 1 (F3) a 46% (F4)</strong>, y 11A baja de 69% a 38%. Aun así, en F4 casi ningún grupo alcanza mayoría en Niveles 3–4 de Matemáticas: el piso subió, pero el techo sigue bajo — el refuerzo debe apuntar ahora a mover del Nivel 2 al 3.</p>
     </div>
 
@@ -818,7 +853,7 @@ body.mod-single .container{padding-top:26px}
         <div><div class="viz-title">Evolución <em>11A vs 11B</em> · global y Matemáticas</div></div>
         <div class="viz-meta">F1 → F2 → F3 → F4 · global (izq.) y Matemáticas (der.)</div>
       </div>
-      <div class="viz-canvas-wrap" style="height:300px"><canvas id="chart-11a-11b"></canvas></div>
+      <div class="viz-canvas-wrap" style="height:300px"><canvas id="chart-11a-11b" role="img" aria-label="Comparación de promedios por área entre los grupos regulares 11A y 11B"></canvas></div>
       <p class="viz-note">11B tuvo un pico en F2 (248) que no sostuvo en F3 (220) y <strong>recuperó con fuerza en F4 (260,2)</strong>. 11A es más constante y también rebota (211→226). La caída de Matemáticas en F3 fue real en ambos (11A 31,2 · 11B 32,3), pero <strong>en F4 Matemáticas se recupera</strong>: 11A a 35,9 y 11B a 47,9 — el rebote es transversal, no demográfico.</p>
     </div>
 
@@ -827,7 +862,7 @@ body.mod-single .container{padding-top:26px}
         <div><div class="viz-title">Asistencia · <em>F3 vs F4</em></div></div>
         <div class="viz-meta">% que presentó · sobre matrícula del grupo</div>
       </div>
-      <div class="viz-canvas-wrap" style="height:300px"><canvas id="chart-asistencia"></canvas></div>
+      <div class="viz-canvas-wrap" style="height:300px"><canvas id="chart-asistencia" role="img" aria-label="Asistencia por grupo a lo largo de las fases"></canvas></div>
       <p class="viz-note">En F3 la asistencia era pareja (81–86%). En <strong>F4 se dispersa</strong>: 11A, 11B y PENSAR 3C suben (93%, 92%, <strong>100%</strong>), pero <strong>PENSAR 3B cae a 68%</strong> (6 de 19 ausentes). Esto es clave para leer su salto: con menos presentes, parte de su +57 pts puede ser composición (los ausentes suelen ser los más débiles), no solo aprendizaje.</p>
     </div>
 
@@ -864,7 +899,7 @@ body.mod-single .container{padding-top:26px}
         </div>
         <div class="viz-meta">Promedios institucionales</div>
       </div>
-      <div class="viz-canvas-wrap" style="height:300px"><canvas id="chart-mat-componentes"></canvas></div>
+      <div class="viz-canvas-wrap" style="height:300px"><canvas id="chart-mat-componentes" role="img" aria-label="Promedio de los componentes de Matemáticas (Aleatorio, Geométrico-Métrico, Numérico-Variacional) en las cuatro fases"></canvas></div>
       <p class="viz-note"><strong>Aleatorio</strong> (estadística y probabilidad) cayó 30,7 pts en dos meses: de un fugaz 61,5 en F1 al alarmante 30,8 en F3. <strong>Geométrico-Métrico</strong> también desciende. <strong>Numérico-Variacional</strong> es el único estable.</p>
     </div>
 
@@ -875,7 +910,7 @@ body.mod-single .container{padding-top:26px}
         </div>
         <div class="viz-meta">Promedios institucionales</div>
       </div>
-      <div class="viz-canvas-wrap" style="height:300px"><canvas id="chart-mat-competencias"></canvas></div>
+      <div class="viz-canvas-wrap" style="height:300px"><canvas id="chart-mat-competencias" role="img" aria-label="Promedio de las competencias de Matemáticas (Argumentación, Formulación-Ejecución, Interpretación-Representación) en las cuatro fases"></canvas></div>
       <p class="viz-note"><strong>Interpretación-Representación</strong> es la única competencia que mejora (+12,8 pts). <strong>Formulación-Ejecución</strong> retrocede 14,5 pts. <strong>Argumentación</strong> oscila — síntoma de aprendizaje no consolidado.</p>
     </div>
 
@@ -910,12 +945,12 @@ body.mod-single .container{padding-top:26px}
         </div>
         <div class="comp-bar" style="margin-top:14px"><div class="comp-bar-label">Geométrico-Métrico</div>
           <div class="comp-bar-track">
-            <div class="comp-bar-fill" style="width:49.7%;background:var(--ocre)">F1 · 49,7</div>
+            <div class="comp-bar-fill" style="width:49.7%;background:var(--ocre);color:var(--ink)">F1 · 49,7</div>
           </div><div class="comp-bar-num">F1</div>
         </div>
         <div class="comp-bar"><div class="comp-bar-label"></div>
           <div class="comp-bar-track">
-            <div class="comp-bar-fill" style="width:46.6%;background:var(--ocre)">F2 · 46,6</div>
+            <div class="comp-bar-fill" style="width:46.6%;background:var(--ocre);color:var(--ink)">F2 · 46,6</div>
           </div><div class="comp-bar-num">F2</div>
         </div>
         <div class="comp-bar"><div class="comp-bar-label"></div>
@@ -1009,7 +1044,7 @@ body.mod-single .container{padding-top:26px}
         <div><div class="viz-title">Trayectorias individuales · <em>cohorte estable n=24</em></div></div>
         <div class="viz-meta">Cada línea = 1 estudiante · F1 → F2 → F3 → F4 (2 sin F4 terminan en F3)</div>
       </div>
-      <div class="viz-canvas-wrap" style="height:400px"><canvas id="chart-trayectorias"></canvas></div>
+      <div class="viz-canvas-wrap" style="height:400px"><canvas id="chart-trayectorias" role="img" aria-label="Trayectorias individuales del puntaje global de los estudiantes de la cohorte estable"></canvas></div>
       <p class="viz-note">Hover sobre cada línea para identificar al estudiante. Las líneas que cruzan dramáticamente sugieren cambios de comportamiento (positivos o negativos) que merecen seguimiento.</p>
     </div>
 
@@ -1019,7 +1054,7 @@ body.mod-single .container{padding-top:26px}
         <div><div class="viz-title">Cohorte 11A+11B (regular) <em>F1 → F2 → F3 → F4</em> · agregado por área</div></div>
         <div class="viz-meta">n≈24–25 por fase · presentes cada día · ponderado por grupo · F3/F4 reconstr. por enlace nominal</div>
       </div>
-      <div class="viz-canvas-wrap" style="height:340px"><canvas id="chart-reg11-areas"></canvas></div>
+      <div class="viz-canvas-wrap" style="height:340px"><canvas id="chart-reg11-areas" role="img" aria-label="Promedio por área de la cohorte regular 11A más 11B agregada, de Fase I a Fase IV"></canvas></div>
       <p class="viz-note">Equivalente al panel PENSAR, ahora para la cohorte regular en las <strong>cuatro fases</strong>. <strong>Matemáticas</strong> repite el mismo colapso de F3 (43,6 → 31,4) que se ve a nivel institucional y en PENSAR, y rebota en F4 (→ 41,7) — confirma que la caída del tercer simulacro es <strong>transversal</strong> (fatiga o forma del instrumento), no de una modalidad. <strong>Lectura Crítica</strong> es la fortaleza sostenida (salta a 57 en F3 y se mantiene). <strong>C. Sociales</strong> da el mayor salto en F4 (46,7 → 58,0). El global ponderado sube 217 → 222 → 215 → <strong>242 en F4</strong>, el punto más alto de la serie. <span style="color:var(--muted)">F1 y F2 salen de los reportes oficiales de regulares; F3 y F4 se reconstruyen filtrando el subset 11A+11B por enlace nominal — validado: el global ponderado reproduce exacto el del panel maestro (215,5 y 242,4).</span></p>
     </div>
 
@@ -1029,7 +1064,7 @@ body.mod-single .container{padding-top:26px}
         <div><div class="viz-title">Cohorte PENSAR <em>F2 → F3 → F4</em> · agregado por área</div></div>
         <div class="viz-meta">n=48 (F2) · n=52 (F3) · n=49 (F4, reconstr.) · ponderado por grupo</div>
       </div>
-      <div class="viz-canvas-wrap" style="height:340px"><canvas id="chart-pensar-f2f3"></canvas></div>
+      <div class="viz-canvas-wrap" style="height:340px"><canvas id="chart-pensar-f2f3" role="img" aria-label="Promedio por área de la cohorte PENSAR, de Fase II a Fase IV"></canvas></div>
       <p class="viz-note">Con la integración del reporte oficial de PENSAR Fase 2 y la reconstrucción nominal de Fase IV, el programa cuenta ahora con <strong>tres puntos longitudinales</strong> en cada área. <strong>F2→F3:</strong> el agregado retrocede 20,4 pts (215,4 → 195,0), con caídas en <strong>Matemáticas (−11,8)</strong> y <strong>Naturales (−9,4)</strong> del mismo signo y magnitud que en la cohorte estable de 11A+11B —un fenómeno transversal (fatiga del tercer simulacro o forma del instrumento), no específico de modalidad—, y avance en Lectura (+8,1). <strong>F3→F4: el patrón se revierte:</strong> el global sube +40,9 pts (195,0 → 235,9), con rebote en Sociales (+15,8), Naturales (+10,0), Matemáticas (+9,4) e Inglés (+5,6), mientras Lectura cede levemente (−1,2) desde un nivel alto. <span style="color:var(--muted)">El punto F4 es reconstruido por enlace nominal (PDF Fase IV, con detalle por estudiante pero sin columna de grupo; n=49 PENSAR) y proviene de un instrumento único: conviene confirmarlo contra el Saber 11° del 26 de julio.</span></p>
     </div>
   </div>
@@ -1049,7 +1084,7 @@ body.mod-single .container{padding-top:26px}
         <div><div class="viz-title">Riesgo crítico <em>por grupo</em></div></div>
         <div class="viz-meta">% con ≥3 áreas en Nivel 1 · F3 vs F4</div>
       </div>
-      <div class="viz-canvas-wrap" style="height:280px"><canvas id="chart-riesgo-grupo"></canvas></div>
+      <div class="viz-canvas-wrap" style="height:280px"><canvas id="chart-riesgo-grupo" role="img" aria-label="Porcentaje de estudiantes en riesgo crítico por grupo"></canvas></div>
       <p class="viz-note">El riesgo crítico <strong>se desploma en F4</strong>: PENSAR 3B pasa de 70,6% a 7,7% y PENSAR 3A de 68,4% a 22,2%; los regulares también bajan (11B 33→8%, 11A 31→15%). La excepción es <strong>PENSAR 3C, que sube de 6,2% a 16,7%</strong>. <strong>Cautela:</strong> la caída de 3B coincide con su desplome de asistencia (68%), así que parte de la mejora es composición, no solo aprendizaje — verificar contra la prueba real del 26 de julio.</p>
     </div>
 
@@ -1058,7 +1093,7 @@ body.mod-single .container{padding-top:26px}
         <div><div class="viz-title">Heterogeneidad <em>intra-grupo</em> · Mat vs Lec</div></div>
         <div class="viz-meta">Coeficiente de Variación (%) · Fase IV</div>
       </div>
-      <div class="viz-canvas-wrap" style="height:280px"><canvas id="chart-cv-grupo"></canvas></div>
+      <div class="viz-canvas-wrap" style="height:280px"><canvas id="chart-cv-grupo" role="img" aria-label="Coeficiente de variación (heterogeneidad) por grupo"></canvas></div>
       <p class="viz-note">En F4, <strong>PENSAR 3C es ahora el grupo más disperso</strong> tanto en Matemáticas (CV 41,0) como en Lectura (46,9) — perdió la homogeneidad lectora que tenía en F3 (16,6): coexisten estudiantes muy fuertes (Jhon Morales 426,7) y muy débiles. En el otro extremo, <strong>PENSAR 3B se volvió el más homogéneo en Lectura</strong> (22,4). La dispersión se corrió de Matemáticas hacia Lectura en varios grupos.</p>
     </div>
 
@@ -1071,7 +1106,7 @@ body.mod-single .container{padding-top:26px}
         <button class="tab" data-tramo="F2F3">F2 → F3</button>
         <button class="tab active" data-tramo="F3F4">F3 → F4</button>
       </div>
-      <div class="viz-canvas-wrap" style="height:460px"><canvas id="chart-momentum"></canvas></div>
+      <div class="viz-canvas-wrap" style="height:460px"><canvas id="chart-momentum" role="img" aria-label="Cambio de puntaje entre fases (momentum) por grupo"></canvas></div>
       <p class="viz-note">Alterna el tramo. Entre <strong>F2→F3</strong> la cohorte se polarizó (saltos y caídas de ±40–77). Entre <strong>F3→F4 el momentum es abrumadoramente positivo</strong>: casi todos suben, encabezados por <strong>Brahian Altamar (+103)</strong>, Miguel Murillo (+79) y Andrés Orozco (+74). Solo cinco retroceden, y de forma leve; el más pronunciado es Kender Giraldo (−39). Confirma que el rebote de F4 es amplio, no de unos pocos — a validar contra la prueba real.</p>
     </div>
 
@@ -1210,7 +1245,7 @@ body.mod-single .container{padding-top:26px}
         <div><div class="viz-title">Promedio global del establecimiento · <em>Saber 11° oficial</em></div></div>
         <div class="viz-meta">2016-2 → 2025-3 · escala 0–500</div>
       </div>
-      <div class="viz-canvas-wrap" style="height:340px"><canvas id="chart-hist-ee"></canvas></div>
+      <div class="viz-canvas-wrap" style="height:340px"><canvas id="chart-hist-ee" role="img" aria-label="Trayectoria histórica del puntaje global institucional entre 2016 y 2025"></canvas></div>
       <p class="viz-note">El promedio del establecimiento cayó 25 puntos en una década (246 → 221). La caída se aceleró tras 2019 con la pandemia y después con la incorporación del programa PENSAR al reporte (2022), que jala hacia abajo el promedio agregado por composición — no necesariamente por deterioro. Para evaluar progreso real conviene mirar las series desagregadas (siguientes gráficos).</p>
     </div>
 
@@ -1220,7 +1255,7 @@ body.mod-single .container{padding-top:26px}
         <div><div class="viz-title">Evolución por <em>área</em> · EE consolidado</div></div>
         <div class="viz-meta">Cinco trayectorias institucionales · 2016-2025 · 0–100</div>
       </div>
-      <div class="viz-canvas-wrap" style="height:360px"><canvas id="chart-hist-ee-areas"></canvas></div>
+      <div class="viz-canvas-wrap" style="height:360px"><canvas id="chart-hist-ee-areas" role="img" aria-label="Trayectoria histórica del promedio por área entre 2016 y 2025"></canvas></div>
       <p class="viz-note">Cinco velocidades distintas de erosión. <strong>Lectura crítica</strong> es la única ancla estable de la institución (50 → 48, −2 pts en 9 años). <strong>Sociales</strong> es la peor caída relativa (48 → 41, −7 pts) y <strong>Naturales</strong> la más volátil (51 → 43, −8 pts). <strong>Matemáticas</strong> se ha estabilizado en 44 desde 2022, sin tendencia clara. <strong>Inglés</strong> rebotó tras la pandemia y se mantiene cerca del 45. Esto reposiciona las prioridades pedagógicas: las áreas de <em>contenido factual</em> (Soc, Nat) son las que más viene perdiendo el colegio, no las de habilidad transversal.</p>
     </div>
 
@@ -1229,7 +1264,7 @@ body.mod-single .container{padding-top:26px}
         <div><div class="viz-title">Regular vs Flexible · <em>Saber 11° oficial</em></div></div>
         <div class="viz-meta">2016–2025 · escala 0–500 · dos modelos educativos</div>
       </div>
-      <div class="viz-canvas-wrap" style="height:380px"><canvas id="chart-hist-regvsp"></canvas></div>
+      <div class="viz-canvas-wrap" style="height:380px"><canvas id="chart-hist-regvsp" role="img" aria-label="Comparación histórica del puntaje entre el modelo regular y el modelo flexible"></canvas></div>
       <p class="viz-note">El Modelo Flexible (línea roja: CAMINAR antes, PENSAR ahora) está reportado en el ICFES <strong>al menos desde 2017</strong>, no desde 2022 como podría sugerir la última asignación de jornada. La etiqueta administrativa cambió: <strong>UNICA</strong> en 2017-2019 (donde sus puntajes 235/213/210 quedaron por debajo de MAÑANA/Regular 240/246/254 con brechas de 5/33/44 pts) y <strong>TARDE</strong> en 2022-2025. Para <strong>2016, 2020 y 2021</strong> el reporte trae una sola jornada consolidada (rombos grises), por lo que no se pueden separar los dos modelos. La <strong>brecha Regular vs Flexible se está cerrando</strong> en el último cuatrienio: 40 pts (2022) → 41 (2023) → 37 (2024) → <strong>20 pts (2025)</strong>. La línea Regular, en cambio, viene cayendo: 252 → 234 (−18 pts en 3 años) — la regresión es del Regular, no de la institución como un todo.</p>
     </div>
 
@@ -1242,23 +1277,23 @@ body.mod-single .container{padding-top:26px}
       <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:24px 28px;margin-top:14px">
         <div>
           <div style="font-family:'JetBrains Mono',monospace;font-size:11px;text-transform:uppercase;letter-spacing:0.12em;color:var(--olive);font-weight:700;margin-bottom:4px">Lectura crítica</div>
-          <div style="height:200px"><canvas id="chart-hist-jorn-lc"></canvas></div>
+          <div style="height:200px"><canvas id="chart-hist-jorn-lc" role="img" aria-label="Histórico de Lectura Crítica por modelo, regular frente a flexible"></canvas></div>
         </div>
         <div>
           <div style="font-family:'JetBrains Mono',monospace;font-size:11px;text-transform:uppercase;letter-spacing:0.12em;color:var(--brick);font-weight:700;margin-bottom:4px">Matemáticas</div>
-          <div style="height:200px"><canvas id="chart-hist-jorn-mat"></canvas></div>
+          <div style="height:200px"><canvas id="chart-hist-jorn-mat" role="img" aria-label="Histórico de Matemáticas por modelo, regular frente a flexible"></canvas></div>
         </div>
         <div>
           <div style="font-family:'JetBrains Mono',monospace;font-size:11px;text-transform:uppercase;letter-spacing:0.12em;color:var(--prusia);font-weight:700;margin-bottom:4px">Sociales y ciudadanas</div>
-          <div style="height:200px"><canvas id="chart-hist-jorn-soc"></canvas></div>
+          <div style="height:200px"><canvas id="chart-hist-jorn-soc" role="img" aria-label="Histórico de Sociales por modelo, regular frente a flexible"></canvas></div>
         </div>
         <div>
           <div style="font-family:'JetBrains Mono',monospace;font-size:11px;text-transform:uppercase;letter-spacing:0.12em;color:var(--ocre);font-weight:700;margin-bottom:4px">Ciencias naturales</div>
-          <div style="height:200px"><canvas id="chart-hist-jorn-nat"></canvas></div>
+          <div style="height:200px"><canvas id="chart-hist-jorn-nat" role="img" aria-label="Histórico de Ciencias Naturales por modelo, regular frente a flexible"></canvas></div>
         </div>
         <div style="grid-column:span 2;max-width:50%">
           <div style="font-family:'JetBrains Mono',monospace;font-size:11px;text-transform:uppercase;letter-spacing:0.12em;color:var(--prusiaSoft);font-weight:700;margin-bottom:4px">Inglés</div>
-          <div style="height:200px"><canvas id="chart-hist-jorn-ing"></canvas></div>
+          <div style="height:200px"><canvas id="chart-hist-jorn-ing" role="img" aria-label="Histórico de Inglés por modelo, regular frente a flexible"></canvas></div>
         </div>
       </div>
       <p class="viz-note" style="margin-top:18px"><strong>Lecturas clave por área</strong> (con la asignación heurística para 2017-2019 y 2022-2025) · <em>Lectura crítica</em>: Regular oscila 51-54; Flexible 45-50, brecha 4-8 pts. · <em>Matemáticas</em>: Regular cae 53→47 entre 2019 y 2025; Flexible estable 40-45, brecha 6-12 pts. · <em>Sociales</em>: Regular cae 50→44; Flexible 38-46, brecha 6-12 pts. · <em>Naturales</em>: Regular cae 50→44; Flexible 39-47, brecha 4-9 pts. · <em>Inglés</em>: Regular se mantiene 46-50; Flexible 41-45, brecha 3-9 pts (la más estrecha). Los años 2016, 2020 y 2021 quedan en blanco porque el reporte ICFES solo trae una jornada y no se pueden separar los dos modelos.</p>
@@ -1269,7 +1304,7 @@ body.mod-single .container{padding-top:26px}
         <div><div class="viz-title">Matemáticas · <em>Regular vs PENSAR</em> · 2022-2025</div></div>
         <div class="viz-meta">Cuatro años con ambas modalidades · 0–100</div>
       </div>
-      <div class="viz-canvas-wrap" style="height:300px"><canvas id="chart-hist-mat"></canvas></div>
+      <div class="viz-canvas-wrap" style="height:300px"><canvas id="chart-hist-mat" role="img" aria-label="Histórico de Matemáticas, regular frente a PENSAR, entre 2022 y 2025"></canvas></div>
       <p class="viz-note">En <strong>Matemáticas</strong> la brecha también se cierra: +8 (2022) → +12 (2023) → +8 (2024) → <strong>+5 pts (2025)</strong>. El dato es revelador para el simulacro 2026: en Fase III (abril) la cohorte regular obtuvo Mat=31, pero <strong>en Fase IV (mayo) rebotó a 41,7</strong>. Si julio se pareciera a F3 sería una caída de 16 pts vs Saber 11° 2025 (Mat=47); si se pareciera a F4, casi empataría. El rebote de F4 abre esa segunda hipótesis — pero al venir de un instrumento único, hay que confirmarlo el 26 de julio.</p>
     </div>
 
@@ -1279,7 +1314,7 @@ body.mod-single .container{padding-top:26px}
         <div><div class="viz-title">Brecha por <em>modelo educativo</em> en las cinco áreas</div></div>
         <div class="viz-meta">Promedio 2022-2025 · Regular vs Flexible (PENSAR)</div>
       </div>
-      <div class="viz-canvas-wrap" style="height:340px"><canvas id="chart-hist-modelo"></canvas></div>
+      <div class="viz-canvas-wrap" style="height:340px"><canvas id="chart-hist-modelo" role="img" aria-label="Promedio por área entre 2022 y 2025 comparando el modelo regular y el flexible PENSAR"></canvas></div>
       <p class="viz-note"><strong>La brecha entre modelos no es uniforme.</strong> Promediando los cuatro años con ambas modalidades, las áreas se ordenan así por brecha decreciente: <strong>Sociales</strong> y <strong>Matemáticas</strong> con 8 pts (las más amplias) · <strong>Lectura</strong> y <strong>Naturales</strong> con 6 pts · <strong>Inglés</strong> con apenas 5 pts (la convergencia más completa). El dato sugiere dónde el Modelo Flexible logra mejor lo que se propone (nivelar competencias) y dónde la composición demográfica/curricular sigue marcando distancia. Para 2026, el área de mayor apalancamiento si se mira como brecha es <em>Sociales</em>: una intervención focalizada allí en PENSAR (que ya viene débil tanto histórica como en simulacros) podría cerrar el gap más rápidamente que en otras áreas.</p>
     </div>
 
@@ -1388,12 +1423,14 @@ body.mod-single .container{padding-top:26px}
   <p style="margin-top:10px;font-style:italic;color:var(--muted)">Análisis preparado por el área de Matemáticas · I.E. Pedacito de Cielo · La Tebaida, Quindío · Mayo de 2026 · Para uso del Consejo Académico y del CEP de grado 11.</p>
 </div>
 
-</div><!-- /container -->
+</main><!-- /container -->
 
 <!-- ============================================================ -->
 <!--                      CHARTS & DATA                            -->
 <!-- ============================================================ -->
 <script>
+document.addEventListener('DOMContentLoaded', function(){
+if(window.matchMedia('(prefers-reduced-motion: reduce)').matches){ if(window.Chart) Chart.defaults.animation=false; }
 // Datos
 const FASES_LABELS = ['Fase I · 25 feb', 'Fase II · 24 mar', 'Fase III · 27 abr', 'Fase IV · 26 may'];
 const FASES_LABELS_3 = FASES_LABELS.slice(0,3); // paneles de trayectoria por estudiante: sus arrays cubren F1–F3 (el enlace individual a F4 existe en el panel maestro pero aún no se grafica aquí)
@@ -2643,7 +2680,7 @@ new Chart(document.getElementById('chart-hist-mat'),{
           <div class="cmp-caveat ${p.caveat.warn?'warn':''}" id="${p.id}-caveat"><span class="cmp-caveat-k">${p.caveat.k}</span>${p.caveat.html}</div>
           <div class="viz span12" id="${p.id}-areas">
             <div class="viz-head"><div class="viz-title">Δ por área · <em>avance/retroceso</em></div><div class="viz-meta">${p.roman}<br>escala 0–100 por área</div></div>
-            <div class="viz-canvas-wrap" style="height:300px"><canvas id="${p.id}-canvas"></canvas></div>
+            <div class="viz-canvas-wrap" style="height:300px"><canvas id="${p.id}-canvas" role="img" aria-label="Avance o retroceso por área en la transición ${p.roman}, serie institucional${p.pensar?' y PENSAR (misma población)':''}"></canvas></div>
             <div class="viz-note">Barras a la derecha del cero = avance; a la izquierda = retroceso. ${p.pensar?'Se muestran la serie institucional y la serie PENSAR (misma población) para separar señal de artefacto.':'Serie de grupos regulares (11A + 11B), población constante entre ambas fases.'}</div>
           </div>
           <div class="viz span12" id="${p.id}-table">
@@ -2708,7 +2745,7 @@ new Chart(document.getElementById('chart-hist-mat'),{
   const nav=document.querySelector('.modnav');
   function resizeIn(el){ el.querySelectorAll('canvas').forEach(c=>{ const ch=(window.Chart&&Chart.getChart)?Chart.getChart(c):null; if(ch) ch.resize(); }); }
   function show(go){
-    links.forEach(a=>a.classList.toggle('active', a.dataset.go===go));
+    links.forEach(a=>{ const on=a.dataset.go===go; a.classList.toggle('active', on); if(on){ a.setAttribute('aria-current', a.classList.contains('modlink')?'page':'true'); } else { a.removeAttribute('aria-current'); } });
     if(go==='all'){
       document.body.classList.remove('mod-single');
       secs.forEach(s=>s.classList.add('mod-on'));
@@ -2731,6 +2768,7 @@ new Chart(document.getElementById('chart-hist-mat'),{
   const cm=(location.hash.match(/^#(cmp-\d+)$/));
   show(location.hash==='#todo'?'all':(cm?cm[1]:(m?m[1]:'1')));
 })();
+}); // fin DOMContentLoaded
 </script>
 </body>
 </html>
