@@ -2,7 +2,31 @@
 
 Análisis longitudinal de cuatro simulacros tipo Saber 11° (Fases I, II, III y IV) aplicados por la Secretaría de Educación Departamental del Quindío entre febrero y mayo de 2026, de cara al **examen Saber 11° oficial del 26 de julio de 2026**.
 
-**Ver dashboard:** [https://alvaretto.github.io/icfes-dashboard/](https://alvaretto.github.io/icfes-dashboard/)
+**Ver dashboard:** [https://alvaretto.github.io/icfes-dashboard/](https://alvaretto.github.io/icfes-dashboard/) · **Resultados oficiales Saber 11° 2026:** [`#mod-1`](https://alvaretto.github.io/icfes-dashboard/#mod-1)
+
+---
+
+## ★ Saber 11° 2026 · resultados oficiales (módulo de portada)
+
+Desde el 25 de septiembre de 2026 la portada del dashboard ([`#mod-1`](https://alvaretto.github.io/icfes-dashboard/#mod-1)) presenta los **resultados oficiales del examen Saber 11° del 26 de julio de 2026** (82 estudiantes con informe, 82 en los agregados del ICFES). Once apartados:
+
+| # | Apartado | Qué muestra |
+|---|---|---|
+| 1 | Global | Institución, Jornada 1 (aula regular) y Jornada 0 (Pensar 3); brecha entre jornadas; pruebas con avance significativo; riesgo crítico; percentil nacional mediano |
+| 2 | Por prueba | Promedio ± DE de las 5 pruebas frente a Colombia y ETC Quindío 2025 y frente a la institución en 2025, con símbolos ▲▼• |
+| 3 | Niveles | % por nivel de desempeño (MCER en Inglés): institución, jornadas, 2025, 2024, Colombia, ETC y los 5 grupos |
+| 4 | 2024 → 2026 | Tres años por institución y jornada, y por qué el colegio sube menos que cada jornada (efecto composición) |
+| 5 | Entre jornadas | Brecha aula regular − Pensar 3 por prueba en 2024, 2025 y 2026 (t de Welch en 2026) |
+| 6 | Por grupo | Cada grupo 2025 → 2026, % en los dos niveles más bajos y mapa grupos × pruebas frente a Colombia |
+| 7 | Distribución | Histograma del global y quintiles del percentil nacional por jornada |
+| 8 | Estudiantes | Listado nominal filtrable, con búsqueda y ordenable: global, percentil, puntaje y nivel por prueba y simulacro de agosto |
+| 9 | Simulacro → oficial | Correlación entre el Simulacro Agosto 2026 y el examen (74 emparejados) |
+| 10 | Descriptores | Qué sabe hacer un estudiante en cada nivel (texto literal de los reportes del ICFES) |
+| 11 | Cómo leer | Escalas, fórmula del global, percentil, símbolos y advertencias |
+
+**Datos y privacidad.** El módulo se **genera**, no se edita a mano: `Saber-ICFES-2026/scripts/exportar_dashboard.py --inyectar` incrusta el JSON y el código del módulo entre los marcadores `S26-*` y `SABER2026-DATA`. El chequeo C20 de ese proyecto recalcula desde los datos cada cifra publicada y verifica que el sitio no contenga números de documento, registros del ICFES, datos de etnia o discapacidad, ni el nombre del estudiante que solo cuenta en los agregados. Los símbolos ▲▼• usan una metodología propia del colegio (IC 95 %), no la del ICFES. Las comparaciones entre años son de promociones distintas.
+
+Los once módulos de los simulacros siguen igual, ahora en `#mod-2` a `#mod-12` (rótulos I a XI).
 
 ---
 
