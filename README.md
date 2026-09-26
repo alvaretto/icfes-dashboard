@@ -1,6 +1,6 @@
 # Dashboard ICFES Saber 11° · I.E. Pedacito de Cielo
 
-Análisis longitudinal de cuatro simulacros tipo Saber 11° (Fases I, II, III y IV) aplicados por la Secretaría de Educación Departamental del Quindío entre febrero y mayo de 2026, de cara al **examen Saber 11° oficial del 26 de julio de 2026**.
+**Resultados oficiales del examen Saber 11° del 26 de julio de 2026** de la I.E. Pedacito de Cielo (La Tebaida, Quindío): global, pruebas, niveles, jornadas, grupos, estudiantes y el plan para volver a la categoría C. Como contexto de preparación, conserva el análisis longitudinal de los cuatro simulacros tipo Saber 11° (Fases I a IV) que la Secretaría de Educación Departamental del Quindío aplicó entre febrero y mayo de 2026.
 
 **Ver dashboard:** [https://alvaretto.github.io/icfes-dashboard/](https://alvaretto.github.io/icfes-dashboard/) · **Resultados oficiales Saber 11° 2026:** [`#mod-1`](https://alvaretto.github.io/icfes-dashboard/#mod-1)
 
@@ -29,11 +29,15 @@ Desde el 25 de septiembre de 2026 la portada del dashboard ([`#mod-1`](https://a
 
 Los once módulos de los simulacros siguen igual, ahora en `#mod-2` a `#mod-12` (rótulos I a XI).
 
+**Portada de la vista «Todo» (D24, 2026-09-26).** [`#todo`](https://alvaretto.github.io/icfes-dashboard/#todo) abre con «Saber 11° 2026: el examen real» y una franja de ocho cifras oficiales (global institucional y frente a 2025, las dos jornadas, estudiantes con informe, percentil mediano, riesgo crítico, categoría y enlace al plan C 2027). También es generada: bloque `S26-PORTADA`, abierto una vez con `preparar_portada.py` y cuyas cifras escribe `s26.js` desde el JSON. Un separador, «Antes del examen: los simulacros» (`#todo-simulacros`), da paso a los once módulos de preparación, que no cambian. El chequeo C20i verifica que la portada sea la plantilla, sin cifras escritas a mano y en ese orden.
+
 ---
 
-## Por qué existe este dashboard
+## Los simulacros de preparación (módulos I–XI)
 
-La institución presenta cuatro simulacros de práctica antes de la prueba real. Cada reporte de la SED llega como un **promedio institucional único** — y ese promedio **miente**: esconde que el grado once reúne dos modalidades muy distintas (bachillerato regular 11A/11B y el programa flexible *PENSAR* 3A/3B/3C, para estudiantes en extraedad), con brechas de más de 80 puntos entre grupos y de 34 puntos entre cursos dentro de la misma modalidad.
+> Esta parte es **contexto**: cómo llegó cada grupo al examen. El resultado que cuenta está en el módulo ★ (arriba).
+
+La institución presentó cuatro simulacros de práctica antes de la prueba real. Cada reporte de la SED llega como un **promedio institucional único** — y ese promedio **miente**: esconde que el grado once reúne dos modalidades muy distintas (bachillerato regular 11A/11B y el programa flexible *PENSAR* 3A/3B/3C, para estudiantes en extraedad), con brechas de más de 80 puntos entre grupos y de 34 puntos entre cursos dentro de la misma modalidad.
 
 Este dashboard convierte **253+ presentaciones individuales** en inteligencia accionable para responder tres preguntas que el promedio no puede:
 

@@ -3,15 +3,15 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Dashboard ICFES Saber 11° · I.E. Pedacito de Cielo · Resultados 2026 y simulacros</title>
-<meta name="description" content="Resultados oficiales Saber 11° 2026 (comparados con 2025, 2024, Colombia y por jornada y grupo) y análisis longitudinal de cuatro simulacros Saber 11° 2026 de la I.E. Pedacito de Cielo (La Tebaida, Quindío): evolución por área, cohorte estable, equidad, correlaciones y riesgo crítico, con la fórmula oficial ICFES.">
+<title>Saber 11° 2026 · resultados oficiales · I.E. Pedacito de Cielo</title>
+<meta name="description" content="Resultados oficiales Saber 11° 2026 (comparados con 2025, 2024, Colombia y por jornada y grupo) de la I.E. Pedacito de Cielo, con el plan para volver a la categoría C; como contexto, el análisis longitudinal de los cuatro simulacros de preparación (La Tebaida, Quindío): evolución por área, cohorte estable, equidad, correlaciones y riesgo crítico, con la fórmula oficial ICFES.">
 <link rel="canonical" href="https://alvaretto.github.io/icfes-dashboard/">
 <meta name="theme-color" content="#161512">
 <meta name="color-scheme" content="light">
 <link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2032%2032'%3E%3Crect%20width='32'%20height='32'%20fill='%23161512'/%3E%3Crect%20x='6'%20y='17'%20width='4'%20height='9'%20fill='%23c44a3c'/%3E%3Crect%20x='14'%20y='11'%20width='4'%20height='15'%20fill='%23f3ede2'/%3E%3Crect%20x='22'%20y='6'%20width='4'%20height='20'%20fill='%23c98a2c'/%3E%3C/svg%3E">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Dashboard ICFES Saber 11° · I.E. Pedacito de Cielo">
-<meta property="og:description" content="Resultados oficiales Saber 11° 2026 (comparados con 2025, 2024, Colombia y por jornada y grupo) y análisis longitudinal de cuatro simulacros Saber 11° 2026: evolución por área, equidad y riesgo crítico.">
+<meta property="og:description" content="Resultados oficiales Saber 11° 2026 (comparados con 2025, 2024, Colombia y por jornada y grupo) y plan para volver a la categoría C; como contexto, cuatro simulacros de preparación: evolución por área, equidad y riesgo crítico.">
 <meta property="og:url" content="https://alvaretto.github.io/icfes-dashboard/">
 <meta property="og:locale" content="es_CO">
 <meta name="twitter:card" content="summary">
@@ -578,6 +578,19 @@ table.editorial.s26-heat tr.s26-sub td{color:var(--ink)}
 .s26-sencillo-lista b{color:var(--ink)}
 .s26-sencillo-buena{margin-top:16px;padding-top:14px;border-top:1px solid var(--grid);font-size:15px;line-height:1.65;color:var(--ink-soft)}
 .s26-sencillo-buena b{color:var(--ink)}
+/* D24 · portada de la vista «Todo» y separador hacia los simulacros (ocultos en la vista de un módulo) */
+.s26-portada-numbers{grid-template-columns:repeat(4,1fr)}
+@media (max-width:900px){.s26-portada-numbers{grid-template-columns:repeat(2,1fr)}}
+.s26-portada-numbers .val small{font-size:.5em}
+.s26-portada-link a{color:inherit;text-decoration:none;border-bottom:2px solid var(--brick)}
+.s26-portada-link a:hover,.s26-portada-link a:focus-visible{color:var(--brick)}
+.todo-sep{margin:56px 0 8px;padding:28px 0 6px;border-top:3px double var(--ink)}
+.todo-sep h2{font-family:'Instrument Serif',serif;font-weight:400;font-size:40px;line-height:1.05;margin:6px 0 12px;color:var(--ink)}
+.todo-sep h2 em{color:var(--muted)}
+.todo-sep a{color:var(--brick);text-decoration-thickness:1px;text-underline-offset:3px}
+.todo-sep-badge{display:inline-block;padding:2px 8px;margin-right:6px;border:1px solid var(--muted);color:var(--muted);font-size:10px;letter-spacing:.1em;text-transform:uppercase}
+body.mod-single .todo-sep{display:none}
+@media (max-width:640px){.todo-sep h2{font-size:30px}}
 </style>
 <!-- S26-CSS:FIN -->
 </head>
@@ -586,11 +599,11 @@ table.editorial.s26-heat tr.s26-sub td{color:var(--ink)}
 <a href="#main-content" class="skip-link">Saltar al contenido principal</a>
 <noscript><div style="padding:16px 20px;background:#8b1a0e;color:#f3ede2;font-family:sans-serif;font-size:14px">Este dashboard necesita JavaScript para renderizar las gráficas y la navegación. Actívalo en tu navegador para ver el análisis.</div></noscript>
 <nav class="modnav" aria-label="Navegación de módulos">
-  <div class="modnav-brand">Dashboard <em>ICFES</em><span>Saber 11° 2026 · Simulacros</span></div>
+  <div class="modnav-brand">Dashboard <em>ICFES</em><span>Saber 11° 2026 · Resultados oficiales</span></div>
   <a href="#todo" class="modlink modlink-all" data-go="all">▸ Todo (una página)</a>
     <div class="modnav-group">Examen oficial</div>
     <a href="#mod-1" class="modlink modlink-s26" data-go="1"><span class="mk-num">★</span> Saber 11° 2026</a>
-    <div class="modnav-group">Simulacros 2026</div>
+    <div class="modnav-group">Preparación · simulacros feb–may</div>
     <a href="#mod-2" class="modlink" data-go="2"><span class="mk-num">I</span> Resumen</a>
     <a href="#mod-3" class="modlink" data-go="3"><span class="mk-num">II</span> Evolución</a>
     <a href="#mod-4" class="modlink" data-go="4"><span class="mk-num">III</span> Por grupo</a>
@@ -607,33 +620,28 @@ table.editorial.s26-heat tr.s26-sub td{color:var(--ink)}
 <button class="modnav-toggle"><span aria-hidden="true">☰</span> Módulos</button>
 <main class="container" id="main-content">
 
-<!-- ============= MASTHEAD ============= -->
+<!-- S26-PORTADA:INICIO (generado por Saber-ICFES-2026/scripts/exportar_dashboard.py; no editar a mano) -->
+<!-- ============= PORTADA (vista «Todo»): el examen oficial primero, los simulacros como contexto (D24) ============= -->
 <header class="masthead">
-  <div class="masthead-meta">
-    <span><span class="dot"></span>Reporte Analítico Longitudinal</span>
-    <span>Vol. I · Núm. 04 · Julio 2026</span>
-    <span>Fases I · II · III · IV</span>
-    <span style="color:var(--brick);font-weight:700">▸ Saber 11° · 26 julio 2026</span>
+  <div class="masthead-meta" id="s26-portada-meta">
+    <span><span class="dot"></span>Resultados oficiales del ICFES</span>
+    <span>Grado once · dos jornadas · cinco grupos</span>
+    <span>Contexto: simulacros departamentales de febrero a mayo</span>
   </div>
-  <h1 class="title">El pulso<br>de un <em>simulacro</em></h1>
-  <p class="deck">Cuatro mediciones consecutivas, cinco áreas, dos modalidades educativas. Lo que revelan los datos sobre el grado once regular (11A, 11B) y el programa <em>PENSAR</em>, modelo flexible para estudiantes en extraedad (3A, 3B, 3C) — por qué un grupo PENSAR supera a los regulares, y cómo la Fase IV rompe la caída con el consolidado más alto de la serie (238,1).</p>
+  <h1 class="title">Saber 11° 2026:<br>el <em>examen real</em></h1>
+  <p class="deck" id="s26-portada-deck">Los resultados oficiales del examen de Estado para el grado once: el global de la institución, cada prueba, los niveles de desempeño, las dos jornadas, los grupos y cada estudiante, y el plan para volver a la categoría C. Debajo, como contexto de preparación, el análisis de los cuatro simulacros departamentales que precedieron al examen.</p>
   <div class="byline">
     <span>Institución Educativa <strong>Pedacito de Cielo</strong> · La Tebaida, Quindío</span>
     <span>Análisis: Área de Matemáticas</span>
-    <span>Fuente: Sec. Educación Departamental del Quindío</span>
+    <span>Fuente: ICFES (examen) · Sec. Educación Departamental del Quindío (simulacros)</span>
   </div>
 </header>
 
-<!-- ============= SECUENCIA NUMÉRICA INTRO ============= -->
-<div class="numbers">
-  <div><div class="lab">Fases analizadas</div><div class="val">4</div></div>
-  <div><div class="lab">Total presentaciones</div><div class="val">253</div></div>
-  <div><div class="lab">Grupos · F2 y F3</div><div class="val">5 <em>11A·11B·P3A·P3B·P3C</em></div></div>
-  <div><div class="lab">Cohorte estable F1·F2·F3</div><div class="val">24 <em>solo 11A+11B</em></div></div>
-  <div><div class="lab">Promedio Fase IV <em>· 26 may</em></div><div class="val">238,1</div></div>
-  <div><div class="lab">Mejor grupo F3</div><div class="val">P3C <em>232,7</em></div></div>
-  <div><div class="lab">Trayectoria histórica</div><div class="val">10 <em>años · Saber 11° oficial</em></div></div>
+<!-- Cifras de portada: las escribe s26.js desde el JSON oficial (ninguna cifra en esta plantilla; C20i) -->
+<div class="numbers s26-portada-numbers" id="s26-portada-numbers" aria-live="polite">
+  <div><div class="lab">Global institucional</div><div class="val">—</div></div>
 </div>
+<!-- S26-PORTADA:FIN -->
 
 <!-- S26-HTML:INICIO (generado por Saber-ICFES-2026/scripts/exportar_dashboard.py; no editar a mano) -->
 <!-- ============= ★ SABER 11° 2026 · RESULTADOS OFICIALES (generado desde Saber-ICFES-2026) ============= -->
@@ -844,6 +852,13 @@ table.editorial.s26-heat tr.s26-sub td{color:var(--ink)}
     <p class="s26-legend" id="s26-plan-nota"></p>
   </div>
 </section>
+
+<!-- Separador de la vista «Todo» (D24): desde aquí, los simulacros como contexto de preparación -->
+<div class="todo-sep" id="todo-simulacros">
+  <div class="section-tag"><span class="todo-sep-badge">Preparación</span> Simulacros departamentales · febrero a mayo de 2026</div>
+  <h2>Antes del examen: <em>los simulacros</em></h2>
+  <p class="section-lede">Los once módulos siguientes (I a XI) analizan los cuatro simulacros que la Secretaría de Educación del Quindío aplicó antes del examen. Sirven como contexto: cómo llegó cada grupo al 26 de julio. Su escala de niveles no es la del ICFES, y el cruce con el resultado oficial está en el apartado <a href="#s26-sim">9 · Simulacro → oficial</a>.</p>
+</div>
 
 <!-- S26-HTML:FIN -->
 
@@ -1750,7 +1765,7 @@ table.editorial.s26-heat tr.s26-sub td{color:var(--ink)}
 
 <!-- ============= FOOTNOTE ============= -->
 <div class="footnote">
-  <h3>Nota metodológica</h3>
+  <h3>Nota metodológica · simulacros de preparación (feb.–may. 2026)</h3>
   <p>Este análisis longitudinal procesa <strong>253 presentaciones individuales</strong> distribuidas en cuatro simulacros tipo Saber 11° aplicados por la Secretaría de Educación Departamental del Quindío entre febrero y mayo de 2026, cruzadas contra el listado oficial de matrícula por grupo. La matrícula vigente (<em>Listado-Oficial-TODOS-julio2026</em>) es de <strong>84 estudiantes en 5 grupos</strong> (11A:14, 11B:13, PENSAR 3A:20, 3B:19, 3C:18); el reporte de Fase III registraba 92 inscritos contando ausentes, y la diferencia corresponde a movimiento de matrícula entre abril y julio. La <strong>Fase IV</strong> (26 may, n=74) se reportó de forma consolidada, sin columna de grupo, pero <strong>su desglose por curso se reconstruyó</strong> enlazando cada estudiante contra ese listado oficial (ver panel <em>Fase IV desglosada por curso</em>); los promedios por área fueron verificados recomputando el roster completo carácter-por-carácter contra el reporte de la SED.</p>
   <p style="margin-top:10px"><strong>Composición del grado once:</strong> 11A y 11B son los grupos del bachillerato regular (27 estudiantes en la matrícula vigente de julio: 14 + 13). PENSAR 3A, 3B y 3C son grupos del <em>Modelo Pedagógico PENSAR®</em>, un modelo educativo flexible aprobado por el Ministerio de Educación Nacional, dirigido a <strong>niños y jóvenes en condición de extraedad</strong> (estudiantes que superan la edad esperada para el grado y que recientemente salieron del aula regular para nivelar competencias en básica secundaria y media); 57 estudiantes en la matrícula vigente de julio (20 + 19 + 18). La Fase I solo fue presentada por estudiantes de 11A y 11B; los grupos PENSAR se incorporaron desde la Fase II (24 marzo 2026, n=48 en el reporte específico de PENSAR Fase 2) y continuaron en la Fase III. La <strong>Fase IV</strong> (26 mayo 2026) se aplicó de forma consolidada institucional (n=74): el reporte trae <strong>detalle por estudiante pero sin columna de grupo/modalidad</strong>, y el grupo de cada uno se reconstruyó enlazando por nombre contra el listado oficial. La cohorte estable de tres mediciones (n=24) está compuesta exclusivamente por estudiantes de 11A y 11B con presencia en las tres fases; PENSAR cuenta con cohorte propia de <strong>tres mediciones (F2→F3→F4)</strong>, con el punto F4 reconstruido por enlace nominal (n=49; global 235,9).</p>
   <p style="margin-top:10px"><strong>Fuentes:</strong> reporte global F1 ("primer simulacro"), reporte F2 sin PENSAR ("(2)"), reporte F2 PENSAR ("(PENSAR)" · 24 mar 2026, recientemente integrado) y reporte F3 ("(SIN PENSAR)" + grupos PENSAR consolidados en F3). Todos en formato PDF emitidos por la SED Quindío.</p>
@@ -3206,6 +3221,23 @@ document.addEventListener('DOMContentLoaded',function(){
   kp.push(kpi('span3','accent-ocre','Percentil nacional mediano',nf(mediana,0),'del puntaje global','trend-flat',
     `La mitad de los estudiantes supera al ${nf(mediana,0)} % de los evaluados del país; la otra mitad queda por debajo.`));
   $('s26-kpis').innerHTML=kp.join('');
+
+  // ---------- Portada de la vista «Todo» (D24): el examen oficial primero; cifras desde el JSON ----------
+  { const pm=$('s26-portada-meta'), pn=$('s26-portada-numbers'), PV=D.plan2027&&D.plan2027.vigente;
+    if(pm) pm.innerHTML=[`<span><span class="dot"></span>Resultados oficiales del ICFES</span>`,
+      `<span>Aplicación ${esc(M.aplicacion)}</span>`,`<span>Publicación ${esc(M.publicacion)}</span>`,
+      `<span style="color:var(--brick);font-weight:700">▸ Contexto: simulacros feb.–may.</span>`].join('');
+    const cel=(lab,val,sub,href)=>`<div${href?' class="s26-portada-link"':''}><div class="lab">${lab}</div><div class="val">${href?`<a href="${href}">${val}</a>`:val}${sub?` <em>${sub}</em>`:''}</div></div>`;
+    if(pn) pn.innerHTML=[
+      cel('Global institucional <em>· 0–500</em>',ent('institucional'),`${sgn0(I.sig.vs_2025.global.dif0)} vs 2025`),
+      cel('Aula regular · Jornada 1',ent('jornada1'),`n = ${J1.y2026.n}`),
+      cel('Pensar 3 · Jornada 0',ent('jornada0'),`n = ${J0.y2026.n}`),
+      cel('Estudiantes con informe',String(M.n_con_informe),`${M.n_agregados} en agregados`),
+      cel('Percentil nacional mediano',nf(mediana,0),'del global'),
+      cel('Riesgo crítico',nf(riesgo/estAgr.length*100)+'<small>%</small>','nivel más bajo en 3+ pruebas'),
+      PV?cel('Clasificación de planteles',esc(PV.categoria),'meta: C en 2027','#s26-plan'):'',
+      cel('Simulacros de preparación','I–XI','módulos, más abajo','#todo-simulacros')].join('');
+  }
 
   // ---------- 2 · Por prueba ----------
   chart('s26-c-pruebas',{type:'bar',data:{labels:AREAS.map(a=>AN[a]),datasets:[
