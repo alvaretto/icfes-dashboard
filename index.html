@@ -3400,7 +3400,7 @@ document.addEventListener('DOMContentLoaded',function(){
     const kp=[];
     kp.push(kpi('span3','accent-prusia','Meta · global institución 2027',nf(P.global.meta),`+${nf(P.global.meta-P.global.m2026)} puntos`,'trend-up',`2026: ${nf(P.global.m2026)} (n = ${P.n_cohorte}). +${P.puntos_meta} en cada prueba equivale a +${nf(P.puntos_meta*5,0)} en el global.`));
     kp.push(kpi('span3','accent-prusia','Meta · índice de clasificación',n4(P.meta_2027),`corte C: ${nf(P.corte_c,2)}`,'trend-up',`Calculado con el método oficial; se desvía menos de ${nf(P.sesgo,3)} de los índices publicados por el ICFES en 2024 y 2025.`));
-    kp.push(kpi('span3','accent-crit','Ausentes el día del examen','0',`2026: ${P.ausentes_2026}`,'trend-down',`Cada ausente resta ≈ ${nf(P.costo_ausente,4)} al índice.`));
+    kp.push(kpi('span3','accent-crit','Meta · ausentes en el examen 2027','0',`En 2026 faltaron ${P.ausentes_2026}`,'trend-down',`Cada convocado que no se presenta resta ≈ ${nf(P.costo_ausente,4)} al índice.`));
     kp.push(kpi('span3','','Pensar 3 en los agregados',`${P.n_pensar} de ${P.n_cohorte}`,'',''  ,`De los ${P.n_cohorte} estudiantes que cuentan para la clasificación, ${P.n_pensar} son de Pensar 3 (3A, 3B y 3C) y ${P.n_cohorte-P.n_pensar} de 11A y 11B.`));
     $('s26-plan-kpis').innerHTML=kp.join('');
     { const Hs=P.historia, ev=a=>(Hs.find(x=>x.anio===a)||{}).evaluados, ix=a=>(Hs.find(x=>x.anio===a)||{}).indice;
