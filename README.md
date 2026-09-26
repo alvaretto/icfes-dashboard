@@ -8,7 +8,7 @@ Análisis longitudinal de cuatro simulacros tipo Saber 11° (Fases I, II, III y 
 
 ## ★ Saber 11° 2026 · resultados oficiales (módulo de portada)
 
-Desde el 25 de septiembre de 2026 la portada del dashboard ([`#mod-1`](https://alvaretto.github.io/icfes-dashboard/#mod-1)) presenta los **resultados oficiales del examen Saber 11° del 26 de julio de 2026** (82 estudiantes con informe, 82 en los agregados del ICFES). Once apartados:
+Desde el 25 de septiembre de 2026 la portada del dashboard ([`#mod-1`](https://alvaretto.github.io/icfes-dashboard/#mod-1)) presenta los **resultados oficiales del examen Saber 11° del 26 de julio de 2026** (82 estudiantes con informe, 81 en los agregados del ICFES). Doce apartados:
 
 | # | Apartado | Qué muestra |
 |---|---|---|
@@ -23,6 +23,7 @@ Desde el 25 de septiembre de 2026 la portada del dashboard ([`#mod-1`](https://a
 | 9 | Simulacro → oficial | Correlación entre el Simulacro Agosto 2026 y el examen (74 emparejados) |
 | 10 | Descriptores | Qué sabe hacer un estudiante en cada nivel (texto literal de los reportes del ICFES) |
 | 11 | Cómo leer | Escalas, fórmula del global, percentil, símbolos y advertencias |
+| 12 | Plan C 2027 | Cómo pasar de D a C en la clasificación de planteles 2027: metas por prueba (+3), dónde rinde cada punto (franjas, jornadas, rutas), cinco frentes y cronograma. Cifras de `plan_c2027.py` con el método oficial (Res. ICFES 268/2020, art. 11), validadas por C20g |
 
 **Datos y privacidad.** El módulo se **genera**, no se edita a mano: `Saber-ICFES-2026/scripts/exportar_dashboard.py --inyectar` incrusta el JSON y el código del módulo entre los marcadores `S26-*` y `SABER2026-DATA`. El chequeo C20 de ese proyecto recalcula desde los datos cada cifra publicada y verifica que el sitio no contenga números de documento, registros del ICFES, datos de etnia o discapacidad, ni el nombre del estudiante que solo cuenta en los agregados. Los símbolos ▲▼• usan una metodología propia del colegio (IC 95 %), no la del ICFES. Las comparaciones entre años son de promociones distintas.
 
