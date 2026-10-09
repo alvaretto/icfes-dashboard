@@ -459,6 +459,9 @@ body.mod-single .container{padding-top:26px}
 .skip-link{position:absolute;left:-9999px;top:0;z-index:100;background:var(--ink);color:var(--paper);
   padding:10px 16px;font-family:'JetBrains Mono',monospace;font-size:12px;text-decoration:none}
 .skip-link:focus{left:8px;top:8px}
+/* Solo para lectores de pantalla */
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+body:not(.mod-single) #vista-h1{display:none}
 /* Indicador de foco propio y consistente (WCAG 2.4.7 / 2.4.11) */
 a:focus-visible,button:focus-visible,[tabindex]:focus-visible{outline:2.5px solid var(--brick);outline-offset:2px;border-radius:2px}
 /* Respuesta al presionar: cada control reacciona al bajar el dedo, no al soltarlo, y reemplaza el
@@ -525,6 +528,7 @@ a:focus-visible,button:focus-visible,[tabindex]:focus-visible{outline:2.5px soli
 .s26-legend b{color:var(--ink)}
 .section.s26{position:relative}
 .s26-scroll{position:relative;overflow-x:auto;-webkit-overflow-scrolling:touch;max-width:100%}
+.s26-scroll:focus-visible{outline:2.5px solid var(--brick);outline-offset:2px}
 .s26-scroll.s26-wide table.editorial{min-width:640px}
 .viz.span5 table.editorial{font-size:12px}
 .viz.span5 table.editorial tbody td{padding:7px 5px}
@@ -652,6 +656,8 @@ body.mod-single .todo-sep{display:none}
 </nav>
 <button class="modnav-toggle"><span aria-hidden="true">☰</span> Módulos</button>
 <main class="container" id="main-content">
+<!-- h1 de las vistas de un módulo (la cabecera con el h1 visible solo se muestra en «Todo»); lo nombra show() -->
+<h1 class="sr-only" id="vista-h1">Dashboard ICFES · Saber 11° 2026</h1>
 
 <!-- S26-PORTADA:INICIO (generado por Saber-ICFES-2026/scripts/exportar_dashboard.py; no editar a mano) -->
 <!-- ============= PORTADA (vista «Todo»): el examen oficial primero, los simulacros como contexto (D24) ============= -->
@@ -3007,7 +3013,9 @@ new Chart(document.getElementById('chart-hist-mat'),{
     const rs=rows(s,i,j), g0=gAt(s,i), g1=gAt(s,j), gd=(g0==null||g1==null)?null:g1-g0;
     const body=rs.map(r=>`<tr><td class="name">${r.a}</td><td class="num">${num(r.fi)}</td><td class="num">${num(r.fj)}</td><td class="num ${cls(r.d)}">${arr(r.d)} ${signed(r.d)}</td></tr>`).join('');
     const grow=`<tr style="border-top:1.5px solid var(--ink)"><td class="name">Global ICFES <span style="color:var(--muted);font-weight:400">(0–500)</span></td><td class="num">${num(g0)}</td><td class="num">${num(g1)}</td><td class="num ${cls(gd)}">${arr(gd)} ${signed(gd)}</td></tr>`;
-    return `${title?`<div class="cmp-subtitle">${title}</div>`:''}<div class="cmp-tablewrap"><table class="editorial"><thead><tr><th>Área</th><th style="text-align:right">Fase ${RO[i]}</th><th style="text-align:right">Fase ${RO[j]}</th><th style="text-align:right">Δ avance/retroceso</th></tr></thead><tbody>${body}${grow}</tbody></table></div>`;
+    // región enfocable con nombre: en móvil la tabla se desplaza en horizontal y debe poder hacerse con teclado
+    const lab=title||`Promedios por área, Fase ${RO[i]} → Fase ${RO[j]}`;
+    return `${title?`<div class="cmp-subtitle">${title}</div>`:''}<div class="cmp-tablewrap" tabindex="0" role="region" aria-label="${lab}"><table class="editorial"><thead><tr><th>Área</th><th style="text-align:right">Fase ${RO[i]}</th><th style="text-align:right">Fase ${RO[j]}</th><th style="text-align:right">Δ avance/retroceso</th></tr></thead><tbody>${body}${grow}</tbody></table></div>`;
   }
 
   const PAIRS=[
@@ -3026,7 +3034,9 @@ new Chart(document.getElementById('chart-hist-mat'),{
   ];
 
   // Header horizontal (tab-bar) reutilizado en cada vista; el .active lo pone el motor de nav
-  const HEADER=`<nav class="cmp-header" aria-label="Comparativas escalonadas por fase">`
+  // Cada copia lleva su propio nombre: en la vista «Todo» conviven cuatro barras y un mismo aria-label
+  // repetido las vuelve indistinguibles para un lector de pantalla (axe: landmark-unique).
+  const HEADER=v=>`<nav class="cmp-header" aria-label="Comparativas escalonadas por fase · vista ${v}">`
     +`<div class="cmp-header-lead"><span class="cmp-header-tag">Comparativas por fase</span><span class="cmp-header-hint">Avances y retrocesos · delta ICFES</span></div>`
     +`<div class="cmp-header-tabs">`
     +`<a class="cmp-tab" href="#cmp-12" data-go="cmp-12"><span class="ct-step">Fase I → II</span><span class="ct-sub">Regulares · limpio</span></a>`
@@ -3042,7 +3052,7 @@ new Chart(document.getElementById('chart-hist-mat'),{
     const railCross=p.crossto.map(([go,lab])=>`<a class="cmp-rail-item ext" href="#mod-${go}" data-go="${go}">${lab}</a>`).join('');
     const pensarTable=p.pensar?tableHTML(promediosPENSAR,p.i,p.j,'Serie PENSAR · misma población ('+p.roman+')'):'';
     sec.innerHTML=`
-      ${HEADER}
+      ${HEADER(p.roman)}
       <div class="section-tag">${p.tag}</div>
       <h2>${p.h}</h2>
       <p class="section-lede">${p.lede}</p>
@@ -3133,6 +3143,7 @@ new Chart(document.getElementById('chart-hist-mat'),{
   const secs=[...document.querySelectorAll('.section[data-mod]')];
   const nav=document.querySelector('.modnav');
   const tog=document.querySelector('.modnav-toggle');
+  const h1v=document.getElementById('vista-h1');
   // Menú móvil: se abre pegado bajo «☰ Módulos», con el estado expuesto a lectores de pantalla.
   function menu(on){
     if(!nav) return;
@@ -3154,6 +3165,11 @@ new Chart(document.getElementById('chart-hist-mat'),{
       secs.forEach(s=>{ const on=s.dataset.mod===go; s.classList.toggle('mod-on',on); });
       const active=secs.find(s=>s.dataset.mod===go);
       if(active){ requestAnimationFrame(()=>resizeIn(active)); }
+    }
+    if(h1v){
+      const a=document.querySelector(`.modlink[data-go="${go}"]`), c=document.querySelector(`.cmp-tab[data-go="${go}"] .ct-step`);
+      let t=''; if(a){ const k=a.cloneNode(true); k.querySelectorAll('.mk-num').forEach(x=>x.remove()); t=k.textContent.trim(); } else if(c){ t='Comparativa '+c.textContent.trim(); }
+      h1v.textContent='Dashboard ICFES'+(t?' · '+t:'');
     }
     try{ const h = go==='all'?'#todo':(String(go).indexOf('cmp')===0?'#'+go:'#mod-'+go); history.replaceState(null,'',h); }catch(e){}
     window.scrollTo(0,0);
@@ -3238,6 +3254,21 @@ document.addEventListener('DOMContentLoaded',function(){
     if(prev) prev.destroy();
     charts[id]=new Chart(cv,cfg); return charts[id];
   }
+  // Las tablas anchas se desplazan en horizontal en móvil: cada contenedor es una región enfocable con
+  // nombre, para poder desplazarla con el teclado (axe: scrollable-region-focusable). El nombre es el
+  // <caption>; si no hay, el título de la propia gráfica-tabla (.viz-title) y, si tampoco, el título más
+  // cercano hacia arriba. Tiene que ser único (axe: landmark-unique). Se repite tras cada cambio de
+  // pestaña porque el caption cambia con la prueba elegida.
+  function etiquetarDesplazables(){
+    root.querySelectorAll('.s26-scroll').forEach(w=>{
+      const c=w.querySelector('caption, .viz-title'); let lab=c?c.textContent.trim():'';
+      for(let n=w;!lab&&n&&n!==root;n=n.parentElement){
+        let e=n.previousElementSibling; while(e&&!/^H[2-4]$/.test(e.tagName)) e=e.previousElementSibling;
+        if(e) lab=e.textContent.replace(/^\d+/,'').trim();
+      }
+      w.tabIndex=0; w.setAttribute('role','region'); w.setAttribute('aria-label',lab||'Tabla');
+    });
+  }
   const tick={font:{family:MONO,size:10},color:C.inkSoft};
   const tip={backgroundColor:C.ink,padding:10,titleFont:{family:MONO,size:11},bodyFont:{family:MONO,size:12}};
   const leg={position:'top',labels:{font:{family:MONO,size:10},boxWidth:12,padding:10,color:C.ink}};
@@ -3246,7 +3277,7 @@ document.addEventListener('DOMContentLoaded',function(){
     const h=$(host);
     h.innerHTML=keys.map(k=>`<button role="tab" type="button" data-k="${k}" aria-selected="${k===ini}" tabindex="${k===ini?0:-1}">${esc(AN[k]||k)}</button>`).join('');
     const bs=[...h.querySelectorAll('button')];
-    function sel(b){ bs.forEach(x=>{const on=x===b; x.setAttribute('aria-selected',on); x.tabIndex=on?0:-1;}); onSel(b.dataset.k); }
+    function sel(b){ bs.forEach(x=>{const on=x===b; x.setAttribute('aria-selected',on); x.tabIndex=on?0:-1;}); onSel(b.dataset.k); etiquetarDesplazables(); }
     bs.forEach((b,i)=>{
       b.addEventListener('click',()=>sel(b));
       b.addEventListener('keydown',e=>{ if(e.key==='ArrowRight'||e.key==='ArrowLeft'){ e.preventDefault(); const n=bs[(i+(e.key==='ArrowRight'?1:bs.length-1))%bs.length]; n.focus(); sel(n);} });
@@ -3606,6 +3637,7 @@ document.addEventListener('DOMContentLoaded',function(){
     $('s26-plan-frentes').innerHTML=fr.map(([t,d])=>`<li><b>${t}.</b> ${d}</li>`).join('');
     $('s26-plan-nota').innerHTML=`<b>Cómo se calculó.</b> Método oficial de clasificación de planteles (Res. ICFES 268 de 2020, arts. 11 y 11-A, modificados por la Res. 677 de 2021), verificado con el ejemplo resuelto del ICFES y calibrado contra los índices que publicó en 2024 y 2025. La promoción 2027 se modela como la de 2026 más un desplazamiento: es un escenario, no un pronóstico. La línea de base de grado 10 ajustará las metas. La clasificación la publica el ICFES; esta es una estimación de la institución.`;
   }
+  etiquetarDesplazables();
 });
 </script>
 <!-- S26-JS:FIN -->
