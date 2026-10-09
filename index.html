@@ -331,9 +331,19 @@ body.mod-single .section.mod-on{display:block}
 body.mod-single .masthead,body.mod-single .numbers,body.mod-single .footnote{display:none}
 body.mod-single .container{padding-top:26px}
 @media(max-width:900px){
-  .modnav{position:static;width:auto;height:auto;border-right:none;border-bottom:1px solid var(--rule);
-    display:none;padding:12px 0}
-  .modnav.open{display:block}
+  /* En móvil el menú es una hoja fija que sale de debajo de «☰ Módulos» y vuelve por el mismo camino.
+     Antes era estático en la cabeza del documento: con la página desplazada se abría fuera de la
+     pantalla y solo se veía saltar el contenido. --modnav-top lo pone el JS al abrir. */
+  .modnav{position:fixed;top:var(--modnav-top,41px);left:0;right:0;width:auto;height:auto;
+    max-height:calc(100vh - var(--modnav-top,41px));max-height:calc(100dvh - var(--modnav-top,41px));
+    overscroll-behavior:contain;border-right:none;border-bottom:1px solid var(--rule);padding:12px 0;z-index:59;
+    box-shadow:0 14px 28px rgba(22,21,18,.22);visibility:hidden;opacity:0;transform:translateY(-8px);
+    transition:opacity .18s ease-out,transform .18s ease-out,visibility 0s linear .18s}
+  .modnav.open{visibility:visible;opacity:1;transform:none;transition:opacity .18s ease-out,transform .18s ease-out}
+  /* Fondo atenuado: centra la atención en el menú y un toque fuera lo cierra */
+  body::after{content:'';position:fixed;inset:0;z-index:58;background:rgba(22,21,18,.28);opacity:0;pointer-events:none;
+    transition:opacity .18s ease-out}
+  body.modnav-abierto::after{opacity:1;pointer-events:auto}
   .container{margin-left:0}
   .modnav-toggle{display:block;position:sticky;top:0;z-index:60;width:100%;padding:12px;
     font-family:'JetBrains Mono',monospace;font-size:13px;font-weight:700;background:var(--ink);color:var(--paper);
@@ -451,6 +461,13 @@ body.mod-single .container{padding-top:26px}
 .skip-link:focus{left:8px;top:8px}
 /* Indicador de foco propio y consistente (WCAG 2.4.7 / 2.4.11) */
 a:focus-visible,button:focus-visible,[tabindex]:focus-visible{outline:2.5px solid var(--brick);outline-offset:2px;border-radius:2px}
+/* Respuesta al presionar: cada control reacciona al bajar el dedo, no al soltarlo, y reemplaza el
+   destello gris del navegador móvil. (Los controles del módulo Saber 11° 2026 la traen en su bloque.) */
+.modlink,.cmp-tab,.cmp-rail-item,.modnav-toggle,.tab{-webkit-tap-highlight-color:transparent}
+.modlink:active,.cmp-rail-item:active{background:rgba(160,36,24,.12)}
+.cmp-tab:not(.active):active{background:rgba(160,36,24,.14)}
+.tab:active{background:rgba(160,36,24,.08)}
+.modnav-toggle:active{background:#2e2b26}
 /* Respetar prefers-reduced-motion (WCAG 2.3.3 / MDN) */
 @media(prefers-reduced-motion:reduce){
   *{animation-duration:0.001ms!important;animation-iteration-count:1!important;transition-duration:0.001ms!important;scroll-behavior:auto!important}
@@ -472,13 +489,29 @@ a:focus-visible,button:focus-visible,[tabindex]:focus-visible{outline:2.5px soli
   background:var(--ink);color:var(--paper);padding:3px 8px;margin-right:8px;vertical-align:middle}
 .s26-meta{display:flex;flex-wrap:wrap;gap:6px 22px;font-family:'JetBrains Mono',monospace;font-size:11.5px;color:var(--ink-soft);margin:4px 0 0}
 .s26-meta b{color:var(--ink);font-weight:700}
-.s26-subnav{position:sticky;top:0;z-index:5;display:flex;gap:6px;overflow-x:auto;padding:10px 0;margin:0 0 26px;
-  background:var(--paper);border-bottom:1px solid var(--grid);scrollbar-width:thin}
+/* --s26-top: alto de la barra «☰ Módulos» cuando está fija arriba (móvil); lo mide s26.js. Sin ella,
+   las dos barras se pegaban en top:0 y la de módulos tapaba esta. */
+.s26-subnav{position:sticky;top:var(--s26-top,0px);z-index:5;padding:10px 0;margin:0 0 26px;
+  background:var(--paper);border-bottom:1px solid var(--grid)}
+/* La pista se desplaza y se desvanece solo por el lado donde quedan apartados ocultos (s26.js pone
+   las clases), para que se note que hay más sin tener que descubrirlo arrastrando. */
+.s26-subnav-pista{display:flex;gap:6px;overflow-x:auto;scrollbar-width:thin;--fi:0px;--fd:0px;
+  -webkit-mask-image:linear-gradient(to right,transparent,#000 var(--fi),#000 calc(100% - var(--fd)),transparent);
+  mask-image:linear-gradient(to right,transparent,#000 var(--fi),#000 calc(100% - var(--fd)),transparent)}
+.s26-subnav-pista.s26-mas-izq{--fi:24px}
+.s26-subnav-pista.s26-mas-der{--fd:40px}
 .s26-subnav a{flex:0 0 auto;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--ink-soft);text-decoration:none;
   border:1px solid var(--grid);padding:6px 10px;border-radius:999px;background:rgba(255,255,255,.35);white-space:nowrap}
 .s26-subnav a:hover{border-color:var(--ink);color:var(--ink)}
 .s26-subnav a span{color:var(--brick);font-weight:700;margin-right:4px}
-.s26-block{margin:0 0 44px;scroll-margin-top:64px}
+.s26-block{margin:0 0 44px;scroll-margin-top:calc(64px + var(--s26-top,0px))}
+/* Respuesta al presionar: el control reacciona al bajar el dedo, no al soltarlo. Reemplaza el
+   destello gris del navegador móvil por una respuesta propia. */
+.s26-subnav a,.s26-tabs button,.s26-chips button,.s26-est th button{-webkit-tap-highlight-color:transparent}
+.s26-subnav a,.s26-chips button{transition:transform .1s ease-out}
+.s26-subnav a:active,.s26-chips button:active{transform:scale(.96)}
+.s26-tabs button:active{background:rgba(160,36,24,.08)}
+.s26-est th button:active{opacity:.6}
 .s26-h3{font-family:'Instrument Serif',Georgia,serif;font-size:clamp(24px,3vw,32px);line-height:1.1;font-weight:400;margin:0 0 6px}
 .s26-h3 .s26-num{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--brick);vertical-align:middle;margin-right:10px;letter-spacing:.04em}
 .s26-h3 em{font-style:italic;color:var(--brick)}
@@ -653,6 +686,7 @@ body.mod-single .todo-sep{display:none}
   <div class="section-rule"></div>
 
   <nav class="s26-subnav" aria-label="Apartados del informe Saber 11° 2026">
+    <div class="s26-subnav-pista">
     <a href="#s26-global"><span>1</span>Global</a>
     <a href="#s26-pruebas"><span>2</span>Por prueba</a>
     <a href="#s26-niveles"><span>3</span>Niveles</a>
@@ -665,6 +699,7 @@ body.mod-single .todo-sep{display:none}
     <a href="#s26-desc"><span>10</span>Descriptores</a>
     <a href="#s26-leer"><span>11</span>Cómo leer</a>
     <a href="#s26-plan"><span>12</span>Por qué D · Plan C 2027</a>
+    </div>
   </nav>
 
   <div class="s26-block" id="s26-global">
@@ -1783,6 +1818,7 @@ body.mod-single .todo-sep{display:none}
 <script>
 document.addEventListener('DOMContentLoaded', function(){
 if(window.matchMedia('(prefers-reduced-motion: reduce)').matches){ if(window.Chart) Chart.defaults.animation=false; }
+else if(window.Chart){ Chart.defaults.animation.duration=400; } // los 1000 ms por defecto hacían esperar cada cambio de módulo o de pestaña
 // Datos
 const FASES_LABELS = ['Fase I · 25 feb', 'Fase II · 24 mar', 'Fase III · 27 abr', 'Fase IV · 26 may'];
 const FASES_LABELS_3 = FASES_LABELS.slice(0,3); // paneles de trayectoria por estudiante: sus arrays cubren F1–F3 (el enlace individual a F4 existe en el panel maestro pero aún no se grafica aquí)
@@ -3085,7 +3121,8 @@ new Chart(document.getElementById('chart-hist-mat'),{
     a.addEventListener('click',e=>{
       e.preventDefault();
       const t=document.querySelector(a.getAttribute('href'));
-      if(t) t.scrollIntoView({behavior:'smooth',block:'start'});
+      // behavior:'smooth' en JS se salta el scroll-behavior:auto del CSS de movimiento reducido
+      if(t) t.scrollIntoView({behavior:window.matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth',block:'start'});
     });
   });
 })();
@@ -3095,6 +3132,16 @@ new Chart(document.getElementById('chart-hist-mat'),{
   const links=[...document.querySelectorAll('[data-go]')];
   const secs=[...document.querySelectorAll('.section[data-mod]')];
   const nav=document.querySelector('.modnav');
+  const tog=document.querySelector('.modnav-toggle');
+  // Menú móvil: se abre pegado bajo «☰ Módulos», con el estado expuesto a lectores de pantalla.
+  function menu(on){
+    if(!nav) return;
+    if(on&&tog) document.documentElement.style.setProperty('--modnav-top',Math.max(0,tog.getBoundingClientRect().bottom)+'px');
+    nav.classList.toggle('open',on);
+    document.body.classList.toggle('modnav-abierto',on);
+    if(tog) tog.setAttribute('aria-expanded',String(on));
+    if(on){ const a=nav.querySelector('.modlink.active')||nav.querySelector('.modlink'); if(a) a.focus({preventScroll:true}); }
+  }
   function resizeIn(el){ el.querySelectorAll('canvas').forEach(c=>{ const ch=(window.Chart&&Chart.getChart)?Chart.getChart(c):null; if(ch) ch.resize(); }); }
   function show(go){
     links.forEach(a=>{ const on=a.dataset.go===go; a.classList.toggle('active', on); if(on){ a.setAttribute('aria-current', a.classList.contains('modlink')?'page':'true'); } else { a.removeAttribute('aria-current'); } });
@@ -3110,11 +3157,17 @@ new Chart(document.getElementById('chart-hist-mat'),{
     }
     try{ const h = go==='all'?'#todo':(String(go).indexOf('cmp')===0?'#'+go:'#mod-'+go); history.replaceState(null,'',h); }catch(e){}
     window.scrollTo(0,0);
-    if(nav) nav.classList.remove('open');
+    menu(false);
   }
   links.forEach(a=>a.addEventListener('click',e=>{ e.preventDefault(); show(a.dataset.go); }));
-  const tog=document.querySelector('.modnav-toggle');
-  if(tog) tog.addEventListener('click',()=>nav.classList.toggle('open'));
+  if(tog&&nav){
+    nav.id=nav.id||'modnav'; tog.setAttribute('aria-controls',nav.id); tog.setAttribute('aria-expanded','false');
+    tog.addEventListener('click',()=>menu(!nav.classList.contains('open')));
+    document.addEventListener('keydown',e=>{ if(e.key==='Escape'&&nav.classList.contains('open')){ menu(false); tog.focus(); } });
+    document.addEventListener('click',e=>{ if(nav.classList.contains('open')&&!nav.contains(e.target)&&!tog.contains(e.target)) menu(false); });
+  }
+  // Safari en iOS solo aplica :active si la página escucha touchstart.
+  document.addEventListener('touchstart',()=>{},{passive:true});
   // estado inicial desde el hash, o Resumen por defecto
   const m=(location.hash.match(/^#mod-(\d+)$/));
   const cm=(location.hash.match(/^#(cmp-\d+)$/));
@@ -3168,7 +3221,23 @@ document.addEventListener('DOMContentLoaded',function(){
   const COL=D.referentes2025.Colombia, ETC=D.referentes2025.ETC;
   const refMed=(R,a)=>a==='global'?R.global.media:R[a].media;
   const charts={};
-  function chart(id,cfg){ if(charts[id]) charts[id].destroy(); const cv=$(id); if(!cv||!window.Chart) return null; charts[id]=new Chart(cv,cfg); return charts[id]; }
+  const RM=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  // Al cambiar de pestaña el gráfico se ACTUALIZA, no se destruye: las barras y líneas pasan de lo que
+  // muestran a los valores nuevos, en vez de volver a crecer desde cero. Con movimiento reducido manda
+  // Chart.defaults.animation = false (lo pone el script principal); si no, 400 ms en vez de los 1000 por defecto.
+  function chart(id,cfg){
+    const cv=$(id); if(!cv||!window.Chart) return null;
+    if(!RM){ cfg.options=cfg.options||{}; if(cfg.options.animation===undefined) cfg.options.animation={duration:400}; }
+    const prev=charts[id];
+    if(prev&&prev.config.type===cfg.type&&prev.data.datasets.length===cfg.data.datasets.length){
+      prev.data.labels=cfg.data.labels;
+      // mismo objeto dataset = mismos elementos en Chart.js: por eso se copia encima y no se reemplaza
+      cfg.data.datasets.forEach((ds,i)=>{ const d=prev.data.datasets[i]; Object.keys(d).forEach(k=>{ if(!(k in ds)) delete d[k]; }); Object.assign(d,ds); });
+      prev.options=cfg.options; prev.update(); return prev;
+    }
+    if(prev) prev.destroy();
+    charts[id]=new Chart(cv,cfg); return charts[id];
+  }
   const tick={font:{family:MONO,size:10},color:C.inkSoft};
   const tip={backgroundColor:C.ink,padding:10,titleFont:{family:MONO,size:11},bodyFont:{family:MONO,size:12}};
   const leg={position:'top',labels:{font:{family:MONO,size:10},boxWidth:12,padding:10,color:C.ink}};
@@ -3183,6 +3252,21 @@ document.addEventListener('DOMContentLoaded',function(){
       b.addEventListener('keydown',e=>{ if(e.key==='ArrowRight'||e.key==='ArrowLeft'){ e.preventDefault(); const n=bs[(i+(e.key==='ArrowRight'?1:bs.length-1))%bs.length]; n.focus(); sel(n);} });
     });
     onSel(ini);
+  }
+
+  // ---------- Barra de apartados ----------
+  {
+    const pista=root.querySelector('.s26-subnav-pista'), tog=document.querySelector('.modnav-toggle');
+    const bordes=()=>{ if(!pista) return; const max=pista.scrollWidth-pista.clientWidth;
+      pista.classList.toggle('s26-mas-izq',pista.scrollLeft>2); pista.classList.toggle('s26-mas-der',pista.scrollLeft<max-2); };
+    // En móvil la barra «☰ Módulos» también queda fija arriba: la de apartados se pega justo debajo.
+    const alto=()=>{ const cs=tog&&getComputedStyle(tog);
+      root.style.setProperty('--s26-top',(cs&&cs.display!=='none'&&cs.position==='sticky'?tog.offsetHeight:0)+'px'); bordes(); };
+    if(pista) pista.addEventListener('scroll',bordes,{passive:true});
+    window.addEventListener('resize',alto); alto();
+    if(document.fonts) document.fonts.ready.then(alto);
+    // Safari en iOS solo aplica :active si la página escucha touchstart.
+    document.addEventListener('touchstart',()=>{},{passive:true});
   }
 
   const M=D.meta, I=A.institucional, J1=A.jornada1, J0=A.jornada0;
