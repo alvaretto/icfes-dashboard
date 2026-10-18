@@ -8,7 +8,7 @@
 
 ## ★ Saber 11° 2026 · resultados oficiales (módulo de portada)
 
-Desde el 25 de septiembre de 2026 la portada del dashboard ([`#mod-1`](https://alvaretto.github.io/icfes-dashboard/#mod-1)) presenta los **resultados oficiales del examen Saber 11° del 26 de julio de 2026** (82 estudiantes con informe, 81 en los agregados del ICFES). Doce apartados:
+Desde el 25 de septiembre de 2026 la portada del dashboard ([`#mod-1`](https://alvaretto.github.io/icfes-dashboard/#mod-1)) presenta los **resultados oficiales del examen Saber 11° del 26 de julio de 2026** (82 estudiantes con informe, 81 en los agregados del ICFES). Trece apartados:
 
 | # | Apartado | Qué muestra |
 |---|---|---|
@@ -24,8 +24,9 @@ Desde el 25 de septiembre de 2026 la portada del dashboard ([`#mod-1`](https://a
 | 10 | Descriptores | Qué sabe hacer un estudiante en cada nivel (texto literal de los reportes del ICFES) |
 | 11 | Cómo leer | Escalas, fórmula del global, percentil, símbolos y advertencias |
 | 12 | Por qué D · Plan C 2027 | Explicación en palabras sencillas para directivos y familias; escenarios a dos años (C en 2027 con +3 por prueba, o en 2028 sosteniendo el nivel de 2026); por qué la institución está en D (serie oficial PRISMA 2014-2025; el Modelo Flexible funciona desde 2017 y cuenta en la clasificación desde 2021) y cómo pasar de D a C en la clasificación de planteles 2027: metas por prueba (+3), dónde rinde cada punto (franjas, jornadas, rutas), cinco frentes y cronograma. Cifras de `plan_c2027.py` con el método oficial (Res. ICFES 268/2020, art. 11), validadas por C20g |
+| 13 | Grado 10 hoy · Nivelación 6 | La promoción 2027, hoy en grado 10 (10A y 10B): acierto por prueba y grupo en el simulacro SAI «Nivelación 6» (22 de julio de 2026) con el semáforo del plan, las tres prioridades de cada prueba, Matemáticas por evidencia oficial y por nivel (alineación pregunta por pregunta) y el cronograma del 19 de octubre al 27 de noviembre de 2026. **Solo agregados**, sin nombres. Cifras del Plan de Mejoramiento de grado 10, validadas por C20k |
 
-**Datos y privacidad.** El módulo se **genera**, no se edita a mano: `Saber-ICFES-2026/scripts/exportar_dashboard.py --inyectar` incrusta el JSON y el código del módulo entre los marcadores `S26-*` y `SABER2026-DATA`. El chequeo C20 de ese proyecto recalcula desde los datos cada cifra publicada y verifica que el sitio no contenga números de documento, registros del ICFES, datos de etnia o discapacidad, ni el nombre del estudiante que solo cuenta en los agregados. Los símbolos ▲▼• usan una metodología propia del colegio (IC 95 %), no la del ICFES. Las comparaciones entre años son de promociones distintas.
+**Datos y privacidad.** El módulo se **genera**, no se edita a mano: `Saber-ICFES-2026/scripts/exportar_dashboard.py --inyectar` incrusta el JSON y el código del módulo entre los marcadores `S26-*` y `SABER2026-DATA`. El chequeo C20 de ese proyecto recalcula desde los datos cada cifra publicada y verifica que el sitio no contenga números de documento, registros del ICFES, datos de etnia o discapacidad, ni el nombre del estudiante que solo cuenta en los agregados. El apartado 13 publica solo cifras de grupo de grado 10 (D31): C20k recalcula cada una desde el análisis del plan y verifica que ningún nombre de grado 10 llegue al sitio. Los símbolos ▲▼• usan una metodología propia del colegio (IC 95 %), no la del ICFES. Las comparaciones entre años son de promociones distintas.
 
 Los once módulos de los simulacros siguen igual, ahora en `#mod-2` a `#mod-12` (rótulos I a XI).
 
