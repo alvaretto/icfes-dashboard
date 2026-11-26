@@ -1,0 +1,14 @@
+{
+  "name": "icfes-dashboard-pdf",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Exporta la vista «Todo» del dashboard ICFES a un PDF tamaño Carta (portada, índice, marcadores). Ver LEEME.md.",
+  "scripts": {
+    "inventario": "node inventario.mjs",
+    "pdf": "node exportar_pdf.mjs",
+    "verificar": "node verificar_pdf.mjs"
+  },
+  "dependencies": {
+    "playwright-core": "^1.61.1"
+  }
+}

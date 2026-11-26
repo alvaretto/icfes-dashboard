@@ -2,7 +2,7 @@
 
 **Resultados oficiales del examen Saber 11° del 26 de julio de 2026** de la I.E. Pedacito de Cielo (La Tebaida, Quindío): global, pruebas, niveles, jornadas, grupos, estudiantes y el plan para volver a la categoría C. Como contexto de preparación, conserva el análisis longitudinal de los cuatro simulacros tipo Saber 11° (Fases I a IV) que la Secretaría de Educación Departamental del Quindío aplicó entre febrero y mayo de 2026.
 
-**Ver dashboard:** [https://alvaretto.github.io/icfes-dashboard/](https://alvaretto.github.io/icfes-dashboard/) · **Resultados oficiales Saber 11° 2026:** [`#mod-1`](https://alvaretto.github.io/icfes-dashboard/#mod-1)
+**Ver dashboard:** [https://alvaretto.github.io/icfes-dashboard/](https://alvaretto.github.io/icfes-dashboard/) · **Resultados oficiales Saber 11° 2026:** [`#mod-1`](https://alvaretto.github.io/icfes-dashboard/#mod-1) · **Versión PDF:** [cómo generarla](#versión-pdf)
 
 ---
 
@@ -26,7 +26,7 @@ Desde el 25 de septiembre de 2026 la portada del dashboard ([`#mod-1`](https://a
 | 12 | Por qué D · Plan C 2027 | Explicación en palabras sencillas para directivos y familias; escenarios a dos años (C en 2027 con +3 por prueba, o en 2028 sosteniendo el nivel de 2026); por qué la institución está en D (serie oficial PRISMA 2014-2025; el Modelo Flexible funciona desde 2017 y cuenta en la clasificación desde 2021) y cómo pasar de D a C en la clasificación de planteles 2027: metas por prueba (+3), dónde rinde cada punto (franjas, jornadas, rutas), cinco frentes y cronograma. Cifras de `plan_c2027.py` con el método oficial (Res. ICFES 268/2020, art. 11), validadas por C20g |
 | 13 | Grado 10 hoy · Nivelación 6 | La promoción 2027, hoy en grado 10 (10A y 10B): acierto por prueba y grupo en el simulacro SAI «Nivelación 6» (22 de julio de 2026) con el semáforo del plan, las tres prioridades de cada prueba, Matemáticas por evidencia oficial y por nivel (alineación pregunta por pregunta) y el cronograma del 19 de octubre al 27 de noviembre de 2026. **Solo agregados**, sin nombres. Cifras del Plan de Mejoramiento de grado 10, validadas por C20k |
 
-**Datos y privacidad.** El módulo se **genera**, no se edita a mano: `Saber-ICFES-2026/scripts/exportar_dashboard.py --inyectar` incrusta el JSON y el código del módulo entre los marcadores `S26-*` y `SABER2026-DATA`. El chequeo C20 de ese proyecto recalcula desde los datos cada cifra publicada y verifica que el sitio no contenga números de documento, registros del ICFES, datos de etnia o discapacidad, ni el nombre del estudiante que solo cuenta en los agregados. El apartado 13 publica solo cifras de grupo de grado 10 (D31): C20k recalcula cada una desde el análisis del plan y verifica que ningún nombre de grado 10 llegue al sitio. Sus cifras vienen del Plan de Mejoramiento de grado 10 (repositorio privado `resultados-icfes`, `scripts/exportar_dashboard_grado10.py`) y, en Matemáticas, de la alineación pregunta por pregunta del mismo simulacro (`Todo-Pajaro/…/Simulacros-Decimo/julio-2026`); la decisión es la D31 de `Saber-ICFES-2026/docs/DECISIONES.md`. Los símbolos ▲▼• usan una metodología propia del colegio (IC 95 %), no la del ICFES. Las comparaciones entre años son de promociones distintas.
+**Datos y privacidad.** El módulo se **genera**, no se edita a mano: `Saber-ICFES-2026/scripts/exportar_dashboard.py --inyectar` incrusta el JSON y el código del módulo entre los marcadores `S26-*` y `SABER2026-DATA`. El chequeo C20 de ese proyecto recalcula desde los datos cada cifra publicada y verifica que el sitio no contenga números de documento, registros del ICFES, datos de etnia o discapacidad, ni el nombre del estudiante que solo cuenta en los agregados. El apartado 13 publica solo cifras de grupo de grado 10 (D31): C20k recalcula cada una desde el análisis del plan y verifica que ningún nombre de grado 10 llegue al sitio. Sus cifras vienen del Plan de Mejoramiento de grado 10 (repositorio privado `resultados-icfes`, `scripts/exportar_dashboard_grado10.py`) y, en Matemáticas, de la alineación pregunta por pregunta del mismo simulacro (`Todo-Pajaro/…/Simulacros-Decimo/julio-2026`); la decisión es la D31 de `Saber-ICFES-2026/docs/DECISIONES.md`. Los símbolos ▲▼• usan una metodología propia del colegio (IC 95 %), no la del ICFES. Las comparaciones entre años son de promociones distintas. La [versión PDF](#versión-pdf) reproduce estos mismos datos y no se versiona en este repositorio.
 
 Los once módulos de los simulacros siguen igual, ahora en `#mod-2` a `#mod-12` (rótulos I a XI).
 
@@ -107,6 +107,14 @@ Cada vista incluye un **panel lateral curado** con accesos internos (Δ global, 
 - **F4** · *I.E PEDACITO DE CIELO FASE IV.pdf* (26 may 2026) — consolidado institucional, n=74, **con detalle por estudiante pero sin columna de grupo/modalidad** (el grupo se reconstruyó por enlace nominal contra el roster oficial). Punto más alto de la serie (global **238,1**, fórmula oficial ICFES ponderada).
 
 Roster de matrícula: *Listado-Oficial-TODOS-julio2026.xls* (84 estudiantes en 5 grupos). Enlace longitudinal por estudiante: *panel-maestro-estudiantes-F1-F4*.
+
+## Versión PDF
+
+La vista [«Todo»](https://alvaretto.github.io/icfes-dashboard/#todo) se exporta a un **PDF para imprimir y circular** (tamaño Carta, unas 90 páginas): portada, índice con número de página y enlaces, marcadores, y encabezado y pie con «Página X de Y» y el commit publicado. Los estados que el sitio esconde tras pestañas (pruebas, grupos, fases, tramos) salen todos, en mosaico, y las gráficas se imprimen como imágenes nítidas.
+
+El exportador vive en [`pdf/`](pdf/LEEME.md) y lee el **sitio publicado**, no este `index.html`; no modifica el sitio. Se usa con `cd pdf && npm ci && npm run pdf && npm run verificar`. La verificación comprueba, entre otras cosas, que cada cifra decimal visible en el sitio aparezca en el PDF. Conviene regenerarlo cada vez que se publique un cambio, en particular después de `exportar_dashboard.py --inyectar`.
+
+El PDF **no se versiona** en este repositorio público: incluye los mismos datos nominales que el sitio (apartado 8 y módulo IX) y se distribuye aparte. Detalle, decisiones de diseño y trampas conocidas: [`pdf/LEEME.md`](pdf/LEEME.md).
 
 ## Tecnología
 

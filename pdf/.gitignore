@@ -1,0 +1,9 @@
+node_modules/
+# Salidas. El PDF lleva datos nominales de estudiantes (como el sitio): no se versiona en este repo público.
+*.pdf
+*.pdf.tmp
+*.png
+indice.json
+reporte-generacion.json
+inventario.json
+marcadores-parche.json
